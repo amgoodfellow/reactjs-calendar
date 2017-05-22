@@ -27,19 +27,19 @@ class Titlebar extends Component {
             alignItems: "center"
           }}
         >
-          <IconButton>
+          <IconButton  aria-label="Paginate Backward">
             <NavigateBefore style={{ color: "white" }} />
           </IconButton>
 
-          <h1>April 21-28</h1>
+          <h1 style={{width: 175}}>Sept 22-30</h1>
 
-          <IconButton>
+          <IconButton aria-label="Paginate Forward">
             <NavigateNext style={{ color: "white" }} />
           </IconButton>
         </div>
 
         <IconButton>
-          <MoreVert style={{ color: "white" }} />
+          <MoreVert aria-label="More options and views" style={{ color: "white" }} />
         </IconButton>
       </div>
     );

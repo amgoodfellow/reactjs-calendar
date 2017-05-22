@@ -3,17 +3,19 @@ import React, { Component } from "react";
 const borderStyle = {
   width: "13%",
   height: "5%",
-  border: "1px solid black"
+  border: "1px solid black",
+  padding: 0,
+  paddingRight: 5
 };
 
 class Weekview extends Component {
   render() {
     return (
-      <table style={{ height: 850, tableLayout: "fixed", width: "100%" }}>
+      <table style={{ height: 850, tableLayout: "fixed", width: "100%", borderSpacing: 0 }}>
         <caption>Week view of student's schedule</caption>
         <thead>
           <tr>
-            <td style={{ width: "9%", height: "5%" }} />
+            <td style={{ width: "7%", height: "5%" }} />
             <th scope="col"><abbr title="Sunday">Sun</abbr></th>
             <th scope="col"><abbr title="Monday">Mon</abbr></th>
             <th scope="col"><abbr title="Tuesday">Tue</abbr></th>
@@ -26,7 +28,7 @@ class Weekview extends Component {
         <tbody>
           <tr>
             <th scope="row">7:00</th>
-            <td style={borderStyle}><button /></td>
+            <td style={borderStyle} />
             <td style={borderStyle} />
             <td style={borderStyle} />
             <td style={borderStyle} />
