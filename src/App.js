@@ -4,6 +4,7 @@ import Titlebar from "./Titlebar";
 import "typeface-oxygen";
 import "./Calendar.css";
 import OaklandParser from "./utils/OaklandParser"
+import Scheduleview from "./Scheduleview"
 
 class App extends Component {
 
@@ -30,7 +31,7 @@ class App extends Component {
       <div style={{ fontFamily: "Oxygen" }}>
         {console.log(this.state.courses)}
         <Titlebar />
-        <Weekview />
+        <Scheduleview />
       </div>
     );
   }

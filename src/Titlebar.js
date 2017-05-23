@@ -3,10 +3,28 @@ import IconButton from "material-ui/IconButton";
 import NavigateBefore from "material-ui-icons/NavigateBefore";
 import NavigateNext from "material-ui-icons/NavigateNext";
 import MoreVert from "material-ui-icons/MoreVert";
+import Menu, { MenuItem } from 'material-ui/Menu';
 
 const titlebarStyle = {};
 
 class Titlebar extends Component {
+
+  state = {
+    anchorEl: undefined,
+    open: false,
+  };
+
+
+  handleClick = (event) => {
+    this.setState({ open: true, anchorEl: event.currentTarget });
+  };
+
+  handleRequestClose = () => {
+    this.setState({ open: false });
+  };
+
+
+
   render() {
     return (
       <div
@@ -38,9 +56,21 @@ class Titlebar extends Component {
           </IconButton>
         </div>
 
-        <IconButton>
-          <MoreVert aria-label="More options and views" style={{ color: "white" }} />
+        <IconButton aria-label="More options and views" onClick={this.handleClick}>
+          <MoreVert style={{ color: "white" }} />
         </IconButton>
+
+        <Menu
+          anchorEl={this.state.anchorEl}
+          open={this.state.open}
+          onRequestClose={this.handleRequestClose}
+        >
+          <MenuItem onClick={this.handleRequestClose}>Month View</MenuItem>
+          <MenuItem onClick={this.handleRequestClose}>Week View</MenuItem>
+          <MenuItem onClick={this.handleRequestClose}>Day View</MenuItem>
+          <MenuItem onClick={this.handleRequestClose}>Schedule View</MenuItem>
+          <MenuItem onClick={this.handleRequestClose}>Download ICal</MenuItem>
+        </Menu>
       </div>
     );
   }
