@@ -4,8 +4,8 @@ import NavigateBefore from "material-ui-icons/NavigateBefore";
 import NavigateNext from "material-ui-icons/NavigateNext";
 import MoreVert from "material-ui-icons/MoreVert";
 import Menu, { MenuItem } from 'material-ui/Menu';
+import {monthNames} from "./utils/Strings"
 
-const titlebarStyle = {};
 
 class Titlebar extends Component {
 
@@ -13,7 +13,6 @@ class Titlebar extends Component {
     anchorEl: undefined,
     open: false,
   };
-
 
   handleClick = (event) => {
     this.setState({ open: true, anchorEl: event.currentTarget });
@@ -24,6 +23,14 @@ class Titlebar extends Component {
   };
 
 
+  paginateForward = () => {
+    let termStart = this.props.termBounds[0]
+    let termEnd = this.props.termBounds[1]
+    if (this.props.calendarType === "Weekview"){
+      
+    }
+
+  }
 
   render() {
     return (
@@ -49,9 +56,9 @@ class Titlebar extends Component {
             <NavigateBefore style={{ color: "white" }} />
           </IconButton>
 
-          <h1 style={{width: 175}}>Sept 22-30</h1>
+          <h1 style={{width: 175}}>{monthNames[this.props.currentDateRange.month] + " " + this.props.currentDateRange.day}</h1>
 
-          <IconButton aria-label="Paginate Forward">
+          <IconButton aria-label="Paginate Forward" onClick={this.paginateForward}>
             <NavigateNext style={{ color: "white" }} />
           </IconButton>
         </div>

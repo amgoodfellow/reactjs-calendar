@@ -53,7 +53,6 @@ class DayCard extends Component {
 
 
 const ListContent = ({title, name, startTime, endTime, buildingRoom}) => {
-  console.log(title)
   return (
     <div style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-around', fontSize: 16}} >
       <div>
