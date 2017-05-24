@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Weekview from "./Weekview";
 import Titlebar from "./Titlebar";
 import "typeface-oxygen";
-import "./Calendar.css";
 import Scheduleview from "./Scheduleview"
 
 class App extends Component {
@@ -42,14 +41,18 @@ class App extends Component {
       this.setState({currentDateRange: obj})
     }
 
+    changeCalendarView = (view) => {
+      this.setState({calendarType: view})
+    }
+
   render() {
     if (this.state.courses === null || this.state.courses === undefined){
       return (<div>boom</div>)
     }
     return (
       <div style={{ fontFamily: "Oxygen" }}>
-        <Titlebar currentDateRange={this.state.currentDateRange} termBounds={this.state.termBounds} courses={this.state.courses} calendarType={this.state.calendarType}/>
-        <Scheduleview />
+        <Titlebar currentDateRange={this.state.currentDateRange} termBounds={this.state.termBounds} courses={this.state.courses} calendarType={this.state.calendarType} changeCalendarView={this.changeCalendarView}/>
+        <Weekview />
       </div>
     );
   }

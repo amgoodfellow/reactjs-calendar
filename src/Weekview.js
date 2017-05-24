@@ -1,203 +1,70 @@
 import React, { Component } from "react";
+import {prettyHours} from "./utils/Strings"
 
-const borderStyle = {
-  width: "13%",
-  height: "5%",
-  border: "1px solid black",
-  padding: 0,
-  paddingRight: 5
+const columnStyle = {
+  width: "14%",
+  height: "100%",
+  textAlign: 'center',
 };
+
+const hourColStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  width: '5%',
+}
+
+const hourCol = () => {
+  let column = []
+  for (let i = 0, size = prettyHours.length; i < size; i++){
+     column.push(<p>{prettyHours[i]}</p>)
+  }
+
+  return column 
+}
 
 class Weekview extends Component {
   render() {
     return (
-      <table style={{ height: 850, tableLayout: "fixed", width: "100%", borderSpacing: 0 }}>
-        <caption>Week view of student's schedule</caption>
-        <thead>
-          <tr>
-            <td style={{ width: "7%", height: "5%" }} />
-            <th scope="col"><abbr title="Sunday">Sun</abbr></th>
-            <th scope="col"><abbr title="Monday">Mon</abbr></th>
-            <th scope="col"><abbr title="Tuesday">Tue</abbr></th>
-            <th scope="col"><abbr title="Wednesday">Wed</abbr></th>
-            <th scope="col"><abbr title="Thursday">Thu</abbr></th>
-            <th scope="col"><abbr title="Friday">Fri</abbr></th>
-            <th scope="col"><abbr title="Saturday">Sat</abbr></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">7:00</th>
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-          </tr>
-          <tr>
-            <th scope="row">8:00</th>
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-          </tr>
-          <tr>
-            <th scope="row">9:00</th>
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-          </tr>
-          <tr>
-            <th scope="row">10:00</th>
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-          </tr>
-          <tr>
-            <th scope="row">11:00</th>
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-          </tr>
-          <tr>
-            <th scope="row">12:00</th>
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-          </tr>
-          <tr>
-            <th scope="row">1:00</th>
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-          </tr>
-          <tr>
-            <th scope="row">2:00</th>
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-          </tr>
-          <tr>
-            <th scope="row">3:00</th>
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-          </tr>
-          <tr>
-            <th scope="row">4:00</th>
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-          </tr>
-          <tr>
-            <th scope="row">5:00</th>
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-          </tr>
-          <tr>
-            <th scope="row">6:00</th>
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-          </tr>
-          <tr>
-            <th scope="row">7:00</th>
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-          </tr>
-          <tr>
-            <th scope="row">8:00</th>
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-          </tr>
-          <tr>
-            <th scope="row">9:00</th>
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-          </tr>
-          <tr>
-            <th scope="row">10:00</th>
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-          </tr>
-          <tr>
-            <th scope="row">11:00</th>
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-            <td style={borderStyle} />
-          </tr>
-        </tbody>
-      </table>
+      <div style={{border: '1px solid black', height: 900, display: 'flex'}}>
+        <div style={hourColStyle}>
+          {hourCol()} 
+        </div>
+        <div style={columnStyle}>
+          <p>
+           Sunday 
+          </p>
+        </div>
+        <div style={columnStyle}>
+          <p>
+            Monday
+          </p>
+        </div>
+        <div style={columnStyle}>
+          <p>
+           Tuesday 
+          </p>
+        </div>
+        <div style={columnStyle}>
+          <p>
+           Wednesday 
+          </p>
+        </div>
+        <div style={columnStyle}>
+          <p>
+           Thursday 
+          </p>
+        </div>
+        <div style={columnStyle}>
+          <p>
+           Friday 
+          </p>
+        </div>
+        <div style={columnStyle}>
+          <p>
+           Saturday 
+          </p>
+        </div>
+      </div>
     );
   }
 }
