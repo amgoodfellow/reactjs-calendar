@@ -1,24 +1,22 @@
-import React, { Component } from "react";
-import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
-import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
-import {dayNames} from "./utils/Strings"
-import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
-import Divider from 'material-ui/Divider';
-
+import React, { Component } from "react"
+import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card"
+import Typography from "material-ui/Typography"
+import Button from "material-ui/Button"
+import { dayNames } from "./utils/Strings"
+import List, { ListItem, ListItemIcon, ListItemText } from "material-ui/List"
+import Divider from "material-ui/Divider"
 
 class Scheduleview extends Component {
-
-  generateDayCards(){
+  generateDayCards() {
     let cardArray = []
-    for (let i = 0; i < 7; i++){
-      cardArray.push(<DayCard dayName={dayNames[i]} key={i}/>)
+    for (let i = 0; i < 7; i++) {
+      cardArray.push(<DayCard dayName={dayNames[i]} key={i} />)
     }
-    return cardArray;
+    return cardArray
   }
 
-  render(){
-    return(
+  render() {
+    return (
       <div>
         {this.generateDayCards()}
       </div>
@@ -26,54 +24,65 @@ class Scheduleview extends Component {
   }
 }
 
-
 class DayCard extends Component {
-  render(){
+  render() {
     return (
       <div>
-        <Card style={{marginTop: 9}}>
-          <CardContent style={{paddingBottom: 0}}>
+        <Card style={{ marginTop: 9 }}>
+          <CardContent style={{ paddingBottom: 0 }}>
             <Typography type="headline" component="h2">
-              {this.props.dayName} 
+              {this.props.dayName}
             </Typography>
-            <Divider/>
+            <Divider />
             <Typography component="div">
               <List>
-                <ListItem style={{padding: 0}}>
-                  <ListContent title="CSE 280" name="Sophomore Project" startTime="10:20" endTime="12:30" buildingRoom="EC 321"/>
+                <ListItem style={{ padding: 0 }}>
+                  <ListContent
+                    title="CSE 280"
+                    name="Sophomore Project"
+                    startTime="10:20"
+                    endTime="12:30"
+                    buildingRoom="EC 321"
+                  />
                 </ListItem>
               </List>
             </Typography>
           </CardContent>
         </Card>
       </div>
-    );
+    )
   }
 }
 
-
-const ListContent = ({title, name, startTime, endTime, buildingRoom}) => {
+const ListContent = ({ title, name, startTime, endTime, buildingRoom }) => {
   return (
-    <div style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-around', fontSize: 16}} >
+    <div
+      style={{
+        width: "100%",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-around",
+        fontSize: 16
+      }}
+    >
       <div>
-        <div style={{fontSize: '.83em', fontWeight: 'bold'}}>Course Name</div>
+        <div style={{ fontSize: ".83em", fontWeight: "bold" }}>Course Name</div>
         <p>{name}</p>
       </div>
-      <div style={{border:"1px solid lightgray"}}></div>
+      <div style={{ border: "1px solid lightgray" }} />
       <div>
-        <div style={{fontSize: '.83em', fontWeight: 'bold'}}>Meeting Time</div>
+        <div style={{ fontSize: ".83em", fontWeight: "bold" }}>
+          Meeting Time
+        </div>
         <p>{`${startTime} - ${endTime}`}</p>
       </div>
-      <div style={{border:"1px solid lightgray"}}></div>
+      <div style={{ border: "1px solid lightgray" }} />
       <div>
-        <div style={{fontSize: '.83em', fontWeight: 'bold'}}>Location</div>
+        <div style={{ fontSize: ".83em", fontWeight: "bold" }}>Location</div>
         <p>{buildingRoom}</p>
       </div>
-    </div> 
+    </div>
   )
 }
 
-
-
-
-export default Scheduleview;
+export default Scheduleview
