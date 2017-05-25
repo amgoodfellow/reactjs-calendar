@@ -4906,6 +4906,10 @@ rafl@~1.2.1:
   dependencies:
     global "~4.3.0"
 
+raleway-webfont@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/raleway-webfont/-/raleway-webfont-3.0.1.tgz#12bf6b081558fde0717df5a97cc17f076d1eabfa"
+
 randomatic@^1.1.3:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/randomatic/-/randomatic-1.1.6.tgz#110dcabff397e9dcff7c0789ccc0a49adf1ec5bb"
@@ -5980,6 +5984,10 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
+typeface-arimo@^0.0.22:
+  version "0.0.22"
+  resolved "https://registry.yarnpkg.com/typeface-arimo/-/typeface-arimo-0.0.22.tgz#1c9880cc0f18f83cecc5ac2dac4802fbccc50a08"
+
 typeface-oxygen@^0.0.22:
   version "0.0.22"
   resolved "https://registry.yarnpkg.com/typeface-oxygen/-/typeface-oxygen-0.0.22.tgz#de9e43d40de97a500a32a8fc117804bc887ff698"
@@ -6231,6 +6239,10 @@ webpack-manifest-plugin@1.1.0:
   dependencies:
     fs-extra "^0.30.0"
     lodash ">=3.5 <5"
+
+webpack-roboto@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/webpack-roboto/-/webpack-roboto-1.0.0.tgz#5f1b7a3141f0528b361d06c145d39ada7be34573"
 
 webpack-sources@^0.1.0:
   version "0.1.5"

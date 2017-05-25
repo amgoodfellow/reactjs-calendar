@@ -4,7 +4,23 @@ import NavigateBefore from "material-ui-icons/NavigateBefore"
 import NavigateNext from "material-ui-icons/NavigateNext"
 import MoreVert from "material-ui-icons/MoreVert"
 import Menu, { MenuItem } from "material-ui/Menu"
+import { withStyles, createStyleSheet } from "material-ui/styles"
+import PropTypes from "prop-types"
+import AppBar from "material-ui/AppBar"
+import Toolbar from "material-ui/Toolbar"
+import Typography from "material-ui/Typography"
 import { monthNames } from "./utils/Strings"
+
+const styleSheet = createStyleSheet("SimpleAppBar", theme => ({
+  root: {
+    position: "relative",
+    marginTop: 30,
+    width: "100%"
+  },
+  appBar: {
+    position: "relative"
+  }
+}))
 
 class Titlebar extends Component {
   state = {
@@ -28,64 +44,50 @@ class Titlebar extends Component {
   }
 
   render() {
+    const classes = this.props.classes
     return (
-      <div
-        style={{
-          backgroundColor: "#877148",
-          color: "white",
-          padding: 8,
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center"
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center"
-          }}
-        >
+      <AppBar className={classes.appBar}>
+        <Toolbar>
           <IconButton aria-label="Paginate Backward">
             <NavigateBefore style={{ color: "white" }} />
           </IconButton>
-
-          <h1 style={{ width: 175 }}>
+          <Typography type="title" component="h1" colorInherit>
             {monthNames[this.props.currentDateRange.month] +
               " " +
               this.props.currentDateRange.day}
-          </h1>
-
+          </Typography>
           <IconButton
             aria-label="Paginate Forward"
             onClick={this.paginateForward}
           >
             <NavigateNext style={{ color: "white" }} />
           </IconButton>
-        </div>
+          <IconButton
+            aria-label="More options and views"
+            onClick={this.handleClick}
+          >
+            <MoreVert style={{ color: "white" }} />
+          </IconButton>
 
-        <IconButton
-          aria-label="More options and views"
-          onClick={this.handleClick}
-        >
-          <MoreVert style={{ color: "white" }} />
-        </IconButton>
-
-        <Menu
-          anchorEl={this.state.anchorEl}
-          open={this.state.open}
-          onRequestClose={this.handleRequestClose}
-        >
-          <MenuItem onClick={this.handleRequestClose}>Month View</MenuItem>
-          <MenuItem onClick={this.handleRequestClose}>Week View</MenuItem>
-          <MenuItem onClick={this.handleRequestClose}>Day View</MenuItem>
-          <MenuItem onClick={this.handleRequestClose}>Schedule View</MenuItem>
-          <MenuItem onClick={this.handleRequestClose}>Download ICal</MenuItem>
-        </Menu>
-      </div>
+          <Menu
+            anchorEl={this.state.anchorEl}
+            open={this.state.open}
+            onRequestClose={this.handleRequestClose}
+          >
+            <MenuItem onClick={this.handleRequestClose}>Month View</MenuItem>
+            <MenuItem onClick={this.handleRequestClose}>Week View</MenuItem>
+            <MenuItem onClick={this.handleRequestClose}>Day View</MenuItem>
+            <MenuItem onClick={this.handleRequestClose}>Schedule View</MenuItem>
+            <MenuItem onClick={this.handleRequestClose}>Download ICal</MenuItem>
+          </Menu>
+        </Toolbar>
+      </AppBar>
     )
   }
 }
 
-export default Titlebar
+Titlebar.propTypes = {
+  classes: PropTypes.object.isRequired
+}
+
+export default withStyles(styleSheet)(Titlebar)

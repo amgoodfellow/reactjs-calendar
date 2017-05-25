@@ -5,10 +5,13 @@
   "dependencies": {
     "material-ui": "next",
     "material-ui-icons": "^1.0.0-alpha.3",
+    "raleway-webfont": "^3.0.1",
     "react": "^15.5.4",
     "react-a11y": "^0.3.3",
     "react-dom": "^15.5.4",
-    "typeface-oxygen": "^0.0.22"
+    "typeface-arimo": "^0.0.22",
+    "typeface-oxygen": "^0.0.22",
+    "webpack-roboto": "^1.0.0"
   },
   "devDependencies": {
     "react-scripts": "1.0.2"

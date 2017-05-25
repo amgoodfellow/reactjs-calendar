@@ -1,8 +1,7 @@
 import React, { Component } from "react"
 import Weekview from "./Weekview"
-import Titlebar from "./Titlebar"
-import "typeface-oxygen"
 import Scheduleview from "./Scheduleview"
+import Titlebar from "./Titlebar"
 
 class App extends Component {
   state = {
@@ -49,7 +48,7 @@ class App extends Component {
       return <div>boom</div>
     }
     return (
-      <div style={{ fontFamily: "Oxygen" }}>
+      <div>
         <Titlebar
           currentDateRange={this.state.currentDateRange}
           termBounds={this.state.termBounds}
