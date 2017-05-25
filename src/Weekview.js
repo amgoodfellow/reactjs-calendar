@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {prettyHours} from "./utils/Strings"
+import {prettyHours, dayNames} from "./utils/Strings"
 
 const columnStyle = {
   width: "14%",
@@ -14,55 +14,69 @@ const hourColStyle = {
 }
 
 const hourCol = () => {
-  let column = []
+  let column = [<div style={{height: '2.2%'}} />]
   for (let i = 0, size = prettyHours.length; i < size; i++){
-     column.push(<p>{prettyHours[i]}</p>)
+     column.push(<div style={{textAlign: 'center', height: '5.72%'}} key={prettyHours[i]}>{prettyHours[i]}</div>)
   }
-
   return column 
+}
+
+const weekCol = () => {
+  let column = []
+  for (let i = 0; i < 34; i++){
+    column.push(<div style={{border: "1px solid lightgrey", height: '2.65%'}}></div>)
+  }
+  return column
 }
 
 class Weekview extends Component {
   render() {
     return (
-      <div style={{border: '1px solid black', height: 900, display: 'flex'}}>
+      <div style={{border: '1px solid black', height: 950, display: 'flex'}}>
         <div style={hourColStyle}>
           {hourCol()} 
         </div>
         <div style={columnStyle}>
-          <p>
-           Sunday 
-          </p>
+          <div style={{height: '2.7%'}}>
+            {dayNames[0]} 
+          </div>
+          {weekCol()}
         </div>
         <div style={columnStyle}>
-          <p>
-            Monday
-          </p>
+          <div style={{height: '2.7%'}}>
+            {dayNames[1]} 
+          </div>
+          {weekCol()}
         </div>
         <div style={columnStyle}>
-          <p>
-           Tuesday 
-          </p>
+          <div style={{height: '2.7%'}}>
+            {dayNames[2]}
+          </div>
+          {weekCol()}
         </div>
         <div style={columnStyle}>
-          <p>
-           Wednesday 
-          </p>
+          <div style={{height: '2.7%'}}>
+            {dayNames[3]}
+          </div>
+          {weekCol()}
         </div>
         <div style={columnStyle}>
-          <p>
-           Thursday 
-          </p>
+          <div style={{height: '2.7%'}}>
+            {dayNames[4]}
+          </div>
+          {weekCol()}
         </div>
         <div style={columnStyle}>
-          <p>
-           Friday 
-          </p>
+          <div style={{height: '2.7%'}}>
+            {dayNames[5]}
+          </div>
+          {weekCol()}
         </div>
         <div style={columnStyle}>
-          <p>
-           Saturday 
-          </p>
+          <div style={{height: '2.7%'}}>
+            {dayNames[6]}
+          </div>
+          {weekCol()}
         </div>
       </div>
     );
