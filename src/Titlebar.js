@@ -19,6 +19,18 @@ const styleSheet = createStyleSheet("SimpleAppBar", theme => ({
   },
   appBar: {
     position: "relative"
+  },
+  toolbar: {
+    display: "flex",
+    justifyContent: "space-between"
+  },
+  paginator: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  icons: {
+    color: "white"
   }
 }))
 
@@ -47,21 +59,23 @@ class Titlebar extends Component {
     const classes = this.props.classes
     return (
       <AppBar className={classes.appBar}>
-        <Toolbar>
-          <IconButton aria-label="Paginate Backward">
-            <NavigateBefore style={{ color: "white" }} />
-          </IconButton>
-          <Typography type="title" component="h1" colorInherit>
-            {monthNames[this.props.currentDateRange.month] +
-              " " +
-              this.props.currentDateRange.day}
-          </Typography>
-          <IconButton
-            aria-label="Paginate Forward"
-            onClick={this.paginateForward}
-          >
-            <NavigateNext style={{ color: "white" }} />
-          </IconButton>
+        <Toolbar className={classes.toolbar}>
+          <div className={classes.paginator}>
+            <IconButton aria-label="Paginate Backward">
+              <NavigateBefore className={classes.icons} />
+            </IconButton>
+            <Typography type="title" component="h1" colorInherit>
+              {monthNames[this.props.currentDateRange.month] +
+                " " +
+                this.props.currentDateRange.day}
+            </Typography>
+            <IconButton
+              aria-label="Paginate Forward"
+              onClick={this.paginateForward}
+            >
+              <NavigateNext className={classes.icons} />
+            </IconButton>
+          </div>
           <IconButton
             aria-label="More options and views"
             onClick={this.handleClick}
