@@ -10,6 +10,7 @@ import AppBar from "material-ui/AppBar"
 import Toolbar from "material-ui/Toolbar"
 import Typography from "material-ui/Typography"
 import { monthNames } from "./utils/Strings"
+import { getWeekDateRange, getWeekOfMonth, getWeeksOfMonth } from "./utils/DateHelper"
 
 const styleSheet = createStyleSheet("SimpleAppBar", theme => ({
   root: {
@@ -31,6 +32,9 @@ const styleSheet = createStyleSheet("SimpleAppBar", theme => ({
   },
   icons: {
     color: "white"
+  },
+  dateRange: {
+    width: 120
   }
 }))
 
@@ -49,10 +53,78 @@ class Titlebar extends Component {
   }
 
   paginateForward = () => {
-    let termStart = this.props.termBounds[0]
-    let termEnd = this.props.termBounds[1]
-    if (this.props.calendarType === "Weekview") {
+    //Remove the following once Kajuan helps me with stuff
+    let termEnd = new Date(1498449600)
+    console.log(termEnd)
+    
+    const endMonth = termEnd.getMonth()
+    const endYear = termEnd.getFullYear()
+    const endDay = termEnd.getDate()
+    const endWeek = getWeekOfMonth(endYear, endMonth, endDay)
+    let dateObj = this.props.currentDateRange
+
+
+    switch (this.props.calendarType) {
+      case "monthview":
+        if( dateObj.month === endMonth){
+          alert("end of term reached")
+          return
+        }
+        if (dateObj.year === 11){
+          console.log("It is December")
+          dateObj.year++
+          dateObj.month = 0
+          this.props.changeDateRange(dateObj)
+        }else{
+          console.log("paginate normally")
+          dateObj.month++
+          this.props.changeDateRange(dateObj)
+        }
+
+        break;
+
+      case "weekview":
+      case "scheduleview":
+
+        if( dateObj.month === endMonth && dateObj.week === endWeek){
+          alert("end of term reached")
+        }else{
+          let dayOfMonth = new Date(dateObj.year, dateObj.month, dateObj.day)
+          if (getWeeksOfMonth(dayOfMonth) === dateObj.week){
+            dateObj.month++
+            dateObj.week = 1
+            this.props.changeDateRange(dateObj)
+          }else{
+            dateObj.week++
+            this.props.changeDateRange(dateObj) 
+        }
+
+        break;
     }
+      
+
+
+  }
+  }
+
+  getDateRange = () => {
+    let text
+    const classes = this.props.classes
+    const dateObj = this.props.currentDateRange
+    if (this.props.calendarType === "weekview") {
+      text =
+        monthNames[dateObj.month] +
+        " " +
+        getWeekDateRange(dateObj.month, dateObj.year, dateObj.week)
+    } else if (this.props.calendarType === "monthview") {
+      text = monthNames[dateObj.month]
+    }
+
+    return (
+      <Typography type="title" className={classes.dateRange} colorInherit>
+        {text}
+      </Typography>
+    )
   }
 
   render() {
@@ -64,11 +136,7 @@ class Titlebar extends Component {
             <IconButton aria-label="Paginate Backward">
               <NavigateBefore className={classes.icons} />
             </IconButton>
-            <Typography type="title" component="h1" colorInherit>
-              {monthNames[this.props.currentDateRange.month] +
-                " " +
-                this.props.currentDateRange.day}
-            </Typography>
+            {this.getDateRange()}
             <IconButton
               aria-label="Paginate Forward"
               onClick={this.paginateForward}
