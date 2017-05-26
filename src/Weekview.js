@@ -14,7 +14,7 @@ const hourColStyle = {
 }
 
 const hourCol = () => {
-  let column = [<div style={{ height: "2.2%" }} />]
+  let column = [<div style={{ height: "1.8%" }} />]
   for (let i = 0, size = prettyHours.length; i < size; i++) {
     column.push(
       <div
