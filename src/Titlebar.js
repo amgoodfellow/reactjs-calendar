@@ -70,7 +70,7 @@ class Titlebar extends Component {
           alert("end of term reached")
           return
         }
-        if (dateObj.year === 11){
+        if (dateObj.month === 11){
           console.log("It is December")
           dateObj.year++
           dateObj.month = 0
@@ -100,11 +100,64 @@ class Titlebar extends Component {
         }
 
         break;
+        }
+    }
+  }
+
+  paginateBackward = () => {
+    //Remove the following once Kajuan helps me with stuff
+    let termStart = new Date(1433333600)
+    console.log(termStart)
+    
+    const startMonth = termStart.getMonth()
+    const startYear = termStart.getFullYear()
+    const startDay = termStart.getDate()
+    const startWeek = getWeekOfMonth(startYear, startMonth, startDay)
+    let dateObj = this.props.currentDateRange
+
+
+    switch (this.props.calendarType) {
+      case "monthview":
+        if( dateObj.month === startMonth){
+          alert("start of term reached")
+          return
+        }
+        if (dateObj.year === 0){
+          console.log("It is January")
+          dateObj.year--
+          dateObj.month = 11
+          this.props.changeDateRange(dateObj)
+        }else{
+          console.log("paginate normally")
+          dateObj.month--
+          this.props.changeDateRange(dateObj)
+        }
+
+        break;
+
+      case "weekview":
+      case "scheduleview":
+
+        if( dateObj.month === startMonth && dateObj.week === startWeek){
+          alert("start of term reached")
+        }else{
+          let dayOfMonth = new Date(dateObj.year, dateObj.month, dateObj.day)
+          if (dateObj.week === 1){
+            dateObj.month--
+            dayOfMonth = new Date(dateObj.year, dateObj.month, 1)
+            dateObj.week = getWeeksOfMonth(dayOfMonth)
+            this.props.changeDateRange(dateObj)
+          }else{
+            dateObj.week--
+            this.props.changeDateRange(dateObj) 
+        }
+
+        break;
     }
       
 
 
-  }
+    }
   }
 
   getDateRange = () => {
@@ -133,7 +186,7 @@ class Titlebar extends Component {
       <AppBar className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <div className={classes.paginator}>
-            <IconButton aria-label="Paginate Backward">
+            <IconButton aria-label="Paginate Backward" onClick={this.paginateBackward}>
               <NavigateBefore className={classes.icons} />
             </IconButton>
             {this.getDateRange()}
