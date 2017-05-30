@@ -41,7 +41,7 @@ const weekCol = () => {
 class Weekview extends Component {
   render() {
     return (
-      <div style={{ border: "1px solid black", height: 950, display: "flex" }}>
+      <div style={{ border: "1px solid black", height: 950, display: "flex", fontFamily: "Arimo" }}>
         <div style={hourColStyle}>
           {hourCol()}
         </div>
