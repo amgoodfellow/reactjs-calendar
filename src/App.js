@@ -45,7 +45,7 @@ class App extends Component {
     this.setState({ calendarType: view })
   }
 
-  changeDateRange = (obj) => {
+  changeDateRange = obj => {
     this.setState({
       currentDateRange: {
         year: obj.year,
@@ -54,6 +54,23 @@ class App extends Component {
         day: obj.day
       }
     })
+  }
+
+  chooseCalendarType = () => {
+    switch (this.state.calendarType) {
+      case "weekview":
+        return <Weekview />
+        break
+      case "monthview":
+        return <div />
+        break
+      case "scheduleview":
+        return <Scheduleview />
+        break
+      default:
+        return <Weekview />
+        break
+    }
   }
 
   render() {
@@ -70,7 +87,7 @@ class App extends Component {
           changeCalendarView={this.changeCalendarView}
           changeDateRange={this.changeDateRange}
         />
-        <Weekview />
+        {this.chooseCalendarType()}
       </div>
     )
   }

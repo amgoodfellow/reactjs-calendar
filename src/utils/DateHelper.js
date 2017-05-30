@@ -7,7 +7,7 @@ const getWeeksOfMonth = day => {
   return Math.ceil((firstDay + totalDays) / 7)
 }
 
-//Returns an integer number representing the week of the month 
+//Returns an integer number representing the week of the month
 //depending on the selected day
 const getWeekOfMonth = (year, month, day) => {
   const firstWeekday = new Date(year, month, 1).getDay()

@@ -10,7 +10,11 @@ import AppBar from "material-ui/AppBar"
 import Toolbar from "material-ui/Toolbar"
 import Typography from "material-ui/Typography"
 import { monthNames } from "./utils/Strings"
-import { getWeekDateRange, getWeekOfMonth, getWeeksOfMonth } from "./utils/DateHelper"
+import {
+  getWeekDateRange,
+  getWeekOfMonth,
+  getWeeksOfMonth
+} from "./utils/DateHelper"
 
 const styleSheet = createStyleSheet("SimpleAppBar", theme => ({
   root: {
@@ -41,7 +45,8 @@ const styleSheet = createStyleSheet("SimpleAppBar", theme => ({
 class Titlebar extends Component {
   state = {
     anchorEl: undefined,
-    open: false
+    open: false,
+    selected: ""
   }
 
   handleClick = event => {
@@ -56,50 +61,48 @@ class Titlebar extends Component {
     //Remove the following once Kajuan helps me with stuff
     let termEnd = new Date(1498449600)
     console.log(termEnd)
-    
+
     const endMonth = termEnd.getMonth()
     const endYear = termEnd.getFullYear()
     const endDay = termEnd.getDate()
     const endWeek = getWeekOfMonth(endYear, endMonth, endDay)
     let dateObj = this.props.currentDateRange
 
-
     switch (this.props.calendarType) {
       case "monthview":
-        if( dateObj.month === endMonth){
+        if (dateObj.month === endMonth) {
           alert("end of term reached")
           return
         }
-        if (dateObj.month === 11){
+        if (dateObj.month === 11) {
           console.log("It is December")
           dateObj.year++
           dateObj.month = 0
           this.props.changeDateRange(dateObj)
-        }else{
+        } else {
           console.log("paginate normally")
           dateObj.month++
           this.props.changeDateRange(dateObj)
         }
 
-        break;
+        break
 
       case "weekview":
       case "scheduleview":
-
-        if( dateObj.month === endMonth && dateObj.week === endWeek){
+        if (dateObj.month === endMonth && dateObj.week === endWeek) {
           alert("end of term reached")
-        }else{
+        } else {
           let dayOfMonth = new Date(dateObj.year, dateObj.month, dateObj.day)
-          if (getWeeksOfMonth(dayOfMonth) === dateObj.week){
+          if (getWeeksOfMonth(dayOfMonth) === dateObj.week) {
             dateObj.month++
             dateObj.week = 1
             this.props.changeDateRange(dateObj)
-          }else{
+          } else {
             dateObj.week++
-            this.props.changeDateRange(dateObj) 
-        }
+            this.props.changeDateRange(dateObj)
+          }
 
-        break;
+          break
         }
     }
   }
@@ -108,55 +111,50 @@ class Titlebar extends Component {
     //Remove the following once Kajuan helps me with stuff
     let termStart = new Date(1433333600)
     console.log(termStart)
-    
+
     const startMonth = termStart.getMonth()
     const startYear = termStart.getFullYear()
     const startDay = termStart.getDate()
     const startWeek = getWeekOfMonth(startYear, startMonth, startDay)
     let dateObj = this.props.currentDateRange
 
-
     switch (this.props.calendarType) {
       case "monthview":
-        if( dateObj.month === startMonth){
+        if (dateObj.month === startMonth) {
           alert("start of term reached")
           return
         }
-        if (dateObj.year === 0){
+        if (dateObj.year === 0) {
           console.log("It is January")
           dateObj.year--
           dateObj.month = 11
           this.props.changeDateRange(dateObj)
-        }else{
+        } else {
           console.log("paginate normally")
           dateObj.month--
           this.props.changeDateRange(dateObj)
         }
 
-        break;
+        break
 
       case "weekview":
       case "scheduleview":
-
-        if( dateObj.month === startMonth && dateObj.week === startWeek){
+        if (dateObj.month === startMonth && dateObj.week === startWeek) {
           alert("start of term reached")
-        }else{
+        } else {
           let dayOfMonth = new Date(dateObj.year, dateObj.month, dateObj.day)
-          if (dateObj.week === 1){
+          if (dateObj.week === 1) {
             dateObj.month--
             dayOfMonth = new Date(dateObj.year, dateObj.month, 1)
             dateObj.week = getWeeksOfMonth(dayOfMonth)
             this.props.changeDateRange(dateObj)
-          }else{
+          } else {
             dateObj.week--
-            this.props.changeDateRange(dateObj) 
+            this.props.changeDateRange(dateObj)
+          }
+
+          break
         }
-
-        break;
-    }
-      
-
-
     }
   }
 
@@ -180,13 +178,21 @@ class Titlebar extends Component {
     )
   }
 
+  handleMenuItemClick = index => {
+    this.props.changeCalendarView(index)
+    this.setState({ open: false })
+  }
+
   render() {
     const classes = this.props.classes
     return (
       <AppBar className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <div className={classes.paginator}>
-            <IconButton aria-label="Paginate Backward" onClick={this.paginateBackward}>
+            <IconButton
+              aria-label="Paginate Backward"
+              onClick={this.paginateBackward}
+            >
               <NavigateBefore className={classes.icons} />
             </IconButton>
             {this.getDateRange()}
@@ -209,10 +215,18 @@ class Titlebar extends Component {
             open={this.state.open}
             onRequestClose={this.handleRequestClose}
           >
-            <MenuItem onClick={this.handleRequestClose}>Month View</MenuItem>
-            <MenuItem onClick={this.handleRequestClose}>Week View</MenuItem>
-            <MenuItem onClick={this.handleRequestClose}>Day View</MenuItem>
-            <MenuItem onClick={this.handleRequestClose}>Schedule View</MenuItem>
+            <MenuItem onClick={() => this.handleMenuItemClick("monthview")}>
+              Month View
+            </MenuItem>
+            <MenuItem onClick={() => this.handleMenuItemClick("weekview")}>
+              Week View
+            </MenuItem>
+            <MenuItem onClick={() => this.handleMenuItemClick("dayview")}>
+              Day View
+            </MenuItem>
+            <MenuItem onClick={() => this.handleMenuItemClick("scheduleview")}>
+              Schedule View
+            </MenuItem>
             <MenuItem onClick={this.handleRequestClose}>Download ICal</MenuItem>
           </Menu>
         </Toolbar>
