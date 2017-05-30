@@ -1,9 +1,14 @@
+//Takes a Date object
+//Returns an integer number representing the number of weeks
+//of a month
 const getWeeksOfMonth = day => {
   const firstDay = new Date(day.setDate(1)).getDay()
   const totalDays = new Date(day.getFullYear(), day.getMonth() + 1, 0).getDate()
   return Math.ceil((firstDay + totalDays) / 7)
 }
 
+//Returns an integer number representing the week of the month
+//depending on the selected day
 const getWeekOfMonth = (year, month, day) => {
   const firstWeekday = new Date(year, month, 1).getDay()
   const d = new Date(year, month, day)
@@ -36,4 +41,4 @@ const getWeekDateRange = (month, year, weekNumber) => {
   return firstNum + " - " + endNum
 }
 
-export { getWeeksOfMonth }
+export { getWeekOfMonth, getWeeksOfMonth, getWeekDateRange }

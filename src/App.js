@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import Weekview from "./Weekview"
 import Scheduleview from "./Scheduleview"
 import Titlebar from "./Titlebar"
+import { getWeekOfMonth } from "./utils/DateHelper"
 
 class App extends Component {
   state = {
@@ -34,6 +35,7 @@ class App extends Component {
     let obj = {
       year: d.getFullYear(),
       month: d.getMonth(),
+      week: getWeekOfMonth(d.getFullYear(), d.getMonth(), d.getDate()),
       day: d.getDate()
     }
     this.setState({ currentDateRange: obj })
@@ -41,6 +43,34 @@ class App extends Component {
 
   changeCalendarView = view => {
     this.setState({ calendarType: view })
+  }
+
+  changeDateRange = obj => {
+    this.setState({
+      currentDateRange: {
+        year: obj.year,
+        month: obj.month,
+        week: obj.week,
+        day: obj.day
+      }
+    })
+  }
+
+  chooseCalendarType = () => {
+    switch (this.state.calendarType) {
+      case "weekview":
+        return <Weekview />
+        break
+      case "monthview":
+        return <div />
+        break
+      case "scheduleview":
+        return <Scheduleview />
+        break
+      default:
+        return <Weekview />
+        break
+    }
   }
 
   render() {
@@ -55,8 +85,9 @@ class App extends Component {
           courses={this.state.courses}
           calendarType={this.state.calendarType}
           changeCalendarView={this.changeCalendarView}
+          changeDateRange={this.changeDateRange}
         />
-        <Weekview />
+        {this.chooseCalendarType()}
       </div>
     )
   }
