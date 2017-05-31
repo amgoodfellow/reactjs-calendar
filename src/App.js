@@ -87,7 +87,7 @@ class App extends Component {
           changeCalendarView={this.changeCalendarView}
           changeDateRange={this.changeDateRange}
         />
-        {this.chooseCalendarType()}
+        <Scheduleview/> 
       </div>
     )
   }
