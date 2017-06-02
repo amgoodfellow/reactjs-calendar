@@ -66,6 +66,11 @@ const ListContent = ({ title, name, startTime, endTime, buildingRoom }) => {
       }}
     >
       <div>
+        <div style={{ fontSize: ".83em", fontWeight: "bold" }}>Course Code</div>
+        <p>{title}</p>
+      </div>
+      <div style={{ border: "1px solid lightgray" }} />
+      <div>
         <div style={{ fontSize: ".83em", fontWeight: "bold" }}>Course Name</div>
         <p>{name}</p>
       </div>
