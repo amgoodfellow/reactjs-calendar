@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+
 	_ "github.com/lib/pq"
 )
 
@@ -21,8 +22,8 @@ const (
 	//Meeting table creation.
 	meetingSQL = "create table if not exists meetings(id serial primary key, crn text, startdate text, enddate text, starttime text, endtime text, coursetype text, coursetypecode text, buildingroom text, campus text, meetday text)"
 
-  //Calendar meeting table creation
-  meetingCalendarSQL = "create table if not exists calmeetins(id serial primary key, day text, month text, year text, starttime text, endtime text, coursetype text, buildingroom text, campus text)"
+	//Calendar meeting table creation
+	meetingCalendarSQL = "create table if not exists calmeetins(id serial primary key, day text, month text, year text, starttime text, endtime text, coursetype text, buildingroom text, campus text)"
 
 	//meetingSQL = "create table if not exists meeting(id serial primary key, crn text, startdate text, enddate text, starttime text, endtime text, coursetype text, coursetypecode text, buildingroom text, campus text, meetdays text, starthour text, startminutes text, startmonth text, startyear text, startdayofmonth text, startdayofweek text, startweekofmonth text, endhour text, endminutes text, endmonth text, endyear text, enddayofmonth text, enddayofweek text, endweekofmonth text)"
 	//Instructor table creation.
@@ -135,18 +136,18 @@ type Person struct {
 }
 
 type MeetingCalendar struct {
-  Id            int 
-  Day           string `json:"day"`
-  Month         string `json:"month"`
-  Year          string `json:"year"`
-  StartTime     string `json:"starttime"`
-  EndTime       string `json:"endtime"`
-  BuildingRoom  string `json:"buildingroom"`
-  Campus        string `json:"campus"`
-  CourseType    string `json:"coursetype"`
+	Id           int
+	Day          string `json:"day"`
+	Month        string `json:"month"`
+	Year         string `json:"year"`
+	StartTime    string `json:"starttime"`
+	EndTime      string `json:"endtime"`
+	BuildingRoom string `json:"buildingroom"`
+	Campus       string `json:"campus"`
+	CourseType   string `json:"coursetype"`
 }
 
-type MeetingCalendarArray []MeetingCalendar 
+type MeetingCalendarArray []MeetingCalendar
 
 func person(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -310,9 +311,9 @@ func terms(w http.ResponseWriter, r *http.Request) {
 func calendarMeeting(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 
-  var meetings MeetingCalendarArray
+	var meetings MeetingCalendarArray
 
-  rows, err := db.Query("select * from calmeetins order by year, month, day ")
+	rows, err := db.Query("select * from calmeetins order by year, month, day, starttime")
 	if err != nil {
 		panic(err)
 	}
@@ -327,19 +328,18 @@ func calendarMeeting(w http.ResponseWriter, r *http.Request) {
 		meetings = append(meetings, t)
 	}
 
-  fmt.Println(meetings)
+	fmt.Println(meetings)
 
-  q := make(map[string]map[string]MeetingCalendarArray)
+	q := make(map[string]map[string]MeetingCalendarArray)
 
-  for _, m := range meetings {
-    qq, ok := q[m.Month]
-    if !ok {
-      qq = make(map[string]MeetingCalendarArray)
-      q[m.Month] = qq
-    }
-    q[m.Month][m.Day] = append(q[m.Month][m.Day], m)
-  }
-
+	for _, m := range meetings {
+		qq, ok := q[m.Month]
+		if !ok {
+			qq = make(map[string]MeetingCalendarArray)
+			q[m.Month] = qq
+		}
+		q[m.Month][m.Day] = append(q[m.Month][m.Day], m)
+	}
 
 	if err := json.NewEncoder(w).Encode(q); err != nil {
 		panic(err)
@@ -405,6 +405,6 @@ func main() {
 	http.HandleFunc("/api/mydetails", mydetails)
 	http.HandleFunc("/api/courses", courses)
 	http.HandleFunc("/api/terms", terms)
-  http.HandleFunc("/api/calendar", calendarMeeting)
+	http.HandleFunc("/api/calendar", calendarMeeting)
 	http.ListenAndServe(":8082", nil)
 }
