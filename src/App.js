@@ -6,7 +6,7 @@ import { getWeekOfMonth } from "./utils/DateHelper"
 
 class App extends Component {
   state = {
-    courses: null,
+    meetings: null,
     termBounds: null,
     currentDateRange: null,
     calendarType: "weekview",
@@ -28,7 +28,7 @@ class App extends Component {
         return response.json()
       })
       .then(data => {
-        this.setState({ courses: data })
+        this.setState({ meetings: data })
       })
 
     let d = new Date()
@@ -59,7 +59,7 @@ class App extends Component {
   chooseCalendarType = () => {
     switch (this.state.calendarType) {
       case "weekview":
-        return <Weekview />
+        return <Weekview meetings={this.state.meetings} currentDateRange={this.props.currentDateRange}/>
       case "monthview":
         return <div />
       case "scheduleview":
@@ -70,7 +70,7 @@ class App extends Component {
   }
 
   render() {
-    if (this.state.courses === null || this.state.courses === undefined) {
+    if (this.state.meetings === null || this.state.meetings === undefined) {
       return <div>boom</div>
     }
     return (
