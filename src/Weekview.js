@@ -14,7 +14,7 @@ const hourColStyle = {
 }
 
 const hourCol = () => {
-  let column = [<div style={{ height: "1.8%" }} />]
+  let column = [<div key="TopLeftCorner" style={{ height: "1.8%" }} />]
   for (let i = 0, size = prettyHours.length; i < size; i++) {
     column.push(
       <div
@@ -32,7 +32,9 @@ const weekCol = () => {
   let column = []
   for (let i = 0; i < 34; i++) {
     column.push(
-      <div style={{ border: "1px solid lightgrey", height: "2.65%" }} />
+      <div key={"weekCol" + i} style={{ border: "1px solid lightgrey", height: "2.65%" }}>
+        {this.props.meetings[
+      </div>
     )
   }
   return column
@@ -40,6 +42,7 @@ const weekCol = () => {
 
 class Weekview extends Component {
   render() {
+    console.log(this.props.meetings)
     return (
       <div style={{ border: "1px solid black", height: 950, display: "flex", fontFamily: "Arimo" }}>
         <div style={hourColStyle}>
