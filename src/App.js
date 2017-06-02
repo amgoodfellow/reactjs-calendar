@@ -23,12 +23,12 @@ class App extends Component {
         this.setState({ termBounds: [data.terms[0].start, data.terms[0].end] })
       })
 
-    fetch("http://localhost:8082/api/courses")
+    fetch("http://localhost:8082/api/calendar")
       .then(response => {
         return response.json()
       })
       .then(data => {
-        this.setState({ courses: data.courses })
+        this.setState({ courses: data })
       })
 
     let d = new Date()
