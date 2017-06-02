@@ -3,10 +3,11 @@ import Weekview from "./Weekview"
 import Scheduleview from "./Scheduleview"
 import Titlebar from "./Titlebar"
 import { getWeekOfMonth } from "./utils/DateHelper"
+import MonthView from "./MonthView"
 
 class App extends Component {
   state = {
-    courses: null,
+    calendar: null,
     termBounds: null,
     currentDateRange: null,
     calendarType: "weekview",
@@ -23,12 +24,12 @@ class App extends Component {
         this.setState({ termBounds: [data.terms[0].start, data.terms[0].end] })
       })
 
-    fetch("http://localhost:8082/api/courses")
+    fetch("http://localhost:8082/api/calendar")
       .then(response => {
         return response.json()
       })
       .then(data => {
-        this.setState({ courses: data.courses })
+        this.setState({ calendar: data })
       })
 
     let d = new Date()
@@ -62,7 +63,7 @@ class App extends Component {
         return <Weekview />
         break
       case "monthview":
-        return <div />
+        return <MonthView />
         break
       case "scheduleview":
         return <Scheduleview />
@@ -74,7 +75,7 @@ class App extends Component {
   }
 
   render() {
-    if (this.state.courses === null || this.state.courses === undefined) {
+    if (this.state.calendar === null || this.state.calendar === undefined) {
       return <div>boom</div>
     }
     return (
@@ -82,12 +83,12 @@ class App extends Component {
         <Titlebar
           currentDateRange={this.state.currentDateRange}
           termBounds={this.state.termBounds}
-          courses={this.state.courses}
+          calendar={this.state.calendar}
           calendarType={this.state.calendarType}
           changeCalendarView={this.changeCalendarView}
           changeDateRange={this.changeDateRange}
         />
-        {this.chooseCalendarType()}
+        <MonthView />
       </div>
     )
   }
