@@ -10,6 +10,7 @@
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="skin.css">
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -21,11 +22,25 @@
     -->
     <title>React App</title>
   </head>
-  <body>
+  <body style="background-color: black;">
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
-    <div id="root"></div>
+    <div>
+        <div>
+            <button onclick="full()">full</button>
+            <button onclick="left()">Left col-md-3</button>
+            <button onclick="center()">Center col-md-6</button>
+            <button onclick="right()">right col-md-3</button>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div id="layout" class="col-md-6 col-md-offset-3">
+                    <div style="background-color: white;" id="root"></div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -36,5 +51,26 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script>
+        function center() {
+            layout = document.getElementById("layout");
+            layout.className = "col-md-6 col-md-offset-3";
+        }
+
+        function right() {
+            layout = document.getElementById("layout");
+            layout.className = "col-md-3 col-md-offset-9";
+        }
+
+        function left() {
+            layout = document.getElementById("layout");
+            layout.className = "col-md-3";
+        }
+
+        function full() {
+            layout = document.getElementById("layout");
+            layout.className = "col-md-12";
+        }
+    </script>
   </body>
 </html>
