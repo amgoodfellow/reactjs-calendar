@@ -11,12 +11,13 @@ import Paper from "material-ui/Paper"
 import Divider from "material-ui/Divider"
 import Toolbar from "material-ui/Toolbar"
 import Card, { CardContent, CardHeader } from "material-ui/Card"
+import { getWeeksOfMonth, getDaysInMonth } from "./utils/DateHelper"
 
 const styleSheet = createStyleSheet("MonthView", theme => ({
   root: {
     display: "flex",
     position: "relative",
-    height: "452px"
+    height: "550px"
   },
   dayDiv: {
     position: "relative",
@@ -35,7 +36,7 @@ const styleSheet = createStyleSheet("MonthView", theme => ({
     alignItems: "center",
     justifyContent: "space-between, space-around",
 
-    height: "380px"
+    height: "500px"
   },
   monthDiv: {
     width: "80%"
@@ -90,23 +91,113 @@ class MonthView extends Component {
   weekDays() {
     let week = []
     for (let i = 0; i < 7; ++i) {
-      week.push(<td syle={{ width: "100px" }}> {dayNames[i]} </td>)
+      week.push(
+        <td key={week[i]} syle={{ width: "100px" }}> {dayNames[i]} </td>
+      )
     }
     return week
   }
 
-  monthDates() {
-    let dateNumbers = []
-    for (let i = 0; i < 7; i++) {
-      dateNumbers.push(
-        <td
-          style={{ width: "100px", border: "1px solid white", padding: "10px" }}
-        >
-          {i}
-        </td>
-      )
+  dayBoxes() {
+    let dayBox = []
+    let d = new Date(
+      this.state.studentDetails[5][13][0].year,
+      this.state.studentDetails[5][13][0].month
+    ) //
+    let td = d.getDate() // returns 1
+    let wd = d.getDay() // returns 4 = thursday
+    let totalDays = getDaysInMonth(
+      this.state.studentDetails[5][13][0].year,
+      this.state.studentDetails[5][13][0].month
+    ) //returns total number of days
+    console.log(wd)
+    let date = []
+    let counter = 0
+    for (let d = 1; d <= totalDays; ++d) {
+      date.push(d)
     }
-    return dateNumbers
+    for (let j = 0; j < 5; ++j) {
+      dayBox.push(<tr> </tr>)
+      for (let i = 0; i < 7; i++) {
+        dayBox.push(
+          <td
+            key={dayBox[j][i]}
+            style={{
+              fontSize: "15px",
+              width: "100px",
+              height: "79px",
+              border: "1px solid white",
+              padding: "10px"
+            }}
+          >
+            {date[counter]}
+
+          </td>
+        )
+
+        if (date[counter] == this.state.studentDetails[5][13][0].day) {
+          dayBox.pop(<td />)
+          dayBox.push(
+            <td
+              key={dayBox[j][i]}
+              style={{
+                fontSize: "15px",
+                width: "100px",
+                height: "79px",
+                border: "1px solid white",
+                padding: "10px"
+              }}
+            >
+              {" "}{date[counter]}
+              <List
+                style={{
+                  padding: 0,
+                  height: "auto",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-around"
+                }}
+              >
+                <Card syle={{ width: "50px", padding: 0, margin: 0 }}>
+                  <CardContent
+                    style={{
+                      padding: 0,
+                      textAlign: "center",
+                      backgroundColor: "#004987",
+                      shadow: 0
+                    }}
+                  >
+                    <Typography type="body2" style={{ color: "white" }}>
+                      {this.state.studentDetails[5][13][0].coursetitle}
+                    </Typography>
+                  </CardContent>
+                </Card>
+                <Divider />
+                <Card syle={{ width: "50px", padding: 0, margin: 0 }}>
+                  <CardContent
+                    style={{
+                      padding: 0,
+                      textAlign: "center",
+                      backgroundColor: "#004987",
+                      shadow: 0
+                    }}
+                  >
+                    <Typography type="body2" style={{ color: "white" }}>
+                      {this.state.studentDetails[5][13][0].coursetitle}
+                    </Typography>
+                  </CardContent>
+                </Card>
+                <Divider />
+
+              </List>
+            </td>
+          )
+        }
+        ++counter
+      }
+    }
+
+    return dayBox
   }
 
   render() {
@@ -133,7 +224,7 @@ class MonthView extends Component {
                     }}
                   >
                     <Typography type="title" style={{ color: "#004987" }}>
-                      {this.state.studentDetails[5][13][0].month}
+                      {this.state.studentDetails[5][13][0].coursetitle}
                     </Typography>
 
                     <Divider />
@@ -168,7 +259,7 @@ class MonthView extends Component {
 
               <tbody className={classes.tableBody}>
 
-                <tr> {this.monthDates()} </tr>
+                {this.dayBoxes()}
 
               </tbody>
 
