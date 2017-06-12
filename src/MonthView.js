@@ -123,6 +123,7 @@ class MonthView extends Component {
     for (let i = 0; i < wks; i++) {
       rows.push(<tr>{this.getDays(i)}</tr>)
     }
+    this.dayz = 1
     return rows
   }
 
