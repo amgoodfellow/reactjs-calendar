@@ -10,8 +10,13 @@ import Titlebar from "./Titlebar"
 import Paper from "material-ui/Paper"
 import Divider from "material-ui/Divider"
 import Toolbar from "material-ui/Toolbar"
+import Avatar from "material-ui/Avatar"
 import Card, { CardContent, CardHeader } from "material-ui/Card"
-import { getWeeksOfMonth, getWeekOfMonth, getDaysInMonth } from "./utils/DateHelper"
+import {
+  getWeeksOfMonth,
+  getWeekOfMonth,
+  getDaysInMonth
+} from "./utils/DateHelper"
 
 const styleSheet = createStyleSheet("MonthView", theme => ({
   root: {
@@ -32,7 +37,8 @@ const styleSheet = createStyleSheet("MonthView", theme => ({
   },
   monthDiv: {
     width: "80%",
-    height: "100%"
+    height: "100%",
+    overflow: "hidden"
   },
   monthTitleBar: {
     position: "relative",
@@ -52,7 +58,7 @@ const styleSheet = createStyleSheet("MonthView", theme => ({
     textAlign: "center",
     fontWeight: "bold",
     borderTop: "hidden",
-    height:"20%"
+    height: "20%"
   },
   tableBody: {
     backgroundColor: "rgb(255,243,233)",
@@ -67,7 +73,8 @@ class MonthView extends Component {
     super()
     this.state = {
       studentDetails: null,
-     
+      open: false,
+      width: window.outerWidth
     }
   }
 
@@ -81,16 +88,22 @@ class MonthView extends Component {
         this.setState({ studentDetails: data })
       })
   }
+  componentWillMount() {
+    window.addEventListener("resize", this.changeView)
+  }
 
-
+  changeView = () => {
+    this.setState({ width: window.outerWidth })
+  }
 
   toWeekName() {
-    let date = new Date("1 July 2017"
-    )
+    let date = new Date("1 July 2017")
     let day = date.getDay()
     for (let i = 0; i < 7; ++i) {
       if (day === i) {
-        day = dayNames[i]
+        if (this.state.width < 746) {
+          day = shortDayNames[i]
+        } else day = dayNames[i]
       }
     }
     return day
@@ -98,74 +111,191 @@ class MonthView extends Component {
 
   weekDays() {
     let weekDaysRow = []
-   
+
     for (let i = 0; i < 7; ++i) {
-      weekDaysRow.push(
-        <td key={weekDaysRow[i]} syle={{ width: "100rem" }}> {shortDayNames[i]} </td>
-      )
+      if (this.state.width < 746) {
+        weekDaysRow.push(
+          <td key={weekDaysRow[i]} syle={{ width: "100rem" }}>
+            {" "}{shortDayNames[i]}{" "}
+          </td>
+        )
+      } else {
+        weekDaysRow.push(
+          <td key={weekDaysRow[i]} syle={{ width: "100rem" }}>
+            {" "}{dayNames[i]}{" "}
+          </td>
+        )
+      }
     }
     return weekDaysRow
   }
 
- 
   dayBoxes() {
-   
-     let d = new Date(2017,5
-    )
+    let d = new Date(2017, 5)
 
     let firstDay = d.getDate()
-    let totalWeeksInMonth = getWeeksOfMonth(d)   
-    let numOfWeekInMonth =  getWeekOfMonth(2017,5,1)
+    let totalWeeksInMonth = getWeeksOfMonth(d)
+    let numOfWeekInMonth = getWeekOfMonth(2017, 5, 1)
     let numOfDayInWeek = d.getDay()
-    let numOfDays = getDaysInMonth(2017,5).getDate()
-    let dayBox = []    
+    let numOfDays = getDaysInMonth(2017, 5).getDate()
+    let dayBox = []
     let dayPostition = []
     let weekPosition = []
     let counter = 0
     let dayToString = d.toDateString()
-    console.log("firstday",firstDay)
+    console.log("firstday", firstDay)
     console.log("total days", numOfDays)
-    console.log("no of total weeks",totalWeeksInMonth)
-    console.log("position no of week in month",numOfWeekInMonth)
-    console.log("weekday number sun-sat 0-6" , numOfDayInWeek)
-    console.log("day" , dayToString)
+    console.log("no of total weeks", totalWeeksInMonth)
+    console.log("position no of week in month", numOfWeekInMonth)
+    console.log("weekday number sun-sat 0-6", numOfDayInWeek)
+    console.log("day", dayToString)
 
-    for (let j = 0; j < totalWeeksInMonth; ++j) {
+    for (let j = 0; j < 6; ++j) {
       dayBox.push(<tr> </tr>)
-     weekPosition[j] = j
+      weekPosition[j] = j
 
       for (let i = 0; i < 7; i++) {
-        dayPostition[i]=i
-       
+        dayPostition[i] = i
+
         dayBox.push(
           <td
             key={dayBox[j][i]}
             style={{
               fontSize: "15px",
-              width: 70,
-              height: 82,
+              width: "70px",
+              height: "79px",
               border: "1px solid white",
               padding: "10px"
             }}
           >
-          {dayPostition[i] }{" "}{ weekPosition[j]}
+            {dayPostition[i]}{" "}{weekPosition[j]}
 
           </td>
         )
-        if(numOfDayInWeek === dayPostition[i] && (numOfWeekInMonth-1) === weekPosition[j]){
-        dayBox.pop(<td> </td>)
-         dayBox.push(
-          <td> Here </td>)
-      } 
+        if (
+          numOfDayInWeek === dayPostition[i] &&
+          numOfWeekInMonth - 1 === weekPosition[j]
+        ) {
+          if (this.state.width < 746) {
+            dayBox.pop(<td> </td>)
+            dayBox.push(
+              <td
+                tabIndex="0"
+                key={dayBox[j][i]}
+                style={{
+                  fontSize: "15px",
+                  width: "70px",
+                  height: "79px",
+                  border: "1px solid white",
+                  padding: "10px"
+                }}
+              >
+                {dayPostition[i]}{" "}{weekPosition[j]}
+                <List
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-around space-between",
+                    alignContent: "center"
+                  }}
+                >
+                  <Avatar
+                    style={{
+                      width: "25px",
+                      height: "25px",
+                      fontSize: "10px",
+                      backgroundColor: "#004987",
+                      color: "white"
+                    }}
+                  >
+                    {" "}
+                    CSE
+                  </Avatar>
+                  <Avatar
+                    style={{
+                      width: "25px",
+                      height: "25px",
+                      fontSize: "10px",
+                      backgroundColor: "#004987",
+                      color: "white"
+                    }}
+                  >
+                    {" "}
+                    MTH
+                  </Avatar>
+                </List>
+              </td>
+            )
+          } else {
+            dayBox.pop(<td> </td>)
+            dayBox.push(
+              <td
+                tabIndex="0"
+                onClick={() => this.setState({ open: true })}
+                key={dayBox[j][i]}
+                style={{
+                  fontSize: "15px",
+                  width: "70px",
+                  height: "79px",
+                  border: "1px solid white",
+                  padding: "10px"
+                }}
+              >
+                {dayPostition[i]}{" "}{weekPosition[j]}
+                <List
+                  style={{
+                    padding: 0,
+                    height: "auto",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-around",
+                    overflow: "hidden"
+                  }}
+                >
+                  <Card syle={{ width: "50px", padding: 0, margin: 0 }}>
+                    <CardContent
+                      style={{
+                        padding: 0,
+                        textAlign: "center",
+                        backgroundColor: "#004987",
+                        shadow: 0
+                      }}
+                    >
+                      <Typography type="body2" style={{ color: "white" }}>
+                        {this.state.studentDetails[5][13][0].coursetitle}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                  <Divider />
+                  <Card syle={{ width: "50px", padding: 0, margin: 0 }}>
+                    <CardContent
+                      style={{
+                        padding: 0,
+                        textAlign: "center",
+                        backgroundColor: "#004987",
+                        shadow: 0
+                      }}
+                    >
+                      <Typography type="body2" style={{ color: "white" }}>
+                        {this.state.studentDetails[5][13][0].coursetitle}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                  <Divider />
+
+                </List>
+              </td>
+            )
+          }
+        }
         ++counter
       }
-      
     }
 
     return dayBox
   }
 
- displayDayCards() {  
+  displayDayCards() {
+    if (this.state.open === true) {
       return (
         <List
           style={{
@@ -173,24 +303,24 @@ class MonthView extends Component {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            height: "500px", 
+            height: "500px",
             flexFlow: "wrap",
             overflowX: "hidden",
             overflowY: "scroll"
-
           }}
         >
           <ListItem>
             <Card syle={{ width: "50%" }}>
-            <CardHeader style={{ backgroundColor: "#004987",textAlign: "center"}} title={"white"}
-                  title={this.state.studentDetails[5][13][0].coursetitle}>
-           </CardHeader>
               <CardContent
                 style={{
                   textAlign: "center",
                   backgroundColor: "rgb(255,243,233)"
                 }}
-              >       
+              >
+                <Typography type="title" style={{ color: "#004987" }}>
+                  {this.state.studentDetails[5][13][0].coursetitle}
+                </Typography>
+                <Divider />
                 <Typography type="body2" style={{ color: "#004987" }}>
                   Meet times
                 </Typography>
@@ -208,7 +338,7 @@ class MonthView extends Component {
               </CardContent>
             </Card>
           </ListItem>
-           <ListItem>
+          <ListItem>
             <Card syle={{ width: "50%" }}>
               <CardContent
                 style={{
@@ -238,7 +368,7 @@ class MonthView extends Component {
               </CardContent>
             </Card>
           </ListItem>
-           <ListItem>
+          <ListItem>
             <Card syle={{ width: "50%" }}>
               <CardContent
                 style={{
@@ -270,7 +400,7 @@ class MonthView extends Component {
           </ListItem>
         </List>
       )
-    
+    }
   }
   render() {
     if (this.state.studentDetails === null) return <div />
@@ -282,7 +412,6 @@ class MonthView extends Component {
             <Toolbar className={classes.dayTitleBar}>
               <Typography type="h1" colorInherit>
                 {" "}{this.toWeekName()}{" "}
-               
 
               </Typography>
             </Toolbar>
@@ -299,7 +428,7 @@ class MonthView extends Component {
 
               <tbody className={classes.tableBody}>
 
-           { this.dayBoxes()}
+                {this.dayBoxes()}
 
               </tbody>
 
