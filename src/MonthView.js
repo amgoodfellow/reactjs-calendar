@@ -11,7 +11,7 @@ import Paper from "material-ui/Paper"
 import Divider from "material-ui/Divider"
 import Toolbar from "material-ui/Toolbar"
 import Card, { CardContent, CardHeader } from "material-ui/Card"
-import { getWeeksOfMonth, getDaysInMonth } from "./utils/DateHelper"
+import { getWeeksOfMonth, getWeekOfMonth, getDaysInMonth } from "./utils/DateHelper"
 
 const styleSheet = createStyleSheet("MonthView", theme => ({
   root: {
@@ -101,24 +101,144 @@ class MonthView extends Component {
    
     for (let i = 0; i < 7; ++i) {
       weekDaysRow.push(
-        <td key={weekDaysRow[i]} syle={{ width: "100px" }}> {shortDayNames[i]} </td>
+        <td key={weekDaysRow[i]} syle={{ width: "100rem" }}> {shortDayNames[i]} </td>
       )
     }
     return weekDaysRow
   }
-  displayDayCards() {
-  
+
+ 
+  dayBoxes() {
+   
+     let d = new Date(2017,5
+    )
+
+    let firstDay = d.getDate()
+    let totalWeeksInMonth = getWeeksOfMonth(d)   
+    let numOfWeekInMonth =  getWeekOfMonth(2017,5,1)
+    let numOfDayInWeek = d.getDay()
+    let numOfDays = getDaysInMonth(2017,5).getDate()
+    let dayBox = []    
+    let dayPostition = []
+    let weekPosition = []
+    let counter = 0
+    let dayToString = d.toDateString()
+    console.log("firstday",firstDay)
+    console.log("total days", numOfDays)
+    console.log("no of total weeks",totalWeeksInMonth)
+    console.log("position no of week in month",numOfWeekInMonth)
+    console.log("weekday number sun-sat 0-6" , numOfDayInWeek)
+    console.log("day" , dayToString)
+
+    for (let j = 0; j < totalWeeksInMonth; ++j) {
+      dayBox.push(<tr> </tr>)
+     weekPosition[j] = j
+
+      for (let i = 0; i < 7; i++) {
+        dayPostition[i]=i
+       
+        dayBox.push(
+          <td
+            key={dayBox[j][i]}
+            style={{
+              fontSize: "15px",
+              width: 70,
+              height: 82,
+              border: "1px solid white",
+              padding: "10px"
+            }}
+          >
+          {dayPostition[i] }{" "}{ weekPosition[j]}
+
+          </td>
+        )
+        if(numOfDayInWeek === dayPostition[i] && (numOfWeekInMonth-1) === weekPosition[j]){
+        dayBox.pop(<td> </td>)
+         dayBox.push(
+          <td> Here </td>)
+      } 
+        ++counter
+      }
+      
+    }
+
+    return dayBox
+  }
+
+ displayDayCards() {  
       return (
         <List
           style={{
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            justifyContent: "space-between, space-around",
-            height: "500px"
+            justifyContent: "center",
+            height: "500px", 
+            flexFlow: "wrap",
+            overflowX: "hidden",
+            overflowY: "scroll"
+
           }}
         >
           <ListItem>
+            <Card syle={{ width: "50%" }}>
+            <CardHeader style={{ backgroundColor: "#004987",textAlign: "center"}} title={"white"}
+                  title={this.state.studentDetails[5][13][0].coursetitle}>
+           </CardHeader>
+              <CardContent
+                style={{
+                  textAlign: "center",
+                  backgroundColor: "rgb(255,243,233)"
+                }}
+              >       
+                <Typography type="body2" style={{ color: "#004987" }}>
+                  Meet times
+                </Typography>
+                <Typography type="body2">
+                  {this.state.studentDetails[5][13][0].starttime}{" - "}
+                  {this.state.studentDetails[5][13][0].endtime}
+                </Typography>
+                <Divider />
+                <Typography type="body2" style={{ color: "#004987" }}>
+                  Building room
+                </Typography>
+                <Typography type="body1">
+                  {this.state.studentDetails[5][13][0].buildingroom}
+                </Typography>
+              </CardContent>
+            </Card>
+          </ListItem>
+           <ListItem>
+            <Card syle={{ width: "50%" }}>
+              <CardContent
+                style={{
+                  textAlign: "center",
+                  backgroundColor: "rgb(255,243,233)"
+                }}
+              >
+                <Typography type="title" style={{ color: "#004987" }}>
+                  {this.state.studentDetails[5][13][0].coursetitle}
+                </Typography>
+
+                <Divider />
+                <Typography type="body2" style={{ color: "#004987" }}>
+                  Meet times
+                </Typography>
+                <Typography type="body2">
+                  {this.state.studentDetails[5][13][0].starttime}{" - "}
+                  {this.state.studentDetails[5][13][0].endtime}
+                </Typography>
+                <Divider />
+                <Typography type="body2" style={{ color: "#004987" }}>
+                  Building room
+                </Typography>
+                <Typography type="body1">
+                  {this.state.studentDetails[5][13][0].buildingroom}
+                </Typography>
+              </CardContent>
+            </Card>
+          </ListItem>
+           <ListItem>
             <Card syle={{ width: "50%" }}>
               <CardContent
                 style={{
@@ -152,52 +272,6 @@ class MonthView extends Component {
       )
     
   }
-  dayBoxes() {
-   
-     let d = new Date(2017,6, 
-    )
-
-    let startDate = d.getDate(1)
-    let numberOfWeeks = getWeeksOfMonth(d)   
-    let numOfDays = getDaysInMonth(2017,6).getDate()
-    let dayBox = []
-    let weekDay = d.getDay()
-    let numOfDayInWeek = []
-    let counter = 0
-    console.log("firstday",startDate)
-    console.log("total days", numOfDays)
-    console.log("no of total weeks",numberOfWeeks)
-    console.log("weekday number sun-sat 0-6" , weekDay)
-
-
-    for (let j = 0; j < numberOfWeeks; ++j) {
-      dayBox.push(<tr> </tr>)
-
-      for (let i = 0; i < 7; i++) {
-        numOfDayInWeek[i]=i
-       
-        dayBox.push(
-          <td
-            key={dayBox[j][i]}
-            style={{
-              fontSize: "15px",
-              width: "100px",
-              height: "62px",
-              border: "1px solid white",
-              padding: "10px"
-            }}
-          >
-          { counter}
-
-          </td>
-        ) 
-        ++counter
-      }
-    }
-
-    return dayBox
-  }
-
   render() {
     if (this.state.studentDetails === null) return <div />
     else {
