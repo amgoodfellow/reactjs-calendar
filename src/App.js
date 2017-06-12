@@ -61,16 +61,17 @@ class App extends Component {
     switch (this.state.calendarType) {
       case "weekview":
         return <Weekview />
-        break
       case "monthview":
-        return <MonthView />
-        break
+        return (
+          <MonthView
+            calendar={this.state.calendar}
+            currentDateRange={this.state.currentDateRange}
+          />
+        )
       case "scheduleview":
         return <Scheduleview />
-        break
       default:
         return <Weekview />
-        break
     }
   }
 
@@ -88,7 +89,7 @@ class App extends Component {
           changeCalendarView={this.changeCalendarView}
           changeDateRange={this.changeDateRange}
         />
-        <MonthView />
+        {this.chooseCalendarType()}
       </div>
     )
   }

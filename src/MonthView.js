@@ -76,6 +76,8 @@ class MonthView extends Component {
       open: false,
       width: window.outerWidth
     }
+
+    this.dayz = 1
   }
 
   componentDidMount() {
@@ -109,57 +111,67 @@ class MonthView extends Component {
     return day
   }
 
-  weekDays() {
-    let weekDaysRow = []
+  getMonthRows = () => {
+    let first = new Date(
+      this.props.currentDateRange.year,
+      this.props.currentDateRange.month,
+      1
+    )
+    let wks = getWeeksOfMonth(first)
+    let rows = []
 
-    for (let i = 0; i < 7; ++i) {
-      if (this.state.width < 746) {
-        weekDaysRow.push(
-          <td key={weekDaysRow[i]} syle={{ width: "100rem" }}>
-            {" "}{shortDayNames[i]}{" "}
-          </td>
-        )
-      } else {
-        weekDaysRow.push(
-          <td key={weekDaysRow[i]} syle={{ width: "100rem" }}>
-            {" "}{dayNames[i]}{" "}
-          </td>
-        )
-      }
+    for (let i = 0; i < wks; i++) {
+      rows.push(<tr>{this.getDays(i)}</tr>)
     }
-    return weekDaysRow
+    return rows
   }
 
-  dayBoxes() {
-    let d = new Date(2017, 5)
+  getDays = wk => {
+    let days = []
+    let numDays = getDaysInMonth(
+      this.props.currentDateRange.year,
+      this.props.currentDateRange.month
+    ).getDate()
 
-    let firstDay = d.getDate()
-    let totalWeeksInMonth = getWeeksOfMonth(d)
-    let numOfWeekInMonth = getWeekOfMonth(2017, 5, 1)
-    let numOfDayInWeek = d.getDay()
-    let numOfDays = getDaysInMonth(2017, 5).getDate()
-    let dayBox = []
-    let dayPostition = []
-    let weekPosition = []
-    let counter = 0
-    let dayToString = d.toDateString()
-    console.log("firstday", firstDay)
-    console.log("total days", numOfDays)
-    console.log("no of total weeks", totalWeeksInMonth)
-    console.log("position no of week in month", numOfWeekInMonth)
-    console.log("weekday number sun-sat 0-6", numOfDayInWeek)
-    console.log("day", dayToString)
+    let first = new Date(
+      this.props.currentDateRange.year,
+      this.props.currentDateRange.month,
+      1
+    )
 
-    for (let j = 0; j < 6; ++j) {
-      dayBox.push(<tr> </tr>)
-      weekPosition[j] = j
-
-      for (let i = 0; i < 7; i++) {
-        dayPostition[i] = i
-
-        dayBox.push(
+    for (let i = 0; i < 7; i++) {
+      if (this.dayz > numDays) {
+        days.push(
           <td
-            key={dayBox[j][i]}
+            tabIndex="0"
+            style={{
+              fontSize: "15px",
+              width: 70,
+              height: 82,
+              border: "1px solid white",
+              padding: "10px",
+              backgroundColor: "lightgrey"
+            }}
+          />
+        )
+      } else if (this.dayz === 1 && wk === 0 && first.getDay() !== i) {
+        days.push(
+          <td
+            tabIndex="0"
+            style={{
+              fontSize: "15px",
+              width: 70,
+              height: 82,
+              border: "1px solid white",
+              padding: "10px",
+              backgroundColor: "lightgrey"
+            }}
+          />
+        )
+      } else {
+        days.push(
+          <td
+            tabIndex="0"
             style={{
               fontSize: "15px",
               width: "70px",
@@ -168,239 +180,134 @@ class MonthView extends Component {
               padding: "10px"
             }}
           >
-            {dayPostition[i]}{" "}{weekPosition[j]}
-
+            {this.dayz}
           </td>
         )
-        if (
-          numOfDayInWeek === dayPostition[i] &&
-          numOfWeekInMonth - 1 === weekPosition[j]
-        ) {
-          if (this.state.width < 746) {
-            dayBox.pop(<td> </td>)
-            dayBox.push(
-              <td
-                tabIndex="0"
-                key={dayBox[j][i]}
-                style={{
-                  fontSize: "15px",
-                  width: "70px",
-                  height: "79px",
-                  border: "1px solid white",
-                  padding: "10px"
-                }}
-              >
-                {dayPostition[i]}{" "}{weekPosition[j]}
-                <List
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-around space-between",
-                    alignContent: "center"
-                  }}
-                >
-                  <Avatar
-                    style={{
-                      width: "25px",
-                      height: "25px",
-                      fontSize: "10px",
-                      backgroundColor: "#004987",
-                      color: "white"
-                    }}
-                  >
-                    {" "}
-                    CSE
-                  </Avatar>
-                  <Avatar
-                    style={{
-                      width: "25px",
-                      height: "25px",
-                      fontSize: "10px",
-                      backgroundColor: "#004987",
-                      color: "white"
-                    }}
-                  >
-                    {" "}
-                    MTH
-                  </Avatar>
-                </List>
-              </td>
-            )
-          } else {
-            dayBox.pop(<td> </td>)
-            dayBox.push(
-              <td
-                tabIndex="0"
-                onClick={() => this.setState({ open: true })}
-                key={dayBox[j][i]}
-                style={{
-                  fontSize: "15px",
-                  width: "70px",
-                  height: "79px",
-                  border: "1px solid white",
-                  padding: "10px"
-                }}
-              >
-                {dayPostition[i]}{" "}{weekPosition[j]}
-                <List
-                  style={{
-                    padding: 0,
-                    height: "auto",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-around",
-                    overflow: "hidden"
-                  }}
-                >
-                  <Card syle={{ width: "50px", padding: 0, margin: 0 }}>
-                    <CardContent
-                      style={{
-                        padding: 0,
-                        textAlign: "center",
-                        backgroundColor: "#004987",
-                        shadow: 0
-                      }}
-                    >
-                      <Typography type="body2" style={{ color: "white" }}>
-                        {this.state.studentDetails[5][13][0].coursetitle}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                  <Divider />
-                  <Card syle={{ width: "50px", padding: 0, margin: 0 }}>
-                    <CardContent
-                      style={{
-                        padding: 0,
-                        textAlign: "center",
-                        backgroundColor: "#004987",
-                        shadow: 0
-                      }}
-                    >
-                      <Typography type="body2" style={{ color: "white" }}>
-                        {this.state.studentDetails[5][13][0].coursetitle}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                  <Divider />
-
-                </List>
-              </td>
-            )
-          }
-        }
-        ++counter
+        this.dayz++
       }
     }
+    return days
+  }
 
-    return dayBox
+  weekDays() {
+    let weekDaysRow = []
+
+    for (let i = 0; i < 7; ++i) {
+      weekDaysRow.push(
+        <td key={weekDaysRow[i]} syle={{ width: "100rem" }}>
+          {" "}{shortDayNames[i]}{" "}
+        </td>
+      )
+    }
+    return weekDaysRow
   }
 
   displayDayCards() {
-    if (this.state.open === true) {
-      return (
-        <List
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            height: "500px",
-            flexFlow: "wrap",
-            overflowX: "hidden",
-            overflowY: "scroll"
-          }}
-        >
-          <ListItem>
-            <Card syle={{ width: "50%" }}>
-              <CardContent
-                style={{
-                  textAlign: "center",
-                  backgroundColor: "rgb(255,243,233)"
-                }}
-              >
-                <Typography type="title" style={{ color: "#004987" }}>
-                  {this.state.studentDetails[5][13][0].coursetitle}
-                </Typography>
-                <Divider />
-                <Typography type="body2" style={{ color: "#004987" }}>
-                  Meet times
-                </Typography>
-                <Typography type="body2">
-                  {this.state.studentDetails[5][13][0].starttime}{" - "}
-                  {this.state.studentDetails[5][13][0].endtime}
-                </Typography>
-                <Divider />
-                <Typography type="body2" style={{ color: "#004987" }}>
-                  Building room
-                </Typography>
-                <Typography type="body1">
-                  {this.state.studentDetails[5][13][0].buildingroom}
-                </Typography>
-              </CardContent>
-            </Card>
-          </ListItem>
-          <ListItem>
-            <Card syle={{ width: "50%" }}>
-              <CardContent
-                style={{
-                  textAlign: "center",
-                  backgroundColor: "rgb(255,243,233)"
-                }}
-              >
-                <Typography type="title" style={{ color: "#004987" }}>
-                  {this.state.studentDetails[5][13][0].coursetitle}
-                </Typography>
+    return (
+      <List
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "500px",
+          flexFlow: "wrap",
+          overflowX: "hidden",
+          overflowY: "scroll"
+        }}
+      >
+        <ListItem>
+          <Card syle={{ width: "50%" }}>
+            <CardHeader
+              style={{ backgroundColor: "#004987", textAlign: "center" }}
+              title={"white"}
+              title={this.state.studentDetails[5][13][0].coursetitle}
+            />
+            <CardContent
+              style={{
+                textAlign: "center",
+                backgroundColor: "rgb(255,243,233)"
+              }}
+            >
+              <Typography type="body2" style={{ color: "#004987" }}>
+                Meet times
+              </Typography>
+              <Typography type="body2">
+                {this.state.studentDetails[5][13][0].starttime}{" - "}
+                {this.state.studentDetails[5][13][0].endtime}
+              </Typography>
+              <Divider />
+              <Typography type="body2" style={{ color: "#004987" }}>
+                Building room
+              </Typography>
+              <Typography type="body1">
+                {this.state.studentDetails[5][13][0].buildingroom}
+              </Typography>
+            </CardContent>
+          </Card>
+        </ListItem>
+        <ListItem>
+          <Card syle={{ width: "50%" }}>
+            <CardContent
+              style={{
+                textAlign: "center",
+                backgroundColor: "rgb(255,243,233)"
+              }}
+            >
+              <Typography type="title" style={{ color: "#004987" }}>
+                {this.state.studentDetails[5][13][0].coursetitle}
+              </Typography>
 
-                <Divider />
-                <Typography type="body2" style={{ color: "#004987" }}>
-                  Meet times
-                </Typography>
-                <Typography type="body2">
-                  {this.state.studentDetails[5][13][0].starttime}{" - "}
-                  {this.state.studentDetails[5][13][0].endtime}
-                </Typography>
-                <Divider />
-                <Typography type="body2" style={{ color: "#004987" }}>
-                  Building room
-                </Typography>
-                <Typography type="body1">
-                  {this.state.studentDetails[5][13][0].buildingroom}
-                </Typography>
-              </CardContent>
-            </Card>
-          </ListItem>
-          <ListItem>
-            <Card syle={{ width: "50%" }}>
-              <CardContent
-                style={{
-                  textAlign: "center",
-                  backgroundColor: "rgb(255,243,233)"
-                }}
-              >
-                <Typography type="title" style={{ color: "#004987" }}>
-                  {this.state.studentDetails[5][13][0].coursetitle}
-                </Typography>
+              <Divider />
+              <Typography type="body2" style={{ color: "#004987" }}>
+                Meet times
+              </Typography>
+              <Typography type="body2">
+                {this.state.studentDetails[5][13][0].starttime}{" - "}
+                {this.state.studentDetails[5][13][0].endtime}
+              </Typography>
+              <Divider />
+              <Typography type="body2" style={{ color: "#004987" }}>
+                Building room
+              </Typography>
+              <Typography type="body1">
+                {this.state.studentDetails[5][13][0].buildingroom}
+              </Typography>
+            </CardContent>
+          </Card>
+        </ListItem>
+        <ListItem>
+          <Card syle={{ width: "50%" }}>
+            <CardContent
+              style={{
+                textAlign: "center",
+                backgroundColor: "rgb(255,243,233)"
+              }}
+            >
+              <Typography type="title" style={{ color: "#004987" }}>
+                {this.state.studentDetails[5][13][0].coursetitle}
+              </Typography>
 
-                <Divider />
-                <Typography type="body2" style={{ color: "#004987" }}>
-                  Meet times
-                </Typography>
-                <Typography type="body2">
-                  {this.state.studentDetails[5][13][0].starttime}{" - "}
-                  {this.state.studentDetails[5][13][0].endtime}
-                </Typography>
-                <Divider />
-                <Typography type="body2" style={{ color: "#004987" }}>
-                  Building room
-                </Typography>
-                <Typography type="body1">
-                  {this.state.studentDetails[5][13][0].buildingroom}
-                </Typography>
-              </CardContent>
-            </Card>
-          </ListItem>
-        </List>
-      )
-    }
+              <Divider />
+              <Typography type="body2" style={{ color: "#004987" }}>
+                Meet times
+              </Typography>
+              <Typography type="body2">
+                {this.state.studentDetails[5][13][0].starttime}{" - "}
+                {this.state.studentDetails[5][13][0].endtime}
+              </Typography>
+              <Divider />
+              <Typography type="body2" style={{ color: "#004987" }}>
+                Building room
+              </Typography>
+              <Typography type="body1">
+                {this.state.studentDetails[5][13][0].buildingroom}
+              </Typography>
+            </CardContent>
+          </Card>
+        </ListItem>
+      </List>
+    )
   }
   render() {
     if (this.state.studentDetails === null) return <div />
@@ -410,7 +317,7 @@ class MonthView extends Component {
         <Paper className={classes.root}>
           <div className={classes.dayDiv}>
             <Toolbar className={classes.dayTitleBar}>
-              <Typography type="h1" colorInherit>
+              <Typography type="h1">
                 {" "}{this.toWeekName()}{" "}
 
               </Typography>
@@ -425,11 +332,8 @@ class MonthView extends Component {
                   {this.weekDays()}
                 </tr>
               </thead>
-
               <tbody className={classes.tableBody}>
-
-                {this.dayBoxes()}
-
+                {this.getMonthRows()}
               </tbody>
 
             </table>

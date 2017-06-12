@@ -168,11 +168,12 @@ class Titlebar extends Component {
         " " +
         getWeekDateRange(dateObj.month, dateObj.year, dateObj.week)
     } else if (this.props.calendarType === "monthview") {
+      console.log("Inside month View stuff")
       text = monthNames[dateObj.month]
     }
 
     return (
-      <Typography type="title" className={classes.dateRange} colorInherit>
+      <Typography type="title" className={classes.dateRange}>
         {text}
       </Typography>
     )
