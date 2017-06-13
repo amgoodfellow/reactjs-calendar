@@ -132,7 +132,6 @@ class MonthView extends Component {
       if (this.monthDayCounter > numDays) {
         days.push(
           <td
-            component="td"
             style={{
               fontSize: "15px",
               border: "1px solid white",
