@@ -1,9 +1,9 @@
 import React, { Component } from "react"
-import Weekview from "./Weekview"
-import Scheduleview from "./Scheduleview"
-import Titlebar from "./Titlebar"
+import Weekview from "./components/Weekview"
+import Scheduleview from "./components/Scheduleview"
+import Titlebar from "./components/Titlebar"
+import MonthView from "./components/MonthView"
 import { getWeekOfMonth } from "./utils/DateHelper"
-import MonthView from "./MonthView"
 
 class App extends Component {
   state = {

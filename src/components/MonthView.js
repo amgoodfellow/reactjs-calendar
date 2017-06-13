@@ -1,22 +1,12 @@
 import React, { Component } from "react"
-import Weekview from "./Weekview"
-import App from "./App"
-import { monthNames, dayNames, shortDayNames } from "./utils/Strings"
+import { dayNames, shortDayNames } from "./../utils/Strings"
 import { withStyles, createStyleSheet } from "material-ui/styles"
 import Typography from "material-ui/Typography"
-import List, { ListItemText, ListItem, ListContent } from "material-ui/List"
 import PropTypes from "prop-types"
-import Titlebar from "./Titlebar"
 import Paper from "material-ui/Paper"
-import Divider from "material-ui/Divider"
 import Toolbar from "material-ui/Toolbar"
-import Avatar from "material-ui/Avatar"
-import Card, { CardContent, CardHeader } from "material-ui/Card"
-import {
-  getWeeksOfMonth,
-  getWeekOfMonth,
-  getDaysInMonth
-} from "./utils/DateHelper"
+import { getWeeksOfMonth, getDaysInMonth } from "./../utils/DateHelper"
+import DayCard from "./DayCard"
 
 const styleSheet = createStyleSheet("MonthView", theme => ({
   root: {
@@ -77,7 +67,7 @@ class MonthView extends Component {
       width: window.outerWidth
     }
 
-    this.dayz = 1
+    this.monthDayCounter = 1
   }
 
   componentDidMount() {
@@ -123,7 +113,7 @@ class MonthView extends Component {
     for (let i = 0; i < wks; i++) {
       rows.push(<tr>{this.getDays(i)}</tr>)
     }
-    this.dayz = 1
+    this.monthDayCounter = 1
     return rows
   }
 
@@ -141,7 +131,7 @@ class MonthView extends Component {
     )
 
     for (let i = 0; i < 7; i++) {
-      if (this.dayz > numDays) {
+      if (this.monthDayCounter > numDays) {
         days.push(
           <td
             tabIndex="0"
@@ -155,7 +145,11 @@ class MonthView extends Component {
             }}
           />
         )
-      } else if (this.dayz === 1 && wk === 0 && first.getDay() !== i) {
+      } else if (
+        this.monthDayCounter === 1 &&
+        wk === 0 &&
+        first.getDay() !== i
+      ) {
         days.push(
           <td
             tabIndex="0"
@@ -181,10 +175,10 @@ class MonthView extends Component {
               padding: "10px"
             }}
           >
-            {this.dayz}
+            {this.monthDayCounter}
           </td>
         )
-        this.dayz++
+        this.monthDayCounter++
       }
     }
     return days
@@ -195,7 +189,7 @@ class MonthView extends Component {
 
     for (let i = 0; i < 7; ++i) {
       weekDaysRow.push(
-        <td key={weekDaysRow[i]} syle={{ width: "100rem" }}>
+        <td key={weekDaysRow[i]} style={{ width: "100rem" }}>
           {" "}{shortDayNames[i]}{" "}
         </td>
       )
@@ -203,113 +197,6 @@ class MonthView extends Component {
     return weekDaysRow
   }
 
-  displayDayCards() {
-    return (
-      <List
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "500px",
-          flexFlow: "wrap",
-          overflowX: "hidden",
-          overflowY: "scroll"
-        }}
-      >
-        <ListItem>
-          <Card syle={{ width: "50%" }}>
-            <CardHeader
-              style={{ backgroundColor: "#004987", textAlign: "center" }}
-              title={"white"}
-              title={this.state.studentDetails[5][13][0].coursetitle}
-            />
-            <CardContent
-              style={{
-                textAlign: "center",
-                backgroundColor: "rgb(255,243,233)"
-              }}
-            >
-              <Typography type="body2" style={{ color: "#004987" }}>
-                Meet times
-              </Typography>
-              <Typography type="body2">
-                {this.state.studentDetails[5][13][0].starttime}{" - "}
-                {this.state.studentDetails[5][13][0].endtime}
-              </Typography>
-              <Divider />
-              <Typography type="body2" style={{ color: "#004987" }}>
-                Building room
-              </Typography>
-              <Typography type="body1">
-                {this.state.studentDetails[5][13][0].buildingroom}
-              </Typography>
-            </CardContent>
-          </Card>
-        </ListItem>
-        <ListItem>
-          <Card syle={{ width: "50%" }}>
-            <CardContent
-              style={{
-                textAlign: "center",
-                backgroundColor: "rgb(255,243,233)"
-              }}
-            >
-              <Typography type="title" style={{ color: "#004987" }}>
-                {this.state.studentDetails[5][13][0].coursetitle}
-              </Typography>
-
-              <Divider />
-              <Typography type="body2" style={{ color: "#004987" }}>
-                Meet times
-              </Typography>
-              <Typography type="body2">
-                {this.state.studentDetails[5][13][0].starttime}{" - "}
-                {this.state.studentDetails[5][13][0].endtime}
-              </Typography>
-              <Divider />
-              <Typography type="body2" style={{ color: "#004987" }}>
-                Building room
-              </Typography>
-              <Typography type="body1">
-                {this.state.studentDetails[5][13][0].buildingroom}
-              </Typography>
-            </CardContent>
-          </Card>
-        </ListItem>
-        <ListItem>
-          <Card syle={{ width: "50%" }}>
-            <CardContent
-              style={{
-                textAlign: "center",
-                backgroundColor: "rgb(255,243,233)"
-              }}
-            >
-              <Typography type="title" style={{ color: "#004987" }}>
-                {this.state.studentDetails[5][13][0].coursetitle}
-              </Typography>
-
-              <Divider />
-              <Typography type="body2" style={{ color: "#004987" }}>
-                Meet times
-              </Typography>
-              <Typography type="body2">
-                {this.state.studentDetails[5][13][0].starttime}{" - "}
-                {this.state.studentDetails[5][13][0].endtime}
-              </Typography>
-              <Divider />
-              <Typography type="body2" style={{ color: "#004987" }}>
-                Building room
-              </Typography>
-              <Typography type="body1">
-                {this.state.studentDetails[5][13][0].buildingroom}
-              </Typography>
-            </CardContent>
-          </Card>
-        </ListItem>
-      </List>
-    )
-  }
   render() {
     if (this.state.studentDetails === null) return <div />
     else {
@@ -323,7 +210,7 @@ class MonthView extends Component {
 
               </Typography>
             </Toolbar>
-            {this.displayDayCards()}
+            <DayCard studentDetails={this.state.studentDetails} />
           </div>
 
           <div className={classes.monthDiv}>

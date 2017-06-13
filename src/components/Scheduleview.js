@@ -1,9 +1,8 @@
 import React, { Component } from "react"
-import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card"
+import Card, { CardContent } from "material-ui/Card"
 import Typography from "material-ui/Typography"
-import Button from "material-ui/Button"
-import { dayNames } from "./utils/Strings"
-import List, { ListItem, ListItemIcon, ListItemText } from "material-ui/List"
+import { dayNames } from "./../utils/Strings"
+import List, { ListItem } from "material-ui/List"
 import Divider from "material-ui/Divider"
 
 class Scheduleview extends Component {
