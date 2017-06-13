@@ -11,10 +11,22 @@ class App extends Component {
     currentDateRange: null,
     calendarType: "weekview",
     theme: "oakland",
-    url: null
+    url: null,
+    width: document.getElementById('root').clientWidth,
+    mobile: false,
+  }
+  
+  updateWidth = () => {
+    this.setState({width: document.getElementById('root').clientWidth})
+    if (this.state.width < 768){
+      this.setState({mobile: true})
+    }else{
+      this.setState({mobile: false})
+    }
   }
 
   componentDidMount() {
+    window.addEventListener("resize", this.updateWidth)
     fetch("http://localhost:8082/api/terms")
       .then(response => {
         return response.json()
@@ -39,6 +51,11 @@ class App extends Component {
       day: d.getDate()
     }
     this.setState({ currentDateRange: obj })
+  }
+
+  componentWillUnmount() {
+    console.log("removed")
+    window.removeEventListener("resize", this.updateWidth)
   }
 
   changeCalendarView = view => {

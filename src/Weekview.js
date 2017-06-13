@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { prettyHours, dayNames } from "./utils/Strings"
+import { prettyHours, dayNames, shortDayNames } from "./utils/Strings"
 
 const columnStyle = {
   width: "14%",
@@ -50,6 +50,10 @@ const weekCol = (meetings) => {
 }
 
 class Weekview extends Component {
+  getDayNames = () => {
+    
+  }
+
   render() {
     console.log(this.props.meetings)
     return (
