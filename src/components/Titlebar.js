@@ -9,12 +9,12 @@ import PropTypes from "prop-types"
 import AppBar from "material-ui/AppBar"
 import Toolbar from "material-ui/Toolbar"
 import Typography from "material-ui/Typography"
-import { monthNames } from "./utils/Strings"
+import { monthNames } from "./../utils/Strings"
 import {
   getWeekDateRange,
   getWeekOfMonth,
   getWeeksOfMonth
-} from "./utils/DateHelper"
+} from "./../utils/DateHelper"
 
 const styleSheet = createStyleSheet("SimpleAppBar", theme => ({
   root: {
@@ -104,6 +104,10 @@ class Titlebar extends Component {
 
           break
         }
+        break
+      default:
+        console.warn("default")
+        return
     }
   }
 
@@ -155,6 +159,10 @@ class Titlebar extends Component {
 
           break
         }
+        break
+      default:
+        console.warn("default")
+        return
     }
   }
 
@@ -172,7 +180,7 @@ class Titlebar extends Component {
     }
 
     return (
-      <Typography type="title" className={classes.dateRange} colorInherit>
+      <Typography type="title" className={classes.dateRange}>
         {text}
       </Typography>
     )

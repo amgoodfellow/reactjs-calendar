@@ -1,20 +1,33 @@
 import React, { Component } from "react"
-import Weekview from "./Weekview"
-import Scheduleview from "./Scheduleview"
-import Titlebar from "./Titlebar"
+import Weekview from "./components/Weekview"
+import Scheduleview from "./components/Scheduleview"
+import Titlebar from "./components/Titlebar"
+import MonthView from "./components/MonthView"
 import { getWeekOfMonth } from "./utils/DateHelper"
 
 class App extends Component {
   state = {
-    meetings: null,
+    calendar: null,
     termBounds: null,
     currentDateRange: null,
     calendarType: "weekview",
     theme: "oakland",
-    url: null
+    url: null,
+    width: document.getElementById("root").clientWidth,
+    mobile: false
+  }
+
+  updateWidth = () => {
+    this.setState({ width: document.getElementById("root").clientWidth })
+    if (this.state.width < 768) {
+      this.setState({ mobile: true })
+    } else {
+      this.setState({ mobile: false })
+    }
   }
 
   componentDidMount() {
+    window.addEventListener("resize", this.updateWidth)
     fetch("http://localhost:8082/api/terms")
       .then(response => {
         return response.json()
@@ -28,7 +41,7 @@ class App extends Component {
         return response.json()
       })
       .then(data => {
-        this.setState({ meetings: data })
+        this.setState({ calendar: data })
       })
 
     let d = new Date()
@@ -39,6 +52,11 @@ class App extends Component {
       day: d.getDate()
     }
     this.setState({ currentDateRange: obj })
+  }
+
+  componentWillUnmount() {
+    console.log("removed")
+    window.removeEventListener("resize", this.updateWidth)
   }
 
   changeCalendarView = view => {
@@ -60,21 +78,22 @@ class App extends Component {
     switch (this.state.calendarType) {
       case "weekview":
         return <Weekview />
-        break
       case "monthview":
-        return <div />
-        break
+        return (
+          <MonthView
+            calendar={this.state.calendar}
+            currentDateRange={this.state.currentDateRange}
+          />
+        )
       case "scheduleview":
         return <Scheduleview />
-        break
       default:
         return <Weekview />
-        break
     }
   }
 
   render() {
-    if (this.state.meetings === null || this.state.meetings === undefined) {
+    if (this.state.calendar === null || this.state.calendar === undefined) {
       return <div>boom</div>
     }
     return (
@@ -82,12 +101,12 @@ class App extends Component {
         <Titlebar
           currentDateRange={this.state.currentDateRange}
           termBounds={this.state.termBounds}
-          courses={this.state.courses}
+          calendar={this.state.calendar}
           calendarType={this.state.calendarType}
           changeCalendarView={this.changeCalendarView}
           changeDateRange={this.changeDateRange}
         />
-        <Scheduleview/> 
+        {this.chooseCalendarType()}
       </div>
     )
   }

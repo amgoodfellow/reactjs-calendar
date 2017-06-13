@@ -1,10 +1,8 @@
 import React, { Component } from "react"
-import Card, { CardActions, CardContent, CardMedia, CardHeader } from "material-ui/Card"
+import Card, { CardHeader, CardContent } from "material-ui/Card"
 import Typography from "material-ui/Typography"
-import Button from "material-ui/Button"
-import { dayNames } from "./utils/Strings"
-import List, { ListItem, ListItemIcon, ListItemText } from "material-ui/List"
-import Divider from "material-ui/Divider"
+import { dayNames } from "./../utils/Strings"
+import List, { ListItem } from "material-ui/List"
 
 class Scheduleview extends Component {
   generateDayCards() {
@@ -28,10 +26,10 @@ class DayCard extends Component {
   render() {
     return (
       <div>
-        <Card style={{ marginTop: 9, backgroundColor: '#fafafa' }}>
+        <Card style={{ marginTop: 9, backgroundColor: "#fafafa" }}>
           <CardHeader
             title={this.props.dayName}
-            style={{backgroundColor: '#b89f74'}}
+            style={{ backgroundColor: "#b89f74" }}
           />
           <CardContent style={{ paddingBottom: 0, paddingTop: 0 }}>
             <Typography component="div">

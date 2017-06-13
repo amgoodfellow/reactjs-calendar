@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { prettyHours, dayNames } from "./utils/Strings"
+import { prettyHours, dayNames } from "./../utils/Strings"
 
 const columnStyle = {
   width: "14%",
