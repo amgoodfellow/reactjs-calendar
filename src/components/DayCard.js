@@ -74,7 +74,7 @@ class DayCard extends Component {
           <Card>
             <CardHeader
               style={{ backgroundColor: "#004987", textAlign: "center" }}
-              title={this.props.studentDetails[5][13][0].coursetitle}
+              title={this.props.events[5][13][0].coursetitle}
             />
             <CardContent
               style={{
@@ -86,15 +86,15 @@ class DayCard extends Component {
                 Meet times
               </Typography>
               <Typography type="body2">
-                {this.props.studentDetails[5][13][0].starttime}{" - "}
-                {this.props.studentDetails[5][13][0].endtime}
+                {this.props.events[5][13][0].starttime}{" - "}
+                {this.props.events[5][13][0].endtime}
               </Typography>
               <Divider />
               <Typography type="body2" style={{ color: "#004987" }}>
                 Building room
               </Typography>
               <Typography type="body1">
-                {this.props.studentDetails[5][13][0].buildingroom}
+                {this.props.events[5][13][0].buildingroom}
               </Typography>
             </CardContent>
           </Card>
@@ -108,7 +108,7 @@ class DayCard extends Component {
               }}
             >
               <Typography type="title" style={{ color: "#004987" }}>
-                {this.props.studentDetails[5][13][0].coursetitle}
+                {this.props.events[5][13][0].coursetitle}
               </Typography>
 
               <Divider />
@@ -116,15 +116,15 @@ class DayCard extends Component {
                 Meet times
               </Typography>
               <Typography type="body2">
-                {this.props.studentDetails[5][13][0].starttime}{" - "}
-                {this.props.studentDetails[5][13][0].endtime}
+                {this.props.events[5][13][0].starttime}{" - "}
+                {this.props.events[5][13][0].endtime}
               </Typography>
               <Divider />
               <Typography type="body2" style={{ color: "#004987" }}>
                 Building room
               </Typography>
               <Typography type="body1">
-                {this.props.studentDetails[5][13][0].buildingroom}
+                {this.props.events[5][13][0].buildingroom}
               </Typography>
             </CardContent>
           </Card>
@@ -138,7 +138,7 @@ class DayCard extends Component {
               }}
             >
               <Typography type="title" style={{ color: "#004987" }}>
-                {this.props.studentDetails[5][13][0].coursetitle}
+                {this.props.events[5][13][0].coursetitle}
               </Typography>
 
               <Divider />
@@ -146,15 +146,15 @@ class DayCard extends Component {
                 Meet times
               </Typography>
               <Typography type="body2">
-                {this.props.studentDetails[5][13][0].starttime}{" - "}
-                {this.props.studentDetails[5][13][0].endtime}
+                {this.props.events[5][13][0].starttime}{" - "}
+                {this.props.events[5][13][0].endtime}
               </Typography>
               <Divider />
               <Typography type="body2" style={{ color: "#004987" }}>
                 Building room
               </Typography>
               <Typography type="body1">
-                {this.props.studentDetails[5][13][0].buildingroom}
+                {this.props.events[5][13][0].buildingroom}
               </Typography>
             </CardContent>
           </Card>

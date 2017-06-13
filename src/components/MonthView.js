@@ -7,6 +7,7 @@ import Paper from "material-ui/Paper"
 import Toolbar from "material-ui/Toolbar"
 import { getWeeksOfMonth, getDaysInMonth } from "./../utils/DateHelper"
 import DayCard from "./DayCard"
+import { getEvents } from "./../api/api"
 
 const styleSheet = createStyleSheet("MonthView", theme => ({
   root: {
@@ -39,12 +40,13 @@ const styleSheet = createStyleSheet("MonthView", theme => ({
     borderTop: "hidden",
     borderLeft: "hidden",
     borderRight: "hidden",
-    borderCollapse: "collapse"
+    borderCollapse: "collapse",
+    height: "100%"
   },
   tableHead: {
     border: "1px solid rgba(0, 0, 0, 0.075)",
-    backgroundColor: "#004987",
-    color: "#FFFFFF",
+    color: "#000000",
+    opacity: 0.7,
     textAlign: "center",
     fontWeight: "bold",
     borderTop: "hidden",
@@ -52,7 +54,7 @@ const styleSheet = createStyleSheet("MonthView", theme => ({
   },
   tableBody: {
     backgroundColor: "rgb(255,243,233)",
-    color: "#004987",
+    color: "#000000",
     textAlign: "left",
     verticalAlign: "top"
   }
@@ -62,24 +64,19 @@ class MonthView extends Component {
   constructor() {
     super()
     this.state = {
-      studentDetails: null,
-      open: false,
-      width: window.outerWidth
+      width: window.outerWidth,
+      currentDay: null,
+      events: null
     }
-
     this.monthDayCounter = 1
   }
 
   componentDidMount() {
-    fetch("http://localhost:8082/api/calendar")
-      .then(response => {
-        return response.json()
-      })
-      .then(data => {
-        console.log(data)
-        this.setState({ studentDetails: data })
-      })
+    getEvents().then(events => {
+      this.setState({ events })
+    })
   }
+
   componentWillMount() {
     window.addEventListener("resize", this.changeView)
   }
@@ -89,7 +86,7 @@ class MonthView extends Component {
   }
 
   toWeekName() {
-    let date = new Date("1 July 2017")
+    let date = new Date()
     let day = date.getDay()
     for (let i = 0; i < 7; ++i) {
       if (day === i) {
@@ -130,18 +127,17 @@ class MonthView extends Component {
       1
     )
 
+    let today = new Date()
     for (let i = 0; i < 7; i++) {
       if (this.monthDayCounter > numDays) {
         days.push(
           <td
-            tabIndex="0"
+            component="td"
             style={{
               fontSize: "15px",
-              width: 70,
-              height: 82,
               border: "1px solid white",
               padding: "10px",
-              backgroundColor: "lightgrey"
+              backgroundColor: "#E0E0E0"
             }}
           />
         )
@@ -152,32 +148,56 @@ class MonthView extends Component {
       ) {
         days.push(
           <td
-            tabIndex="0"
             style={{
               fontSize: "15px",
-              width: 70,
-              height: 82,
               border: "1px solid white",
               padding: "10px",
-              backgroundColor: "lightgrey"
+              backgroundColor: "#E0E0E0"
             }}
           />
         )
       } else {
-        days.push(
-          <td
-            tabIndex="0"
-            style={{
-              fontSize: "15px",
-              width: "70px",
-              height: "79px",
-              border: "1px solid white",
-              padding: "10px"
-            }}
-          >
-            {this.monthDayCounter}
-          </td>
-        )
+        if (
+          this.props.currentDateRange.year === today.getFullYear() &&
+          this.props.currentDateRange.month === today.getMonth() &&
+          this.monthDayCounter === today.getDate()
+        ) {
+          days.push(
+            <td
+              style={{
+                fontSize: "15px",
+                fontWeight: "bold",
+                color: "#000000",
+                border: "1px solid white",
+                padding: "10px",
+                backgroundColor: "rgba(86,162,234, 0.5)"
+              }}
+            >
+              <Typography
+                type="body1"
+                component="div"
+                style={{ fontWeight: "600" }}
+              >
+                {this.monthDayCounter}
+              </Typography>
+            </td>
+          )
+        } else {
+          days.push(
+            <td
+              style={{
+                fontSize: "15px",
+                border: "1px solid white",
+                padding: "10px"
+              }}
+            >
+              <Typography type="body1" component="div">
+                {this.monthDayCounter}
+              </Typography>
+
+            </td>
+          )
+        }
         this.monthDayCounter++
       }
     }
@@ -190,7 +210,9 @@ class MonthView extends Component {
     for (let i = 0; i < 7; ++i) {
       weekDaysRow.push(
         <td key={weekDaysRow[i]} style={{ width: "100rem" }}>
-          {" "}{shortDayNames[i]}{" "}
+          <Typography type="body1" component="div" style={{ fontWeight: 600 }}>
+            {shortDayNames[i]}
+          </Typography>
         </td>
       )
     }
@@ -198,21 +220,20 @@ class MonthView extends Component {
   }
 
   render() {
-    if (this.state.studentDetails === null) return <div />
-    else {
+    if (this.state.events === null) {
+      return <div />
+    } else {
       const classes = this.props.classes
       return (
         <Paper className={classes.root}>
           <div className={classes.dayDiv}>
             <Toolbar className={classes.dayTitleBar}>
               <Typography type="h1">
-                {" "}{this.toWeekName()}{" "}
-
+                {this.toWeekName()}
               </Typography>
             </Toolbar>
-            <DayCard studentDetails={this.state.studentDetails} />
+            <DayCard events={this.state.events} />
           </div>
-
           <div className={classes.monthDiv}>
             <table className={classes.table}>
               <thead className={classes.tableHead}>
