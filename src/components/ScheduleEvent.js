@@ -6,18 +6,21 @@ import PropTypes from "prop-types"
 
 const styleSheet = createStyleSheet("ScheduleEvent", theme => ({
   eventPaper: {
-    marginBottom: "10px"
+    marginBottom: "10px",
+    backgroundColor: "#0074b7"
   },
 
   courseTitle: {
     padding: "5px",
-    marginLeft: "10px"
+    marginLeft: "10px",
+    color: "#FFFFFF"
   },
 
   eventBody: {
     display: "flex",
     padding: "5px",
-    marginLeft: "10px"
+    marginLeft: "10px",
+    color: "#FFFFFF"
   }
 }))
 
