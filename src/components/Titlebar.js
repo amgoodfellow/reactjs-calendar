@@ -58,7 +58,7 @@ class Titlebar extends Component {
   }
 
   paginateForward = () => {
-    //Remove the following once Kajuan helps me with stuff
+    //Remove the following once KaJuan helps me with stuff
     let termEnd = new Date(1498449600)
     console.log(termEnd)
 
@@ -170,7 +170,10 @@ class Titlebar extends Component {
     let text
     const classes = this.props.classes
     const dateObj = this.props.currentDateRange
-    if (this.props.calendarType === "weekview") {
+    if (
+      this.props.calendarType === "weekview" ||
+      this.props.calendarType === "scheduleview"
+    ) {
       text =
         monthNames[dateObj.month] +
         " " +

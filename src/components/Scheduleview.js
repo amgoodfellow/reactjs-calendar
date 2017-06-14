@@ -1,91 +1,70 @@
 import React, { Component } from "react"
-import Card, { CardHeader, CardContent } from "material-ui/Card"
 import Typography from "material-ui/Typography"
-import { dayNames } from "./../utils/Strings"
-import List, { ListItem } from "material-ui/List"
+import Paper from "material-ui/Paper"
+import { getWeekArray } from "./../utils/DateHelper"
+import ScheduleEvent from "./ScheduleEvent"
+import { withStyles, createStyleSheet } from "material-ui/styles"
+import PropTypes from "prop-types"
+
+const styleSheet = createStyleSheet("Scheduleview", theme => ({
+  dayPaper: {
+    display: "flex",
+    padding: "15px",
+    marginBottom: "5px"
+  },
+
+  date: {
+    width: "100px"
+  }
+}))
 
 class Scheduleview extends Component {
-  generateDayCards() {
-    let cardArray = []
-    for (let i = 0; i < 7; i++) {
-      cardArray.push(<DayCard dayName={dayNames[i]} key={i} />)
-    }
-    return cardArray
-  }
-
-  render() {
-    return (
-      <div>
-        {this.generateDayCards()}
-      </div>
+  generateWeek = () => {
+    const classes = this.props.classes
+    let currentDate = this.props.currentDateRange
+    let week = getWeekArray(
+      currentDate.month,
+      currentDate.year,
+      currentDate.week
     )
-  }
-}
-
-class DayCard extends Component {
-  render() {
-    return (
-      <div>
-        <Card style={{ marginTop: 9, backgroundColor: "#fafafa" }}>
-          <CardHeader
-            title={this.props.dayName}
-            style={{ backgroundColor: "#b89f74" }}
-          />
-          <CardContent style={{ paddingBottom: 0, paddingTop: 0 }}>
-            <Typography component="div">
-              <List>
-                <ListItem style={{ padding: 0 }}>
-                  <ListContent
-                    title="CSE 280"
-                    name="Sophomore Project"
-                    startTime="10:20"
-                    endTime="12:30"
-                    buildingRoom="EC 321"
-                  />
-                </ListItem>
-              </List>
+    let view = []
+    for (let i = 0; i < week.length; i++) {
+      view.push(
+        <Paper elevation={0} className={classes.dayPaper}>
+          <div className={classes.date}>
+            <Typography type="display2">
+              {week[i].day}
             </Typography>
-          </CardContent>
-        </Card>
+            <Typography type="display1">
+              {week[i].dayName}
+            </Typography>
+          </div>
+          <div style={{ flex: "1" }}>
+            {
+              <ScheduleEvent
+                day={week[i].day}
+                month={week[i].month}
+                events={this.props.events}
+              />
+            }
+          </div>
+        </Paper>
+      )
+    }
+    return view
+  }
+
+  render() {
+    return (
+      <div>
+        {this.generateWeek()}
       </div>
     )
   }
 }
 
-const ListContent = ({ title, name, startTime, endTime, buildingRoom }) => {
-  return (
-    <div
-      style={{
-        width: "100%",
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-around",
-        fontSize: 16
-      }}
-    >
-      <div>
-        <div style={{ fontSize: ".83em", fontWeight: "bold" }}>Course Code</div>
-        <p>{title}</p>
-      </div>
-      <div style={{ border: "1px solid lightgray" }} />
-      <div>
-        <div style={{ fontSize: ".83em", fontWeight: "bold" }}>Course Name</div>
-        <p>{name}</p>
-      </div>
-      <div style={{ border: "1px solid lightgray" }} />
-      <div>
-        <div style={{ fontSize: ".83em", fontWeight: "bold" }}>
-          Meeting Time
-        </div>
-        <p>{`${startTime} - ${endTime}`}</p>
-      </div>
-      <div style={{ border: "1px solid lightgray" }} />
-      <div>
-        <div style={{ fontSize: ".83em", fontWeight: "bold" }}>Location</div>
-        <p>{buildingRoom}</p>
-      </div>
-    </div>
-  )
+Scheduleview.propTypes = {
+  classes: PropTypes.object.isRequired
 }
 
-export default Scheduleview
+export default withStyles(styleSheet)(Scheduleview)

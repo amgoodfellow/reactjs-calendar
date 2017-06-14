@@ -91,7 +91,12 @@ class App extends Component {
           />
         )
       case "scheduleview":
-        return <Scheduleview />
+        return (
+          <Scheduleview
+            events={this.state.calendar}
+            currentDateRange={this.state.currentDateRange}
+          />
+        )
       default:
         return (
           <Weekview
