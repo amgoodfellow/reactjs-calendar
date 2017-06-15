@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import IconButton from "material-ui/IconButton"
 import NavigateBefore from "material-ui-icons/NavigateBefore"
 import NavigateNext from "material-ui-icons/NavigateNext"
+import CloseIcon from "material-ui-icons/Close"
 import MoreVert from "material-ui-icons/MoreVert"
 import Menu, { MenuItem } from "material-ui/Menu"
 import { withStyles, createStyleSheet } from "material-ui/styles"
@@ -296,6 +297,17 @@ class Titlebar extends Component {
             "aria-describedby": "message-id"
           }}
           message={<span id="message-id">{this.state.snackbarMessage}</span>}
+          action={
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              className={classes.close}
+              onClick={this.closeSnackbar}
+            >
+              <CloseIcon />
+            </IconButton>
+          }
         />
       </AppBar>
     )
