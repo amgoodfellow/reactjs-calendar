@@ -33,13 +33,13 @@ const styleSheet = createStyleSheet("SimpleAppBar", theme => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    color: 'white'
+    color: "white"
   },
   icons: {
     color: "white"
   },
   dateRange: {
-    color: 'inherit',
+    color: "inherit",
     width: 120
   }
 }))
@@ -60,7 +60,10 @@ class Titlebar extends Component {
   }
 
   paginateForward = () => {
-    if (Object.is(this.props.termBounds, null) || Object.is(this.props.termBounds, undefined)){
+    if (
+      Object.is(this.props.termBounds, null) ||
+      Object.is(this.props.termBounds, undefined)
+    ) {
       return
     }
     let termEnd = new Date(parseInt(this.props.termBounds[1], 10))
@@ -110,7 +113,10 @@ class Titlebar extends Component {
   }
 
   paginateBackward = () => {
-    if (Object.is(this.props.termBounds, null) || Object.is(this.props.termBounds, undefined)){
+    if (
+      Object.is(this.props.termBounds, null) ||
+      Object.is(this.props.termBounds, undefined)
+    ) {
       return
     }
     let termStart = new Date(parseInt(this.props.termBounds[0], 10))
@@ -163,28 +169,39 @@ class Titlebar extends Component {
   getDateRange = () => {
     const classes = this.props.classes
     const dateObj = this.props.currentDateRange
-    const weekDateRange = getWeekDateRange(dateObj.month, dateObj.year, dateObj.week)
+    const weekDateRange = getWeekDateRange(
+      dateObj.month,
+      dateObj.year,
+      dateObj.week
+    )
     const longMonth = longMonthNames[dateObj.month]
 
     let text
     let ariaLabel
 
     if (this.props.calendarType === "weekview") {
-      if (weekDateRange[1] === ""){
+      if (weekDateRange[1] === "") {
         text = `${monthNames[dateObj.month]} ${weekDateRange[0]}`
         ariaLabel = `${longMonth} ${weekDateRange[0]}`
-      }else{
+      } else {
         text = `${monthNames[dateObj.month]} ${weekDateRange[0]} - ${weekDateRange[1]}`
         ariaLabel = `${longMonth} ${weekDateRange[0]} to ${longMonth} ${weekDateRange[1]}`
       }
-      
-    } else if (this.props.calendarType === "monthview" || this.props.calendarType === "scheduleview") {
+    } else if (
+      this.props.calendarType === "monthview" ||
+      this.props.calendarType === "scheduleview"
+    ) {
       text = monthNames[dateObj.month]
       ariaLabel = longMonth
     }
 
     return (
-      <Typography type="title" className={classes.dateRange} aria-label={ariaLabel} tabIndex="0">
+      <Typography
+        type="title"
+        className={classes.dateRange}
+        aria-label={ariaLabel}
+        tabIndex="0"
+      >
         {text}
       </Typography>
     )
@@ -207,7 +224,7 @@ class Titlebar extends Component {
             >
               <NavigateBefore className={classes.icons} />
             </IconButton>
-              {this.getDateRange()}
+            {this.getDateRange()}
             <IconButton
               aria-label="Paginate Forward"
               onClick={this.paginateForward}
