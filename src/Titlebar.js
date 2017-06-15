@@ -7,6 +7,7 @@ import Menu, { MenuItem } from "material-ui/Menu"
 import { withStyles, createStyleSheet } from "material-ui/styles"
 import PropTypes from "prop-types"
 import AppBar from "material-ui/AppBar"
+import Snackbar from "material-ui/Snackbar"
 import Toolbar from "material-ui/Toolbar"
 import Typography from "material-ui/Typography"
 import { monthNames, longMonthNames } from "./utils/Strings"
@@ -47,6 +48,8 @@ const styleSheet = createStyleSheet("SimpleAppBar", theme => ({
 class Titlebar extends Component {
   state = {
     anchorEl: undefined,
+    snackbar: false,
+    snackbarMessage: "",
     open: false,
     selected: ""
   }
@@ -59,6 +62,21 @@ class Titlebar extends Component {
     this.setState({ open: false })
   }
 
+  openSnackbar = message => {
+    this.setState({ snackbar: true, snackbarMessage: message })
+    if (Object.is(document.getElementById("calendar-alert-snackbar"), null)) {
+      setTimeout(() => {
+        document.getElementById("calendar-alert-snackbar").focus()
+      }, 50)
+    } else {
+      document.getElementById("calendar-alert-snackbar").focus()
+    }
+  }
+
+  closeSnackbar = () => {
+    this.setState({ snackbar: false })
+  }
+
   paginateForward = () => {
     if (
       Object.is(this.props.termBounds, null) ||
@@ -66,7 +84,7 @@ class Titlebar extends Component {
     ) {
       return
     }
-    let termEnd = new Date(parseInt(this.props.termBounds[1], 10))
+    let termEnd = new Date(this.props.termBounds[1])
 
     const endMonth = termEnd.getMonth()
     const endYear = termEnd.getFullYear()
@@ -78,7 +96,7 @@ class Titlebar extends Component {
       case "monthview":
       case "scheduleview":
         if (dateObj.month === endMonth) {
-          alert("end of term reached")
+          this.openSnackbar("End of term reached")
           return
         }
         if (dateObj.month === 11) {
@@ -95,7 +113,7 @@ class Titlebar extends Component {
       case "weekview":
       default:
         if (dateObj.month === endMonth && dateObj.week === endWeek) {
-          alert("end of term reached")
+          this.openSnackbar("End of term reached")
         } else {
           let dayOfMonth = new Date(dateObj.year, dateObj.month, dateObj.day)
           if (getWeeksOfMonth(dayOfMonth) === dateObj.week) {
@@ -119,7 +137,7 @@ class Titlebar extends Component {
     ) {
       return
     }
-    let termStart = new Date(parseInt(this.props.termBounds[0], 10))
+    let termStart = new Date(this.props.termBounds[0])
 
     const startMonth = termStart.getMonth()
     const startYear = termStart.getFullYear()
@@ -131,7 +149,7 @@ class Titlebar extends Component {
       case "monthview":
       case "scheduleview":
         if (dateObj.month === startMonth) {
-          alert("start of term reached")
+          this.openSnackbar("Start of term reached")
           return
         }
         if (dateObj.year === 0) {
@@ -148,7 +166,7 @@ class Titlebar extends Component {
       case "weekview":
       default:
         if (dateObj.month === startMonth && dateObj.week === startWeek) {
-          alert("start of term reached")
+          this.openSnackbar("Start of term reached")
         } else {
           let dayOfMonth = new Date(dateObj.year, dateObj.month, dateObj.day)
           if (dateObj.week === 1) {
@@ -213,6 +231,11 @@ class Titlebar extends Component {
   }
 
   render() {
+    // if (Object.is(document.getElementById("calendar-alert-snackbar"), null)){
+    // }else{
+    //   document.getElementById("calendar-alert-snackbar").focus();
+    // }
+
     const classes = this.props.classes
     return (
       <AppBar className={classes.appBar}>
@@ -259,6 +282,21 @@ class Titlebar extends Component {
             <MenuItem onClick={this.handleRequestClose}>Download ICal</MenuItem>
           </Menu>
         </Toolbar>
+        <Snackbar
+          id="calendar-alert-snackbar"
+          tabIndex="0"
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "center"
+          }}
+          open={this.state.snackbar}
+          autoHideDuration={6e3}
+          onRequestClose={this.closeSnackbar}
+          contentProps={{
+            "aria-describedby": "message-id"
+          }}
+          message={<span id="message-id">{this.state.snackbarMessage}</span>}
+        />
       </AppBar>
     )
   }
