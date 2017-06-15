@@ -103,4 +103,18 @@ const getWeekArray = (month, year, weekNumber) => {
     return weekArray
 }
 
-export { getWeekOfMonth, getWeeksOfMonth, getWeekDateRange, getStartOfWeek, getWeekArray }
+const getMilitaryTime = (timeString) => {
+  const splitArray = timeString.split(":")
+  let hours = parseInt(splitArray[0])
+  const minutes = splitArray[1].substring(0, 2)
+  let afternoon = false
+
+  if (splitArray[1].substring(2, 3) == "p"){
+    afternoon = true
+    hours += 12
+  }
+  return ({hours: hours, minutes: minutes})
+  
+}
+
+export { getWeekOfMonth, getWeeksOfMonth, getWeekDateRange, getStartOfWeek, getWeekArray, getMilitaryTime }
