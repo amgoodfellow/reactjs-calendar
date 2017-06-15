@@ -1,4 +1,4 @@
-import { shortDayNames } from "./Strings"
+import { dayNames, shortDayNames } from "./Strings"
 //Takes a Date object
 //Returns an integer number representing the number of weeks
 //of a month
@@ -84,12 +84,14 @@ const getWeekArray = (month, year, weekNumber) => {
         weekArray[i] = {
           month: month - 1,
           day: firstDay + i,
+          dayNameFull: dayNames[i],
           dayName: shortDayNames[i]
         }
       } else {
         weekArray[i] = {
           month: month,
           day: 1 + (i - startDay),
+          dayNameFull: dayNames[i],
           dayName: shortDayNames[i]
         }
       }
@@ -103,12 +105,14 @@ const getWeekArray = (month, year, weekNumber) => {
         weekArray[i] = {
           month: month,
           day: firstDay + i,
+          dayNameFull: dayNames[i],
           dayName: shortDayNames[i]
         }
       } else {
         weekArray[i] = {
           month: month + 1,
           day: endDay - (i - daysInMonth.getDay()),
+          dayNameFull: dayNames[i],
           dayName: shortDayNames[i]
         }
       }
@@ -119,6 +123,7 @@ const getWeekArray = (month, year, weekNumber) => {
       weekArray[i] = {
         month: month,
         day: firstDay + i,
+        dayNameFull: dayNames[i],
         dayName: shortDayNames[i]
       }
     }

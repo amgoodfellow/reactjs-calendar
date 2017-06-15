@@ -32,11 +32,15 @@ class Scheduleview extends Component {
     for (let i = 0; i < week.length; i++) {
       view.push(
         <Paper elevation={0} className={classes.dayPaper}>
-          <div className={classes.date}>
-            <Typography type="display2">
+          <div
+            className={classes.date}
+            tabIndex="0"
+            aria-label={week[i].day + " " + week[i].dayNameFull}
+          >
+            <Typography type="display2" aria-hidden="true">
               {week[i].day}
             </Typography>
-            <Typography type="display1">
+            <Typography type="display1" aria-hidden="true">
               {week[i].dayName}
             </Typography>
           </div>

@@ -35,17 +35,17 @@ class ScheduleEvent extends Component {
       if (this.props.events[month][day] !== undefined) {
         for (let i = 0; i < this.props.events[month][day].length; i++) {
           meetings.push(
-            <Paper elevation={1} className={classes.eventPaper}>
+            <Paper elevation={1} className={classes.eventPaper} tabIndex="0">
               <Typography type="title" className={classes.courseTitle}>
                 {this.props.events[month][day][i].courseman}
+              </Typography>
+              <Typography type="body1" className={classes.eventBody}>
+                {this.props.events[month][day][i].coursetitle}
               </Typography>
               <Typography type="body1" className={classes.eventBody}>
                 {this.props.events[month][day][i].starttime +
                   " -  " +
                   this.props.events[month][day][i].endtime}
-              </Typography>
-              <Typography type="body1" className={classes.eventBody}>
-                {this.props.events[month][day][i].coursetitle}
               </Typography>
             </Paper>
           )
