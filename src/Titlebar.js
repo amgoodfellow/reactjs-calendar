@@ -32,12 +32,14 @@ const styleSheet = createStyleSheet("SimpleAppBar", theme => ({
   paginator: {
     display: "flex",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    color: 'white'
   },
   icons: {
     color: "white"
   },
   dateRange: {
+    color: 'inherit',
     width: 120
   }
 }))
@@ -58,8 +60,7 @@ class Titlebar extends Component {
   }
 
   paginateForward = () => {
-    //Remove the following once Kajuan helps me with stuff
-    let termEnd = new Date(1498449600)
+    let termEnd = new Date(this.props.termBounds[1])
     console.log(termEnd)
 
     const endMonth = termEnd.getMonth()
@@ -89,7 +90,10 @@ class Titlebar extends Component {
 
       case "weekview":
       case "scheduleview":
+      default:
         if (dateObj.month === endMonth && dateObj.week === endWeek) {
+          console.log(dateObj)
+          console.log(termEnd)
           alert("end of term reached")
         } else {
           let dayOfMonth = new Date(dateObj.year, dateObj.month, dateObj.day)
@@ -108,9 +112,7 @@ class Titlebar extends Component {
   }
 
   paginateBackward = () => {
-    //Remove the following once Kajuan helps me with stuff
-    let termStart = new Date(1433333600)
-    console.log(termStart)
+    let termStart = new Date(this.props.termBounds[0])
 
     const startMonth = termStart.getMonth()
     const startYear = termStart.getFullYear()
@@ -139,6 +141,7 @@ class Titlebar extends Component {
 
       case "weekview":
       case "scheduleview":
+      default:
         if (dateObj.month === startMonth && dateObj.week === startWeek) {
           alert("start of term reached")
         } else {
@@ -172,7 +175,7 @@ class Titlebar extends Component {
     }
 
     return (
-      <Typography type="title" className={classes.dateRange} colorInherit>
+      <Typography type="title" className={classes.dateRange}>
         {text}
       </Typography>
     )
@@ -184,6 +187,7 @@ class Titlebar extends Component {
   }
 
   render() {
+    console.log(this.props.termBounds)
     const classes = this.props.classes
     return (
       <AppBar className={classes.appBar}>
