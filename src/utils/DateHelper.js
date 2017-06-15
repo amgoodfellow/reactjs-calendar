@@ -36,9 +36,9 @@ const getWeekDateRange = (month, year, weekNumber) => {
   }
 
   if (firstNum === endNum) {
-    return firstNum
+    return [firstNum, ""]
   }
-  return firstNum + " - " + endNum
+  return [firstNum, endNum]
 }
 
 export { getWeekOfMonth, getWeeksOfMonth, getWeekDateRange }
