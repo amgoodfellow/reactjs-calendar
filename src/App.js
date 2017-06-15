@@ -12,16 +12,16 @@ class App extends Component {
     calendarType: "weekview",
     theme: "oakland",
     url: null,
-    width: document.getElementById('root').clientWidth,
-    mobile: false,
+    width: document.getElementById("root").clientWidth,
+    mobile: false
   }
-  
+
   updateWidth = () => {
-    this.setState({width: document.getElementById('root').clientWidth})
-    if (this.state.width < 768){
-      this.setState({mobile: true})
-    }else{
-      this.setState({mobile: false})
+    this.setState({ width: document.getElementById("root").clientWidth })
+    if (this.state.width < 768) {
+      this.setState({ mobile: true })
+    } else {
+      this.setState({ mobile: false })
     }
   }
 
@@ -76,13 +76,18 @@ class App extends Component {
   chooseCalendarType = () => {
     switch (this.state.calendarType) {
       case "weekview":
-        return <Weekview meetings={this.state.meetings} currentDateRange={this.state.currentDateRange}/>
+        return (
+          <Weekview
+            meetings={this.state.meetings}
+            currentDateRange={this.state.currentDateRange}
+          />
+        )
       case "monthview":
         return <div />
       case "scheduleview":
         return <Scheduleview />
       default:
-        return <Weekview currentDateRange={this.state.currentDateRange}/>
+        return <Weekview currentDateRange={this.state.currentDateRange} />
     }
   }
 

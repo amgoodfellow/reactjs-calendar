@@ -16,7 +16,6 @@ const getWeekOfMonth = (year, month, day) => {
   return Math.floor(offsetDate / 7) + 1
 }
 
-
 const getWeekDateRange = (month, year, weekNumber) => {
   const day = new Date(year, month, 1)
   const weeksOfMonth = getWeeksOfMonth(day)
@@ -42,7 +41,6 @@ const getWeekDateRange = (month, year, weekNumber) => {
   return firstNum + " - " + endNum
 }
 
-
 const getStartOfWeek = (month, year, weekNumber) => {
   const day = new Date(year, month, 1)
   const weeksOfMonth = getWeeksOfMonth(day)
@@ -59,9 +57,8 @@ const getStartOfWeek = (month, year, weekNumber) => {
     firstNum = 7 * (weekNumber - 1) - startDay + 1
   }
 
-  return firstNum 
+  return firstNum
 }
-
 
 const getWeekArray = (month, year, weekNumber) => {
   const daysInMonth = new Date(year, month + 1, 0)
@@ -72,49 +69,58 @@ const getWeekArray = (month, year, weekNumber) => {
   let firstDay, endDay
   let weekArray = []
 
-    if (weekNumber === 1){
-      endDay = 7 - startDay 
-      firstDay = lastMonth.getDate() + 1 - startDay
-      
-      for (let i = 0; i < 7; i++){
-        if (i < startDay){
-          weekArray[i] = {month: (month - 1), day: (firstDay + i)}
-        }else{
-          weekArray[i] = {month: month, day: (1 + (i - startDay))}
-        }
-      }
-    }else if (weekNumber === weeksOfMonth){
-      firstDay = 7 * (weeksOfMonth - 2) + (7 - startDay) + 1
-      endDay = 7 - daysInMonth.getDay()
+  if (weekNumber === 1) {
+    endDay = 7 - startDay
+    firstDay = lastMonth.getDate() + 1 - startDay
 
-      for (let i = 0; i < 7; i++){
-        if (i <= daysInMonth.getDay()){
-          weekArray[i] = {month: (month), day: (firstDay + i)}
-        }else{
-          weekArray[i] = {month: (month + 1), day: (endDay - (i - daysInMonth.getDay()))}
-        }
-      }
-    }else{
-      firstDay = 7 * (weekNumber - 1) - startDay + 1
-      for (let i = 0; i < 7; i++){
-        weekArray[i] = {month: (month), day: (firstDay + i)}
+    for (let i = 0; i < 7; i++) {
+      if (i < startDay) {
+        weekArray[i] = { month: month - 1, day: firstDay + i }
+      } else {
+        weekArray[i] = { month: month, day: 1 + (i - startDay) }
       }
     }
-    return weekArray
+  } else if (weekNumber === weeksOfMonth) {
+    firstDay = 7 * (weeksOfMonth - 2) + (7 - startDay) + 1
+    endDay = 7 - daysInMonth.getDay()
+
+    for (let i = 0; i < 7; i++) {
+      if (i <= daysInMonth.getDay()) {
+        weekArray[i] = { month: month, day: firstDay + i }
+      } else {
+        weekArray[i] = {
+          month: month + 1,
+          day: endDay - (i - daysInMonth.getDay())
+        }
+      }
+    }
+  } else {
+    firstDay = 7 * (weekNumber - 1) - startDay + 1
+    for (let i = 0; i < 7; i++) {
+      weekArray[i] = { month: month, day: firstDay + i }
+    }
+  }
+  return weekArray
 }
 
-const getMilitaryTime = (timeString) => {
+const getMilitaryTime = timeString => {
   const splitArray = timeString.split(":")
   let hours = parseInt(splitArray[0])
   const minutes = splitArray[1].substring(0, 2)
   let afternoon = false
 
-  if (splitArray[1].substring(2, 3) == "p"){
+  if (splitArray[1].substring(2, 3) == "p") {
     afternoon = true
     hours += 12
   }
-  return ({hours: hours, minutes: minutes})
-  
+  return { hours: hours, minutes: minutes }
 }
 
-export { getWeekOfMonth, getWeeksOfMonth, getWeekDateRange, getStartOfWeek, getWeekArray, getMilitaryTime }
+export {
+  getWeekOfMonth,
+  getWeeksOfMonth,
+  getWeekDateRange,
+  getStartOfWeek,
+  getWeekArray,
+  getMilitaryTime
+}

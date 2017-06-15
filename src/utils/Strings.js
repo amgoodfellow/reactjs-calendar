@@ -8,15 +8,7 @@ export const dayNames = [
   "Saturday"
 ]
 
-export const shortDayNames = [
-  "Sun",
-  "Mon",
-  "Tue",
-  "Wed",
-  "Thu",
-  "Fri",
-  "Sat"
-]
+export const shortDayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 
 export const monthNames = [
   "Jan",
@@ -52,4 +44,3 @@ export const prettyHours = [
   "10pm",
   "11pm"
 ]
-
