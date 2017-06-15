@@ -299,6 +299,7 @@ class Titlebar extends Component {
           message={<span id="message-id">{this.state.snackbarMessage}</span>}
           action={
             <IconButton
+              tabIndex="0"
               key="close"
               aria-label="Close"
               color="inherit"
