@@ -64,39 +64,57 @@ class MonthView extends Component {
   constructor() {
     super()
     this.state = {
-      width: window.outerWidth,
-      currentDay: null,
-      events: null
+      selectedDay: new Date().getDate(),
+      selectedWeekDay: new Date().getDay(),
     }
     this.monthDayCounter = 1
   }
 
-  componentDidMount() {
-    getEvents().then(events => {
-      this.setState({ events })
-    })
+  handleSelect(day, weekDay){
+   this.setState({selectedDay: day, selectedWeekDay: weekDay})   
   }
-
-  componentWillMount() {
-    window.addEventListener("resize", this.changeView)
-  }
-
-  changeView = () => {
-    this.setState({ width: window.outerWidth })
-  }
-
+ 
   toWeekName() {
-    let date = new Date()
-    let day = date.getDay()
-    for (let i = 0; i < 7; ++i) {
-      if (day === i) {
-        if (this.state.width < 746) {
-          day = shortDayNames[i]
-        } else day = dayNames[i]
+    let today = new Date()
+    let first = new Date(
+      this.props.currentDateRange.year,
+      this.props.currentDateRange.month,
+      1
+    )
+    let dateObj = this.props.currentDateRange
+    let day = this.props.currentDateRange.day
+    let todayWeekDay =  today.getDay()
+    let month = this.props.currentDateRange.month
+    let year = this.props.currentDateRange.year
+if ( year === today.getFullYear() &&
+     month === today.getMonth() &&
+     day === today.getDate() ){
+    for( let i = 0; i < 7; ++i){
+      if( todayWeekDay === i ){
+        todayWeekDay=dayNames[i]
+      }
+    } return todayWeekDay + " " + today.getDate()
+  }
+if ( year === today.getFullYear() &&
+     month === today.getMonth() &&
+     day !== today.getDate() ){
+       todayWeekDay=day.getDay()
+       for( let i = 0; i < 7; ++i){
+      if( todayWeekDay === i ){
+        todayWeekDay=dayNames[i]
       }
     }
-    return day
-  }
+      return todayWeekDay + " " + day
+  }else{
+    today = first.getDate()
+    todayWeekDay = first.getDay()
+    for( let i = 0; i < 7; ++i){
+      if( todayWeekDay === i ){
+        todayWeekDay=dayNames[i]
+      }
+  }return todayWeekDay + " " + today
+}
+}
 
   getMonthRows = () => {
     let first = new Date(
@@ -161,9 +179,13 @@ class MonthView extends Component {
           this.props.currentDateRange.month === today.getMonth() &&
           this.monthDayCounter === today.getDate()
         ) {
+          let dateObj = this.props.currentDateRange
+          let selectWeekDay = dayNames[i]
           days.push(
             <td
-              style={{
+              tabIndex="0"              
+              onClick={() => this.props.changeDateRange(dateObj)}
+               style={{
                 fontSize: "15px",
                 fontWeight: "bold",
                 color: "#000000",
@@ -172,7 +194,7 @@ class MonthView extends Component {
                 backgroundColor: "rgba(86,162,234, 0.5)"
               }}
             >
-              <Typography
+              <Typography               
                 type="body1"
                 component="div"
                 style={{ fontWeight: "600" }}
@@ -182,8 +204,12 @@ class MonthView extends Component {
             </td>
           )
         } else {
+          let dateObj = this.props.currentDateRange
+          let selectWeekDay = dayNames[i]
           days.push(
             <td
+              tabIndex="0"
+              onClick={() => this.props.changeDateRange(dateObj)}             
               style={{
                 fontSize: "15px",
                 border: "1px solid white",
@@ -219,7 +245,7 @@ class MonthView extends Component {
   }
 
   render() {
-    if (this.state.events === null) {
+    if (this.props.calendar === null) {
       return <div />
     } else {
       const classes = this.props.classes
@@ -231,7 +257,8 @@ class MonthView extends Component {
                 {this.toWeekName()}
               </Typography>
             </Toolbar>
-            <DayCard events={this.state.events} />
+                
+            {console.log(this.props.currentDateRange)}
           </div>
           <div className={classes.monthDiv}>
             <table className={classes.table}>
