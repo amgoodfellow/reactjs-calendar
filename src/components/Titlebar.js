@@ -78,9 +78,11 @@ class Titlebar extends Component {
           console.log("It is December")
           dateObj.year++
           dateObj.month = 0
+          dateObj.day = 1
           this.props.changeDateRange(dateObj)
         } else {
           console.log("paginate normally")
+          dateObj.day = 1
           dateObj.month++
           this.props.changeDateRange(dateObj)
         }
@@ -131,11 +133,13 @@ class Titlebar extends Component {
         if (dateObj.year === 0) {
           console.log("It is January")
           dateObj.year--
+          dateObj.day = 1
           dateObj.month = 11
           this.props.changeDateRange(dateObj)
         } else {
           console.log("paginate normally")
           dateObj.month--
+          dateObj.day = 1
           this.props.changeDateRange(dateObj)
         }
 
