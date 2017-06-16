@@ -63,18 +63,8 @@ const styleSheet = createStyleSheet("MonthView", theme => ({
 class MonthView extends Component {
   constructor() {
     super()
-    this.state = {
-      selectedDay: new Date().getDate(),
-      selectedWeekDay: new Date().getDay(),
-    }
     this.monthDayCounter = 1
   }
-
-  handleSelect(day, weekDay){
-   this.setState({selectedDay: day, selectedWeekDay: weekDay})   
-  }
- 
-  
 
   getMonthRows = () => {
     let first = new Date(
@@ -139,12 +129,18 @@ class MonthView extends Component {
           this.props.currentDateRange.month === today.getMonth() &&
           this.monthDayCounter === today.getDate()
         ) {
-          console.log( this.monthDayCounter)
           let dateObj = this.props.currentDateRange
+          let localDay = this.monthDayCounter
+          let newDateObj = {
+            year: dateObj.year,
+            month: dateObj.month,
+            week: dateObj.week,
+            day: localDay
+          }
           days.push(
             <td
               tabIndex="0"              
-              onClick={() => this.props.changeDateRange(dateObj)}
+              onClick={() => this.props.changeDateRange(newDateObj)}
                style={{
                 fontSize: "15px",
                 fontWeight: "bold",
@@ -164,12 +160,18 @@ class MonthView extends Component {
             </td>
           )
         } else {
-          console.log( this.monthDayCounter)
           let dateObj = this.props.currentDateRange
+          let localDay = this.monthDayCounter
+          let newDateObj = {
+            year: dateObj.year,
+            month: dateObj.month,
+            week: dateObj.week,
+            day: localDay
+          }
           days.push(
             <td
               tabIndex="0"
-              onClick={() => this.props.changeDateRange(dateObj)}             
+              onClick={() => this.props.changeDateRange(newDateObj)}             
               style={{
                 fontSize: "15px",
                 border: "1px solid white",
@@ -215,10 +217,10 @@ class MonthView extends Component {
               </Typography>
             </Toolbar>
             <DayCard  calendarMeeting={this.props.calendar} 
-                      month={this.props.currentDateRange.month}
-                      day={this.props.currentDateRange.day}
-                      
+                      month={this.props.currentDateRange.month} 
+                      day={this.props.currentDateRange.day}                        
             />
+            
           </div>
           <div className={classes.monthDiv}>
             <table className={classes.table}>

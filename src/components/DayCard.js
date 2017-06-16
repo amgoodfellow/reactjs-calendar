@@ -8,7 +8,10 @@ import Divider from "material-ui/Divider"
 class DayCard extends Component {
 
   render() {
-    if(this.props.calendarMeeting !== undefined){
+    console.log("HI")
+    console.log(this.props.calendarMeeting[this.props.month][this.props.day] )                   
+
+    if(this.props.calendarMeeting[this.props.month] === undefined){
       return (
    <List
         style={{
@@ -36,11 +39,43 @@ class DayCard extends Component {
       </List>
       )
     
-  }else{
-    for( let i = 0; i < this.props.calendarMeeting[this.props.month][this.props.day].length; ++i ){
-    return (
-      
-      <List
+      } else{
+      if (this.props.calendarMeeting[this.props.month][this.props.day]===undefined){
+      return (
+   <List
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "500px",
+          flexFlow: "wrap",
+          overflowX: "hidden",
+          overflowY: "scroll"
+        }}
+      > 
+        <ListItem  
+        style={{
+                textAlign: "center",
+                backgroundColor: "rgb(255,243,233)",
+                color: "#004987" 
+              }} >
+          
+            <ListItemText type="title"
+              primary="You have no classes " 
+            />
+        </ListItem>        
+      </List>
+      )
+    
+      }
+  else{
+let card =[]
+  for( let i = 0; i < 9; ++i ){
+  if(this.props.calendarMeeting[this.props.month][this.props.day]!== undefined){
+   return ( 
+     
+   <List
         style={{
           display: "flex",
           flexDirection: "column",
@@ -59,18 +94,17 @@ class DayCard extends Component {
                 backgroundColor: "rgb(255,243,233)",
                 color: "#004987" 
               }} >
-       
-            <ListItemText
-              primary={this.props.calendarMeeting[this.props.month][this.props.day][i].coursetitle}
-              secondary={this.props.calendarMeeting[this.props.month][this.props.day][i].buildingroom}
-            />
+       <Typography> {this.props.calendarMeeting[this.props.month][this.props.day][i].coursetitle}</Typography>
+            
         </ListItem>
-      </List>
-    )
+      </List>)
+
+  }
+  }}
   }
   }
 }
-  }
+
 
 
 export default (DayCard)
