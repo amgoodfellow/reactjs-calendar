@@ -9,25 +9,15 @@ import { getWeeksOfMonth, getDaysInMonth } from "./../utils/DateHelper"
 import DayCard from "./DayCard"
 import { getEvents } from "./../api/api"
 
-const styleSheet = createStyleSheet("MonthView", theme => ({
+const styleSheet = createStyleSheet("MobileView", theme => ({
   root: {
     display: "flex",
     position: "relative",
-    height: "550px"
-  },
-  dayDiv: {
-    position: "relative",
-    width: "20%"
-  },
-  dayTitleBar: {
-    position: "relative",
-    height: "50px",
-    backgroundColor: "#004987",
-    color: "#FFFFFF",
-    fontWeight: "bold"
+    height: "100%"
+  
   },
   monthDiv: {
-    width: "80%",
+    width: "100%",
     height: "100%",
     overflow: "hidden"
   },
@@ -60,22 +50,14 @@ const styleSheet = createStyleSheet("MonthView", theme => ({
   }
 }))
 
-class MonthView extends Component {
+class MobileView extends Component {
   constructor() {
     super()
     this.state = {
-      selectedDay: new Date().getDate(),
-      selectedWeekDay: new Date().getDay(),
+      currentDay: null,
     }
     this.monthDayCounter = 1
   }
-
-  handleSelect(day, weekDay){
-   this.setState({selectedDay: day, selectedWeekDay: weekDay})   
-  }
- 
-  
-
   getMonthRows = () => {
     let first = new Date(
       this.props.currentDateRange.year,
@@ -139,13 +121,9 @@ class MonthView extends Component {
           this.props.currentDateRange.month === today.getMonth() &&
           this.monthDayCounter === today.getDate()
         ) {
-          console.log( this.monthDayCounter)
-          let dateObj = this.props.currentDateRange
           days.push(
             <td
-              tabIndex="0"              
-              onClick={() => this.props.changeDateRange(dateObj)}
-               style={{
+              style={{
                 fontSize: "15px",
                 fontWeight: "bold",
                 color: "#000000",
@@ -154,7 +132,7 @@ class MonthView extends Component {
                 backgroundColor: "rgba(86,162,234, 0.5)"
               }}
             >
-              <Typography               
+              <Typography
                 type="body1"
                 component="div"
                 style={{ fontWeight: "600" }}
@@ -164,12 +142,8 @@ class MonthView extends Component {
             </td>
           )
         } else {
-          console.log( this.monthDayCounter)
-          let dateObj = this.props.currentDateRange
           days.push(
             <td
-              tabIndex="0"
-              onClick={() => this.props.changeDateRange(dateObj)}             
               style={{
                 fontSize: "15px",
                 border: "1px solid white",
@@ -205,21 +179,12 @@ class MonthView extends Component {
   }
 
   render() {
-   {console.log(this.props.currentDateRange)}
+    if (this.props.calendar === null) {
+      return <div />
+    } else {
       const classes = this.props.classes
       return (
-        <Paper tabIndex="0" aria-label={"Month View Calendar"} className={classes.root}>
-          <div aria-label="Day schedule" className={classes.dayDiv}>
-            <Toolbar className={classes.dayTitleBar}>
-              <Typography type="title">
-              </Typography>
-            </Toolbar>
-            <DayCard  calendarMeeting={this.props.calendar} 
-                      month={this.props.currentDateRange.month}
-                      day={this.props.currentDateRange.day}
-                      
-            />
-          </div>
+        <Paper className={classes.root}>         
           <div className={classes.monthDiv}>
             <table className={classes.table}>
               <thead className={classes.tableHead}>
@@ -236,11 +201,11 @@ class MonthView extends Component {
         </Paper>
       )
     }
-  
+  }
 }
 
-MonthView.propTypes = {
+MobileView.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styleSheet)(MonthView)
+export default withStyles(styleSheet)(MobileView)
