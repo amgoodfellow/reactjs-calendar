@@ -127,7 +127,7 @@ const getDesiredHeight = (starttime, endtime) => {
   const startMinutes = startObj.minutes
   const endHour = endObj.hours
   const endMinutes = endObj.minutes
-  const minutes = Math.abs(endMinutes - startMinutes) / 60
+  const minutes = (endMinutes - startMinutes) / 60
   const hours = endHour - startHour
   return (hours + minutes) * 200
 }

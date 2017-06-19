@@ -69,59 +69,40 @@ const hourCol = () => {
   return column
 }
 
-const weekCol = meetings => {
+const newWeekCol = (meetings, day) => {
   let column = []
   for (let i = 0; i < 34; i++) {
-    //if there is a meeting happening today (the math is necessary since the weekview isn't 24 hours)
-    if (meetings !== null && meetings !== undefined) {
-      let shouldPushClass = false
-      let meetingdata = ""
-      let elemHeight
-      for (let j = 0; j < meetings.length; j++) {
-        if (getMilitaryTime(meetings[j].starttime).hours * 2 - 14 == i) {
-          shouldPushClass = true
-          meetingdata = meetings[j]
-          elemHeight = {
-            height:
-              getDesiredHeight(meetingdata.starttime, meetingdata.endtime) +
-                "%",
-            marginTop: getStartPadding(meetingdata.starttime) + "px"
-          }
-        }
+    column.push(
+      <div
+        key={day + "-" + i}
+        id={"weekCol-" + day + "-" + i}
+        style={{
+          border: "1px solid lightgrey",
+          height: "2.65%"
+        }}
+      />
+    )
+  }
+  if (!Object.is(meetings, null) && !Object.is(meetings, undefined)) {
+    for (let j = 0; j < meetings.length; j++) {
+      let colIndex = getMilitaryTime(meetings[j].starttime).hours * 2 - 14
+      let desiredHeight = getDesiredHeight(
+        meetings[j].starttime,
+        meetings[j].endtime
+      )
+      let elemHeight = {
+        height: desiredHeight.toString() + "%",
+        marginTop: getStartPadding(meetings[j].starttime) + "px"
       }
-      if (shouldPushClass === true) {
-        column.push(
-          <div
-            style={{
-              border: "1px solid lightgrey",
-              height: "2.65%"
-            }}
-          >
-            <button style={Object.assign(buttonStyles, elemHeight)}>
-              {" "}{"class"}{""}{elemHeight.marginTop}
-              {" "}
-            </button>
-            {" "}
-          </div>
-        )
-      } else {
-        column.push(
-          <div
-            style={{
-              border: "1px solid lightgrey",
-              height: "2.65%"
-            }}
-          />
-        )
-      }
-    } else {
-      column.push(
+      column[colIndex] = (
         <div
-          style={{
-            border: "1px solid lightgrey",
-            height: "2.65%"
-          }}
-        />
+          id={"weekCol-" + day + "-" + colIndex}
+          style={{ border: "1px solid lightgrey", height: "2.65%" }}
+        >
+          <button style={Object.assign({}, buttonStyles, elemHeight)}>
+            {meetings[j].coursetitle + "\n"}
+          </button>
+        </div>
       )
     }
   }
@@ -140,11 +121,12 @@ class Weekview extends Component {
     for (let i = 0; i < 7; i++) {
       let weekGrid = ""
       try {
-        weekGrid = weekCol(
-          this.props.meetings[currentDate.month][startOfWeek + i]
+        weekGrid = newWeekCol(
+          this.props.meetings[currentDate.month][startOfWeek + i],
+          i
         )
       } catch (err) {
-        weekGrid = weekCol(null)
+        weekGrid = newWeekCol(null)
       }
       weekcols.push(
         <div style={columnStyle}>
