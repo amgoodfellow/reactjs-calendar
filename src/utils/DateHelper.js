@@ -116,11 +116,43 @@ const getMilitaryTime = timeString => {
   return { hours: hours, minutes: minutes }
 }
 
+//This method is used in the day and week view components to determine
+//how far eventButtons should be extended past their half hour slot. If
+//sizing is changed in the CSS, one must make sure to reevaluate the 4.6
+//number
+const getDesiredHeight = (starttime, endtime) => {
+  const startObj = getMilitaryTime(starttime)
+  const endObj = getMilitaryTime(endtime)
+  const startHour = startObj.hours
+  const startMinutes = startObj.minutes
+  const endHour = endObj.hours
+  const endMinutes = endObj.minutes
+  const minutes = Math.abs(endMinutes - startMinutes) / 60
+  const hours = endHour - startHour
+  return (hours + minutes) * 200
+}
+
+//Similar to the getDesiredHeight() method, this method determines
+//how much a top margin the events in week and day view should have.
+//This is seen if a class starts at 2:15 or some other non half-hour time
+const getStartPadding = starttime => {
+  let startMinutes = getMilitaryTime(starttime).minutes
+  if (startMinutes > 30) {
+    startMinutes -= 30
+  } else if (startMinutes === 30) {
+    startMinutes = 0
+  }
+  startMinutes /= 30
+  return startMinutes * 27
+}
+
 export {
+  getStartPadding,
   getWeekOfMonth,
   getWeeksOfMonth,
   getWeekDateRange,
   getStartOfWeek,
   getWeekArray,
-  getMilitaryTime
+  getMilitaryTime,
+  getDesiredHeight
 }

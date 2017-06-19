@@ -1,6 +1,8 @@
 import React, { Component } from "react"
-import { prettyHours, dayNames, shortDayNames } from "./utils/Strings"
+import { prettyHours, shortDayNames } from "./utils/Strings"
 import {
+  getStartPadding,
+  getDesiredHeight,
   getStartOfWeek,
   getWeekArray,
   getMilitaryTime
@@ -39,12 +41,28 @@ const hourHeaderStyle = {
   marginRight: 1
 }
 
+const buttonStyles = {
+  backgroundColor: "#0074b7",
+  color: "white",
+  fontWeight: "bold",
+  border: "none",
+  width: "100%"
+}
+
 const hourCol = () => {
-  let column = [<div key="TopLeftCorner" style={{ height: "1.8%" }} />]
+  let column = [
+    <div
+      key="TopLeftCorner"
+      style={{
+        height: "1.8%"
+      }}
+    />
+  ]
   for (let i = 0, size = prettyHours.length; i < size; i++) {
     column.push(
       <Typography component="div" style={hourHeaderStyle} key={prettyHours[i]}>
-        {prettyHours[i]}
+        {" "}{prettyHours[i]}
+        {" "}
       </Typography>
     )
   }
@@ -58,37 +76,52 @@ const weekCol = meetings => {
     if (meetings !== null && meetings !== undefined) {
       let shouldPushClass = false
       let meetingdata = ""
+      let elemHeight
       for (let j = 0; j < meetings.length; j++) {
         if (getMilitaryTime(meetings[j].starttime).hours * 2 - 14 == i) {
           shouldPushClass = true
           meetingdata = meetings[j]
+          elemHeight = {
+            height:
+              getDesiredHeight(meetingdata.starttime, meetingdata.endtime) +
+                "%",
+            marginTop: getStartPadding(meetingdata.starttime) + "px"
+          }
         }
       }
       if (shouldPushClass === true) {
         column.push(
-          <div style={{ border: "1px solid lightgrey", height: "2.65%" }}>
-            <button
-              style={{
-                backgroundColor: "#0074b7",
-                color: "white",
-                fontWeight: "bold",
-                border: "none",
-                width: "100%",
-                height: "250%"
-              }}
-            >
-              {meetingdata.coursetitle}
+          <div
+            style={{
+              border: "1px solid lightgrey",
+              height: "2.65%"
+            }}
+          >
+            <button style={Object.assign(buttonStyles, elemHeight)}>
+              {" "}{"class"}{""}{elemHeight.marginTop}
+              {" "}
             </button>
+            {" "}
           </div>
         )
       } else {
         column.push(
-          <div style={{ border: "1px solid lightgrey", height: "2.65%" }} />
+          <div
+            style={{
+              border: "1px solid lightgrey",
+              height: "2.65%"
+            }}
+          />
         )
       }
     } else {
       column.push(
-        <div style={{ border: "1px solid lightgrey", height: "2.65%" }} />
+        <div
+          style={{
+            border: "1px solid lightgrey",
+            height: "2.65%"
+          }}
+        />
       )
     }
   }
@@ -96,8 +129,6 @@ const weekCol = meetings => {
 }
 
 class Weekview extends Component {
-  getDayNames = () => {}
-
   getWeekCol = () => {
     const currentDate = this.props.currentDateRange
     const startOfWeek = getStartOfWeek(
@@ -118,9 +149,11 @@ class Weekview extends Component {
       weekcols.push(
         <div style={columnStyle}>
           <Typography component="div" style={dayHeaderStyle}>
-            {dayNames[i]}
+            {" "}{shortDayNames[i]}
+            {" "}
           </Typography>
-          {weekGrid}
+          {" "}{weekGrid}
+          {" "}
         </div>
       )
     }
@@ -143,10 +176,8 @@ class Weekview extends Component {
           fontFamily: "Arimo"
         }}
       >
-        <div style={hourColStyle}>
-          {hourCol()}
-        </div>
-        {this.getWeekCol()}
+        <div style={hourColStyle}> {hourCol()} </div> {this.getWeekCol()}
+        {" "}
       </div>
     )
   }
