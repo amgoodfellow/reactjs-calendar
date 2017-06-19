@@ -7,6 +7,7 @@ import Paper from "material-ui/Paper"
 import Toolbar from "material-ui/Toolbar"
 import { getWeeksOfMonth, getDaysInMonth } from "./../utils/DateHelper"
 import DayCard from "./DayCard"
+import DayBoxSchedule from "./DayBoxSchedule"
 import { getEvents } from "./../api/api"
 
 const styleSheet = createStyleSheet("MonthView", theme => ({
@@ -22,9 +23,8 @@ const styleSheet = createStyleSheet("MonthView", theme => ({
   dayTitleBar: {
     position: "relative",
     height: "50px",
-    backgroundColor: "#004987",
-    color: "#FFFFFF",
-    fontWeight: "bold"
+    borderBottom: "1px solid transparent",
+    color: "#FFFFFF"
   },
   monthDiv: {
     width: "80%",
@@ -38,7 +38,7 @@ const styleSheet = createStyleSheet("MonthView", theme => ({
   table: {
     width: "100%",
     borderTop: "hidden",
-    borderLeft: "hidden",
+    borderLeft: "1px solid white",
     borderRight: "hidden",
     borderCollapse: "collapse",
     height: "100%"
@@ -46,7 +46,7 @@ const styleSheet = createStyleSheet("MonthView", theme => ({
   tableHead: {
     border: "1px solid rgba(0, 0, 0, 0.075)",
     color: "#000000",
-    opacity: 0.7,
+    opacity: 0.8,
     textAlign: "center",
     fontWeight: "bold",
     borderTop: "hidden",
@@ -66,6 +66,22 @@ class MonthView extends Component {
     this.monthDayCounter = 1
   }
 
+  displayWeekDay() {
+    let day = new Date(
+      this.props.currentDateRange.year,
+      this.props.currentDateRange.month,
+      this.props.currentDateRange.day
+    )
+    let date = day.getDate()
+    let weekDay = day.getDay()
+    for (let i = 0; i < 7; i++) {
+      if (weekDay === i) {
+        weekDay = dayNames[i]
+      }
+    }
+    return weekDay + " " + date
+  }
+
   getMonthRows = () => {
     let first = new Date(
       this.props.currentDateRange.year,
@@ -76,7 +92,16 @@ class MonthView extends Component {
     let rows = []
 
     for (let i = 0; i < wks; i++) {
-      rows.push(<tr>{this.getDays(i)}</tr>)
+      rows.push(
+        <tr
+          style={{
+            maxHeight: "99px",
+            minHeight: "84px"
+          }}
+        >
+          {this.getDays(i)}
+        </tr>
+      )
     }
     this.monthDayCounter = 1
     return rows
@@ -104,7 +129,9 @@ class MonthView extends Component {
               fontSize: "15px",
               border: "1px solid white",
               padding: "10px",
-              backgroundColor: "#E0E0E0"
+              backgroundColor: "#E0E0E0",
+              maxHeight: "99px",
+              minHeight: "84px"
             }}
           />
         )
@@ -119,7 +146,9 @@ class MonthView extends Component {
               fontSize: "15px",
               border: "1px solid white",
               padding: "10px",
-              backgroundColor: "#E0E0E0"
+              backgroundColor: "#E0E0E0",
+              maxHeight: "99px",
+              minHeight: "84px"
             }}
           />
         )
@@ -139,23 +168,32 @@ class MonthView extends Component {
           }
           days.push(
             <td
-              tabIndex="0"              
+              key={this.monthDayCounter}
+              tabIndex="0"
               onClick={() => this.props.changeDateRange(newDateObj)}
-               style={{
+              style={{
                 fontSize: "15px",
                 fontWeight: "bold",
                 color: "#000000",
                 border: "1px solid white",
                 padding: "10px",
-                backgroundColor: "rgba(86,162,234, 0.5)"
+                backgroundColor: "rgba(86,162,100, 0.4)",
+                maxHeight: "99px",
+                minHeight: "84px"
               }}
             >
-              <Typography               
+              <Typography
                 type="body1"
                 component="div"
                 style={{ fontWeight: "600" }}
               >
                 {this.monthDayCounter}
+                <DayBoxSchedule
+                  calendarMeeting={this.props.calendar}
+                  year={this.props.currentDateRange.year}
+                  month={this.props.currentDateRange.month}
+                  day={this.monthDayCounter}
+                />
               </Typography>
             </td>
           )
@@ -170,16 +208,25 @@ class MonthView extends Component {
           }
           days.push(
             <td
+              key={this.monthDayCounter}
               tabIndex="0"
-              onClick={() => this.props.changeDateRange(newDateObj)}             
+              onClick={() => this.props.changeDateRange(newDateObj)}
               style={{
                 fontSize: "15px",
                 border: "1px solid white",
-                padding: "10px"
+                padding: "10px",
+                maxHeight: "99px",
+                minHeight: "84px"
               }}
             >
               <Typography type="body1" component="div">
                 {this.monthDayCounter}
+                <DayBoxSchedule
+                  calendarMeeting={this.props.calendar}
+                  year={this.props.currentDateRange.year}
+                  month={this.props.currentDateRange.month}
+                  day={this.monthDayCounter}
+                />
               </Typography>
 
             </td>
@@ -207,38 +254,46 @@ class MonthView extends Component {
   }
 
   render() {
-   {console.log(this.props.currentDateRange)}
-      const classes = this.props.classes
-      return (
-        <Paper tabIndex="0" aria-label={"Month View Calendar"} className={classes.root}>
-          <div aria-label="Day schedule" className={classes.dayDiv}>
-            <Toolbar className={classes.dayTitleBar}>
-              <Typography type="title">
-              </Typography>
-            </Toolbar>
-            <DayCard  calendarMeeting={this.props.calendar} 
-                      month={this.props.currentDateRange.month} 
-                      day={this.props.currentDateRange.day}                        
-            />
-            
-          </div>
-          <div className={classes.monthDiv}>
-            <table className={classes.table}>
-              <thead className={classes.tableHead}>
-                <tr style={{ height: "50px" }}>
-                  {this.weekDays()}
-                </tr>
-              </thead>
-              <tbody className={classes.tableBody}>
-                {this.getMonthRows()}
-              </tbody>
+    const classes = this.props.classes
+    return (
+      <Paper
+        tabIndex="0"
+        aria-label={"Month View Calendar"}
+        className={classes.root}
+      >
+        <div aria-label="Day schedule" className={classes.dayDiv}>
+          <Toolbar className={classes.dayTitleBar}>
+            <Typography
+              type="title"
+              style={{ fontWeight: "bold", opacity: 0.9 }}
+            >
+              {this.displayWeekDay()}
+            </Typography>
+          </Toolbar>
+          <DayCard
+            calendarMeeting={this.props.calendar}
+            year={this.props.currentDateRange.year}
+            month={this.props.currentDateRange.month}
+            day={this.props.currentDateRange.day}
+          />
 
-            </table>
-          </div>
-        </Paper>
-      )
-    }
-  
+        </div>
+        <div className={classes.monthDiv}>
+          <table className={classes.table}>
+            <thead className={classes.tableHead}>
+              <tr style={{ height: "50px" }}>
+                {this.weekDays()}
+              </tr>
+            </thead>
+            <tbody className={classes.tableBody}>
+              {this.getMonthRows()}
+            </tbody>
+
+          </table>
+        </div>
+      </Paper>
+    )
+  }
 }
 
 MonthView.propTypes = {

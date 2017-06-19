@@ -14,7 +14,6 @@ const styleSheet = createStyleSheet("MobileView", theme => ({
     display: "flex",
     position: "relative",
     height: "100%"
-  
   },
   monthDiv: {
     width: "100%",
@@ -54,7 +53,7 @@ class MobileView extends Component {
   constructor() {
     super()
     this.state = {
-      currentDay: null,
+      currentDay: null
     }
     this.monthDayCounter = 1
   }
@@ -184,7 +183,7 @@ class MobileView extends Component {
     } else {
       const classes = this.props.classes
       return (
-        <Paper className={classes.root}>         
+        <Paper className={classes.root}>
           <div className={classes.monthDiv}>
             <table className={classes.table}>
               <thead className={classes.tableHead}>
