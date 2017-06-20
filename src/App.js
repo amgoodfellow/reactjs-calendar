@@ -32,7 +32,7 @@ class App extends Component {
         return response.json()
       })
       .then(data => {
-        this.setState({ termBounds: [data.terms[0].start, data.terms[0].end] })
+        this.setState({ termBounds: [1494216000000, 1503720000000] })
       })
 
     fetch("http://localhost:8082/api/calendar")

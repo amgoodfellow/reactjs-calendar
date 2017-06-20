@@ -81,5 +81,6 @@ insert into calmeetins (day, month, year, starttime, endtime, coursetype, buildi
 insert into calmeetins (day, month, year, starttime, endtime, coursetype, buildingroom, campus, coursename, coursetitle) values (29, 5, 2017, '1:00pm', '2:47pm', 'lecture', 'EC 554', 'main campus', 'Intro to Computer Networks', 'CSI 2470');
 insert into calmeetins (day, month, year, starttime, endtime, coursetype, buildingroom, campus, coursename, coursetitle) values (30, 5, 2017, '9:20am', '10:27am', 'lecture', 'HHB 2086', 'main campus', 'Literature', 'HC 2020');
 insert into calmeetins (day, month, year, starttime, endtime, coursetype, buildingroom, campus, coursename, coursetitle) values (30, 5, 2017, '1:20pm', '2:27pm', 'lecture', 'SFH 167', 'main campus', 'Second Year French II', 'FRH 2150');
+
 -- That's enough for now
 
