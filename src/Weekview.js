@@ -1,6 +1,11 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
-import { prettyHours, shortDayNames } from "./utils/Strings"
+import {
+  prettyHours,
+  shortDayNames,
+  dayNames,
+  monthNames
+} from "./utils/Strings"
 import { withStyles, createStyleSheet } from "material-ui/styles"
 import {
   getStartPadding,
@@ -88,14 +93,14 @@ const hourCol = classes => {
   return column
 }
 
-const newWeekCol = (meetings, day, classes) => {
+const newWeekCol = (meetings, weekArrayObj, classes) => {
   let column = []
   for (let i = 0; i < 34; i++) {
     column.push(
       <Typography
         component="div"
-        key={day + "-" + i}
-        id={"weekCol-" + day + "-" + i}
+        key={weekArrayObj.day + "-" + i}
+        id={"weekCol-" + weekArrayObj.day + "-" + i}
         className={classes.weekBox}
       />
     )
@@ -111,14 +116,22 @@ const newWeekCol = (meetings, day, classes) => {
         height: desiredHeight.toString() + "%",
         marginTop: getStartPadding(meetings[j].starttime) + "px"
       }
+      let aria = `${meetings[j].courseman} on ${monthNames[
+        weekArrayObj.month
+      ]} ${weekArrayObj.day} at ${meetings[j].starttime}`
       column[colIndex] = (
         <Typography
           component="div"
-          key={day + "-" + colIndex}
-          id={"weekCol-" + day + "-" + colIndex}
+          key={weekArrayObj.day + "-" + colIndex}
+          id={"weekCol-" + weekArrayObj.day + "-" + colIndex}
           className={classes.weekBox}
         >
-          <button className={classes.buttonStyles} style={elemHeight}>
+          <button
+            aria-label={aria}
+            tabIndex="0"
+            className={classes.buttonStyles}
+            style={elemHeight}
+          >
             {meetings[j].coursetitle + "\n"}
           </button>
         </Typography>
@@ -138,12 +151,17 @@ class Weekview extends Component {
       currentDate.week
     )
     let weekcols = []
+    let weekArray = getWeekArray(
+      currentDate.month,
+      currentDate.year,
+      currentDate.week
+    )
     for (let i = 0; i < 7; i++) {
       let weekGrid = ""
       try {
         weekGrid = newWeekCol(
-          this.props.meetings[currentDate.month][startOfWeek + i],
-          i,
+          this.props.meetings[weekArray[i].month][weekArray[i].day],
+          weekArray[i],
           classes
         )
       } catch (err) {
