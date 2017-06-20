@@ -116,7 +116,7 @@ const newWeekCol = (meetings, weekArrayObj, classes) => {
         height: desiredHeight.toString() + "%",
         marginTop: getStartPadding(meetings[j].starttime) + "px"
       }
-      let aria = `${meetings[j].courseman} on ${monthNames[
+      let aria = `${meetings[j].coursename} on ${monthNames[
         weekArrayObj.month
       ]} ${weekArrayObj.day} at ${meetings[j].starttime}`
       column[colIndex] = (

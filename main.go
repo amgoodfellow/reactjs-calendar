@@ -145,7 +145,7 @@ type MeetingCalendar struct {
   BuildingRoom  string `json:"buildingroom"`
   Campus        string `json:"campus"`
   CourseType    string `json:"coursetype"`
-  CourseName    string `json:"courseman"`
+  CourseName    string `json:"coursename"`
   CourseTitle   string `json:"coursetitle"`
 }
 
