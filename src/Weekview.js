@@ -1,5 +1,7 @@
 import React, { Component } from "react"
+import PropTypes from "prop-types"
 import { prettyHours, shortDayNames } from "./utils/Strings"
+import { withStyles, createStyleSheet } from "material-ui/styles"
 import {
   getStartPadding,
   getDesiredHeight,
@@ -7,49 +9,63 @@ import {
   getWeekArray,
   getMilitaryTime
 } from "./utils/DateHelper"
+import Button from "material-ui/Button"
 import Typography from "material-ui/Typography"
 
-const columnStyle = {
-  width: "14%",
-  height: "100%",
-  textAlign: "center"
-}
+const styleSheet = createStyleSheet("Weekview", theme => ({
+  weekContent: {
+    border: "1px solid black",
+    height: 950,
+    display: "flex",
+    fontFamily: "Arimo"
+  },
+  weekBox: {
+    border: "1px solid lightgrey",
+    height: "2.65%"
+  },
 
-const hourColStyle = {
-  display: "flex",
-  flexDirection: "column",
-  width: "5%",
-  minWidth: 40
-}
+  buttonStyles: {
+    backgroundColor: "#0074b7",
+    color: "white",
+    fontWeight: "bold",
+    border: "none",
+    width: "100%"
+  },
 
-const dayHeaderStyle = {
-  height: "2.7%",
-  color: "black",
-  opacity: ".7",
-  border: "1px solid rgba(0, 0, 0, 0.075)",
-  fontWeight: "bold",
-  fontSize: "medium"
-}
+  dayHeader: {
+    height: "2.7%",
+    color: "black",
+    opacity: ".7",
+    border: "1px solid rgba(0, 0, 0, 0.075)",
+    fontWeight: "bold",
+    fontSize: "medium"
+  },
 
-const hourHeaderStyle = {
-  height: "5.72%",
-  color: "black",
-  opacity: ".7",
-  fontWeight: "bold",
-  textAlign: "center",
-  minWidth: 40,
-  marginRight: 1
-}
+  hourColumn: {
+    display: "flex",
+    flexDirection: "column",
+    width: "5%",
+    minWidth: 40
+  },
 
-const buttonStyles = {
-  backgroundColor: "#0074b7",
-  color: "white",
-  fontWeight: "bold",
-  border: "none",
-  width: "100%"
-}
+  weekColumn: {
+    width: "14%",
+    height: "100%",
+    textAlign: "center"
+  },
 
-const hourCol = () => {
+  hourHeader: {
+    height: "5.72%",
+    color: "black",
+    opacity: ".7",
+    fontWeight: "bold",
+    textAlign: "center",
+    minWidth: 40,
+    marginRight: 1
+  }
+}))
+
+const hourCol = classes => {
   let column = [
     <div
       key="TopLeftCorner"
@@ -60,26 +76,27 @@ const hourCol = () => {
   ]
   for (let i = 0, size = prettyHours.length; i < size; i++) {
     column.push(
-      <Typography component="div" style={hourHeaderStyle} key={prettyHours[i]}>
-        {" "}{prettyHours[i]}
-        {" "}
+      <Typography
+        component="div"
+        className={classes.hourHeader}
+        key={prettyHours[i]}
+      >
+        {prettyHours[i]}
       </Typography>
     )
   }
   return column
 }
 
-const newWeekCol = (meetings, day) => {
+const newWeekCol = (meetings, day, classes) => {
   let column = []
   for (let i = 0; i < 34; i++) {
     column.push(
-      <div
+      <Typography
+        component="div"
         key={day + "-" + i}
         id={"weekCol-" + day + "-" + i}
-        style={{
-          border: "1px solid lightgrey",
-          height: "2.65%"
-        }}
+        className={classes.weekBox}
       />
     )
   }
@@ -95,14 +112,16 @@ const newWeekCol = (meetings, day) => {
         marginTop: getStartPadding(meetings[j].starttime) + "px"
       }
       column[colIndex] = (
-        <div
+        <Typography
+          component="div"
+          key={day + "-" + colIndex}
           id={"weekCol-" + day + "-" + colIndex}
-          style={{ border: "1px solid lightgrey", height: "2.65%" }}
+          className={classes.weekBox}
         >
-          <button style={Object.assign({}, buttonStyles, elemHeight)}>
+          <button className={classes.buttonStyles} style={elemHeight}>
             {meetings[j].coursetitle + "\n"}
           </button>
-        </div>
+        </Typography>
       )
     }
   }
@@ -112,6 +131,7 @@ const newWeekCol = (meetings, day) => {
 class Weekview extends Component {
   getWeekCol = () => {
     const currentDate = this.props.currentDateRange
+    const classes = this.props.classes
     const startOfWeek = getStartOfWeek(
       currentDate.month,
       currentDate.year,
@@ -123,19 +143,18 @@ class Weekview extends Component {
       try {
         weekGrid = newWeekCol(
           this.props.meetings[currentDate.month][startOfWeek + i],
-          i
+          i,
+          classes
         )
       } catch (err) {
         weekGrid = newWeekCol(null)
       }
       weekcols.push(
-        <div style={columnStyle}>
-          <Typography component="div" style={dayHeaderStyle}>
-            {" "}{shortDayNames[i]}
-            {" "}
+        <div className={classes.weekColumn}>
+          <Typography component="div" className={classes.dayHeader}>
+            {shortDayNames[i]}
           </Typography>
-          {" "}{weekGrid}
-          {" "}
+          {weekGrid}
         </div>
       )
     }
@@ -144,25 +163,23 @@ class Weekview extends Component {
 
   render() {
     const currentDate = this.props.currentDateRange
+    const classes = this.props.classes
     const startOfWeek = getStartOfWeek(
       currentDate.month,
       currentDate.year,
       currentDate.week
     )
     return (
-      <div
-        style={{
-          border: "1px solid black",
-          height: 950,
-          display: "flex",
-          fontFamily: "Arimo"
-        }}
-      >
-        <div style={hourColStyle}> {hourCol()} </div> {this.getWeekCol()}
-        {" "}
+      <div className={classes.weekContent}>
+        <div className={classes.hourColumn}> {hourCol(classes)} </div>{" "}
+        {this.getWeekCol()}
       </div>
     )
   }
 }
 
-export default Weekview
+Weekview.propTypes = {
+  classes: PropTypes.object.isRequired
+}
+
+export default withStyles(styleSheet)(Weekview)
