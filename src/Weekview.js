@@ -1,95 +1,203 @@
 import React, { Component } from "react"
-import { prettyHours, dayNames } from "./utils/Strings"
+import PropTypes from "prop-types"
+import {
+  prettyHours,
+  shortDayNames,
+  dayNames,
+  monthNames
+} from "./utils/Strings"
+import { withStyles, createStyleSheet } from "material-ui/styles"
+import {
+  getStartPadding,
+  getDesiredHeight,
+  getStartOfWeek,
+  getWeekArray,
+  getMilitaryTime
+} from "./utils/DateHelper"
+import Button from "material-ui/Button"
+import Typography from "material-ui/Typography"
 
-const columnStyle = {
-  width: "14%",
-  height: "100%",
-  textAlign: "center"
-}
+const styleSheet = createStyleSheet("Weekview", theme => ({
+  weekContent: {
+    border: "1px solid black",
+    height: 950,
+    display: "flex",
+    fontFamily: "Arimo"
+  },
+  weekBox: {
+    border: "1px solid lightgrey",
+    height: "2.65%"
+  },
 
-const hourColStyle = {
-  display: "flex",
-  flexDirection: "column",
-  width: "5%"
-}
+  buttonStyles: {
+    backgroundColor: "#0074b7",
+    color: "white",
+    fontWeight: "bold",
+    border: "none",
+    width: "100%"
+  },
 
-const hourCol = () => {
-  let column = [<div style={{ height: "1.8%" }} />]
+  dayHeader: {
+    height: "2.7%",
+    color: "black",
+    opacity: ".7",
+    border: "1px solid rgba(0, 0, 0, 0.075)",
+    fontWeight: "bold",
+    fontSize: "medium"
+  },
+
+  hourColumn: {
+    display: "flex",
+    flexDirection: "column",
+    width: "5%",
+    minWidth: 40
+  },
+
+  weekColumn: {
+    width: "14%",
+    height: "100%",
+    textAlign: "center"
+  },
+
+  hourHeader: {
+    height: "5.72%",
+    color: "black",
+    opacity: ".7",
+    fontWeight: "bold",
+    textAlign: "center",
+    minWidth: 40,
+    marginRight: 1
+  }
+}))
+
+const hourCol = classes => {
+  let column = [
+    <div
+      key="TopLeftCorner"
+      style={{
+        height: "1.8%"
+      }}
+    />
+  ]
   for (let i = 0, size = prettyHours.length; i < size; i++) {
     column.push(
-      <div
-        style={{ textAlign: "center", height: "5.72%" }}
+      <Typography
+        component="div"
+        className={classes.hourHeader}
         key={prettyHours[i]}
       >
         {prettyHours[i]}
-      </div>
+      </Typography>
     )
   }
   return column
 }
 
-const weekCol = () => {
+const newWeekCol = (meetings, weekArrayObj, classes) => {
   let column = []
   for (let i = 0; i < 34; i++) {
     column.push(
-      <div style={{ border: "1px solid lightgrey", height: "2.65%" }} />
+      <Typography
+        component="div"
+        key={weekArrayObj.day + "-" + i}
+        id={"weekCol-" + weekArrayObj.day + "-" + i}
+        className={classes.weekBox}
+      />
     )
+  }
+  if (!Object.is(meetings, null) && !Object.is(meetings, undefined)) {
+    for (let j = 0; j < meetings.length; j++) {
+      let colIndex = getMilitaryTime(meetings[j].starttime).hours * 2 - 14
+      let desiredHeight = getDesiredHeight(
+        meetings[j].starttime,
+        meetings[j].endtime
+      )
+      let elemHeight = {
+        height: desiredHeight.toString() + "%",
+        marginTop: getStartPadding(meetings[j].starttime) + "px"
+      }
+      let aria = `${meetings[j].coursename} on ${monthNames[
+        weekArrayObj.month
+      ]} ${weekArrayObj.day} at ${meetings[j].starttime}`
+      column[colIndex] = (
+        <Typography
+          component="div"
+          key={weekArrayObj.day + "-" + colIndex}
+          id={"weekCol-" + weekArrayObj.day + "-" + colIndex}
+          className={classes.weekBox}
+        >
+          <button
+            aria-label={aria}
+            tabIndex="0"
+            className={classes.buttonStyles}
+            style={elemHeight}
+          >
+            {meetings[j].coursetitle + "\n"}
+          </button>
+        </Typography>
+      )
+    }
   }
   return column
 }
 
 class Weekview extends Component {
+  getWeekCol = () => {
+    const currentDate = this.props.currentDateRange
+    const classes = this.props.classes
+    const startOfWeek = getStartOfWeek(
+      currentDate.month,
+      currentDate.year,
+      currentDate.week
+    )
+    let weekcols = []
+    let weekArray = getWeekArray(
+      currentDate.month,
+      currentDate.year,
+      currentDate.week
+    )
+    for (let i = 0; i < 7; i++) {
+      let weekGrid = ""
+      try {
+        weekGrid = newWeekCol(
+          this.props.meetings[weekArray[i].month][weekArray[i].day],
+          weekArray[i],
+          classes
+        )
+      } catch (err) {
+        weekGrid = newWeekCol(null)
+      }
+      weekcols.push(
+        <div className={classes.weekColumn}>
+          <Typography component="div" className={classes.dayHeader}>
+            {shortDayNames[i]}
+          </Typography>
+          {weekGrid}
+        </div>
+      )
+    }
+    return weekcols
+  }
+
   render() {
+    const currentDate = this.props.currentDateRange
+    const classes = this.props.classes
+    const startOfWeek = getStartOfWeek(
+      currentDate.month,
+      currentDate.year,
+      currentDate.week
+    )
     return (
-      <div style={{ border: "1px solid black", height: 950, display: "flex" }}>
-        <div style={hourColStyle}>
-          {hourCol()}
-        </div>
-        <div style={columnStyle}>
-          <div style={{ height: "2.7%" }}>
-            {dayNames[0]}
-          </div>
-          {weekCol()}
-        </div>
-        <div style={columnStyle}>
-          <div style={{ height: "2.7%" }}>
-            {dayNames[1]}
-          </div>
-          {weekCol()}
-        </div>
-        <div style={columnStyle}>
-          <div style={{ height: "2.7%" }}>
-            {dayNames[2]}
-          </div>
-          {weekCol()}
-        </div>
-        <div style={columnStyle}>
-          <div style={{ height: "2.7%" }}>
-            {dayNames[3]}
-          </div>
-          {weekCol()}
-        </div>
-        <div style={columnStyle}>
-          <div style={{ height: "2.7%" }}>
-            {dayNames[4]}
-          </div>
-          {weekCol()}
-        </div>
-        <div style={columnStyle}>
-          <div style={{ height: "2.7%" }}>
-            {dayNames[5]}
-          </div>
-          {weekCol()}
-        </div>
-        <div style={columnStyle}>
-          <div style={{ height: "2.7%" }}>
-            {dayNames[6]}
-          </div>
-          {weekCol()}
-        </div>
+      <div className={classes.weekContent}>
+        <div className={classes.hourColumn}> {hourCol(classes)} </div>{" "}
+        {this.getWeekCol()}
       </div>
     )
   }
 }
 
-export default Weekview
+Weekview.propTypes = {
+  classes: PropTypes.object.isRequired
+}
+
+export default withStyles(styleSheet)(Weekview)

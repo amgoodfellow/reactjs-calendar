@@ -6,15 +6,27 @@ import { getWeekOfMonth } from "./utils/DateHelper"
 
 class App extends Component {
   state = {
-    courses: null,
+    meetings: null,
     termBounds: null,
     currentDateRange: null,
     calendarType: "weekview",
     theme: "oakland",
-    url: null
+    url: null,
+    width: document.getElementById("root").clientWidth,
+    mobile: false
+  }
+
+  updateWidth = () => {
+    this.setState({ width: document.getElementById("root").clientWidth })
+    if (this.state.width < 768) {
+      this.setState({ mobile: true })
+    } else {
+      this.setState({ mobile: false })
+    }
   }
 
   componentDidMount() {
+    window.addEventListener("resize", this.updateWidth)
     fetch("http://localhost:8082/api/terms")
       .then(response => {
         return response.json()
@@ -28,7 +40,7 @@ class App extends Component {
         return response.json()
       })
       .then(data => {
-        this.setState({ courses: data })
+        this.setState({ meetings: data })
       })
 
     let d = new Date()
@@ -39,6 +51,11 @@ class App extends Component {
       day: d.getDate()
     }
     this.setState({ currentDateRange: obj })
+  }
+
+  componentWillUnmount() {
+    console.log("removed")
+    window.removeEventListener("resize", this.updateWidth)
   }
 
   changeCalendarView = view => {
@@ -59,22 +76,23 @@ class App extends Component {
   chooseCalendarType = () => {
     switch (this.state.calendarType) {
       case "weekview":
-        return <Weekview />
-        break
+        return (
+          <Weekview
+            meetings={this.state.meetings}
+            currentDateRange={this.state.currentDateRange}
+          />
+        )
       case "monthview":
         return <div />
-        break
       case "scheduleview":
         return <Scheduleview />
-        break
       default:
-        return <Weekview />
-        break
+        return <Weekview currentDateRange={this.state.currentDateRange} />
     }
   }
 
   render() {
-    if (this.state.courses === null || this.state.courses === undefined) {
+    if (this.state.meetings === null || this.state.meetings === undefined) {
       return <div>boom</div>
     }
     return (
