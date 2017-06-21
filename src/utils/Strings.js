@@ -25,7 +25,6 @@ export const shortMonthNames = [
   "Dec"
 ]
 
-
 export const monthNames = [
   "January",
   "February",
@@ -41,7 +40,7 @@ export const monthNames = [
   "December"
 ]
 
-const prettyHours = [
+export const prettyHours = [
   "7am",
   "8am",
   "9am",
@@ -60,6 +59,3 @@ const prettyHours = [
   "10pm",
   "11pm"
 ]
-
-export { dayNames, monthNames, prettyHours, longMonthNames }
-

@@ -11,7 +11,7 @@ import AppBar from "material-ui/AppBar"
 import Snackbar from "material-ui/Snackbar"
 import Toolbar from "material-ui/Toolbar"
 import Typography from "material-ui/Typography"
-import { monthNames, longMonthNames } from "./utils/Strings"
+import { shortMonthNames, monthNames } from "./utils/Strings"
 import {
   getWeekDateRange,
   getWeekOfMonth,
@@ -193,24 +193,26 @@ class Titlebar extends Component {
       dateObj.year,
       dateObj.week
     )
-    const longMonth = longMonthNames[dateObj.month]
+    const longMonth = monthNames[dateObj.month]
 
     let text
     let ariaLabel
 
     if (this.props.calendarType === "weekview") {
       if (weekDateRange[1] === "") {
-        text = `${monthNames[dateObj.month]} ${weekDateRange[0]}`
+        text = `${shortMonthNames[dateObj.month]} ${weekDateRange[0]}`
         ariaLabel = `${longMonth} ${weekDateRange[0]}`
       } else {
-        text = `${monthNames[dateObj.month]} ${weekDateRange[0]} - ${weekDateRange[1]}`
+        text = `${shortMonthNames[
+          dateObj.month
+        ]} ${weekDateRange[0]} - ${weekDateRange[1]}`
         ariaLabel = `${longMonth} ${weekDateRange[0]} to ${longMonth} ${weekDateRange[1]}`
       }
     } else if (
       this.props.calendarType === "monthview" ||
       this.props.calendarType === "scheduleview"
     ) {
-      text = monthNames[dateObj.month]
+      text = shortMonthNames[dateObj.month]
       ariaLabel = longMonth
     }
 
