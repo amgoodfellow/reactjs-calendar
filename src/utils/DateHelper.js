@@ -1,7 +1,7 @@
 //Takes a Date object
 //Returns an integer number representing the number of weeks
 //of a month
-const getWeeksOfMonth = day => {
+const getWeeksOfMonth = (day: Date) => {
   const firstDay = new Date(day.setDate(1)).getDay()
   const totalDays = new Date(day.getFullYear(), day.getMonth() + 1, 0).getDate()
   return Math.ceil((firstDay + totalDays) / 7)
