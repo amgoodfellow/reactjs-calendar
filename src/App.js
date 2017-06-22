@@ -1,12 +1,13 @@
 import React, { Component } from "react"
-import Weekview from "./Weekview"
-import Scheduleview from "./Scheduleview"
-import Titlebar from "./Titlebar"
+import Weekview from "./components/Weekview"
+import Scheduleview from "./components/Scheduleview"
+import Titlebar from "./components/Titlebar"
+import MonthView from "./components/MonthView"
 import { getWeekOfMonth } from "./utils/DateHelper"
 
 class App extends Component {
   state = {
-    meetings: null,
+    events: null,
     termBounds: null,
     currentDateRange: null,
     calendarType: "weekview",
@@ -40,7 +41,7 @@ class App extends Component {
         return response.json()
       })
       .then(data => {
-        this.setState({ meetings: data })
+        this.setState({ events: data })
       })
 
     let d = new Date()
@@ -54,7 +55,6 @@ class App extends Component {
   }
 
   componentWillUnmount() {
-    console.log("removed")
     window.removeEventListener("resize", this.updateWidth)
   }
 
@@ -78,21 +78,37 @@ class App extends Component {
       case "weekview":
         return (
           <Weekview
-            meetings={this.state.meetings}
+            meetings={this.state.events}
             currentDateRange={this.state.currentDateRange}
           />
         )
       case "monthview":
-        return <div />
+        return (
+          <MonthView
+            calendar={this.state.calendar}
+            currentDateRange={this.state.currentDateRange}
+            changeDateRange={this.changeDateRange}
+          />
+        )
       case "scheduleview":
-        return <Scheduleview />
+        return (
+          <Scheduleview
+            events={this.state.events}
+            currentDateRange={this.state.currentDateRange}
+          />
+        )
       default:
-        return <Weekview currentDateRange={this.state.currentDateRange} />
+        return (
+          <Weekview
+            meetings={this.state.calendar}
+            currentDateRange={this.state.currentDateRange}
+          />
+        )
     }
   }
 
   render() {
-    if (this.state.meetings === null || this.state.meetings === undefined) {
+    if (this.state.events === null || this.state.events === undefined) {
       return <div>boom</div>
     }
     return (
@@ -100,7 +116,7 @@ class App extends Component {
         <Titlebar
           currentDateRange={this.state.currentDateRange}
           termBounds={this.state.termBounds}
-          courses={this.state.courses}
+          calendar={this.state.calendar}
           calendarType={this.state.calendarType}
           changeCalendarView={this.changeCalendarView}
           changeDateRange={this.changeDateRange}

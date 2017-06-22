@@ -1,3 +1,4 @@
+import { dayNames, shortDayNames } from "./Strings"
 //Takes a Date object
 //Returns an integer number representing the number of weeks
 //of a month
@@ -41,6 +42,11 @@ const getWeekDateRange = (month, year, weekNumber) => {
   return [firstNum, endNum]
 }
 
+const getDaysInMonth = (year, month) => {
+  let d = new Date(year, month + 1, 0)
+  return d
+}
+
 const getStartOfWeek = (month, year, weekNumber) => {
   const day = new Date(year, month, 1)
   const weeksOfMonth = getWeeksOfMonth(day)
@@ -75,9 +81,19 @@ const getWeekArray = (month, year, weekNumber) => {
 
     for (let i = 0; i < 7; i++) {
       if (i < startDay) {
-        weekArray[i] = { month: month - 1, day: firstDay + i }
+        weekArray[i] = {
+          month: month - 1,
+          day: firstDay + i,
+          dayNameFull: dayNames[i],
+          dayName: shortDayNames[i]
+        }
       } else {
-        weekArray[i] = { month: month, day: 1 + (i - startDay) }
+        weekArray[i] = {
+          month: month,
+          day: 1 + (i - startDay),
+          dayNameFull: dayNames[i],
+          dayName: shortDayNames[i]
+        }
       }
     }
   } else if (weekNumber === weeksOfMonth) {
@@ -86,18 +102,30 @@ const getWeekArray = (month, year, weekNumber) => {
 
     for (let i = 0; i < 7; i++) {
       if (i <= daysInMonth.getDay()) {
-        weekArray[i] = { month: month, day: firstDay + i }
+        weekArray[i] = {
+          month: month,
+          day: firstDay + i,
+          dayNameFull: dayNames[i],
+          dayName: shortDayNames[i]
+        }
       } else {
         weekArray[i] = {
           month: month + 1,
-          day: endDay - (i - daysInMonth.getDay())
+          day: endDay - (i - daysInMonth.getDay()),
+          dayNameFull: dayNames[i],
+          dayName: shortDayNames[i]
         }
       }
     }
   } else {
     firstDay = 7 * (weekNumber - 1) - startDay + 1
     for (let i = 0; i < 7; i++) {
-      weekArray[i] = { month: month, day: firstDay + i }
+      weekArray[i] = {
+        month: month,
+        day: firstDay + i,
+        dayNameFull: dayNames[i],
+        dayName: shortDayNames[i]
+      }
     }
   }
   return weekArray
@@ -154,5 +182,6 @@ export {
   getStartOfWeek,
   getWeekArray,
   getMilitaryTime,
-  getDesiredHeight
+  getDesiredHeight,
+  getDaysInMonth
 }

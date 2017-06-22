@@ -5,7 +5,7 @@ import {
   shortDayNames,
   dayNames,
   monthNames
-} from "./utils/Strings"
+} from "../utils/Strings"
 import { withStyles, createStyleSheet } from "material-ui/styles"
 import {
   getStartPadding,
@@ -13,7 +13,7 @@ import {
   getStartOfWeek,
   getWeekArray,
   getMilitaryTime
-} from "./utils/DateHelper"
+} from "../utils/DateHelper"
 import Button from "material-ui/Button"
 import Typography from "material-ui/Typography"
 
@@ -116,9 +116,7 @@ const newWeekCol = (meetings, weekArrayObj, classes) => {
         height: desiredHeight.toString() + "%",
         marginTop: getStartPadding(meetings[j].starttime) + "px"
       }
-      let aria = `${meetings[j].coursename} on ${monthNames[
-        weekArrayObj.month
-      ]} ${weekArrayObj.day} at ${meetings[j].starttime}`
+      let aria = `${meetings[j].coursename} on ${monthNames[weekArrayObj.month]} ${weekArrayObj.day} at ${meetings[j].starttime}`
       column[colIndex] = (
         <Typography
           component="div"
@@ -165,7 +163,8 @@ class Weekview extends Component {
           classes
         )
       } catch (err) {
-        weekGrid = newWeekCol(null)
+        console.log(this.props.meetings)
+        //weekGrid = newWeekCol(null)
       }
       weekcols.push(
         <div className={classes.weekColumn}>
