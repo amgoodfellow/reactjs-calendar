@@ -7,7 +7,14 @@ import PropTypes from "prop-types"
 const styleSheet = createStyleSheet("ScheduleEvent", theme => ({
   eventPaper: {
     marginBottom: "10px",
-    backgroundColor: "#0074b7"
+    backgroundColor: "#0074b7",
+    color: "#000000",
+    boxShadow: "0 0.125rem 0.3125rem 0 rgba(0, 0, 0, 0.16)",
+    height: "90px",
+    transition: "box-shadow ease-in 300ms 10ms",
+    "&:hover": {
+      boxShadow: "0 0.25rem 0.9375rem 0 rgba(0, 0, 0, 0.5)"
+    }
   },
 
   courseTitle: {
@@ -26,7 +33,6 @@ const styleSheet = createStyleSheet("ScheduleEvent", theme => ({
 
 class ScheduleEvent extends Component {
   getEvents = () => {
-    console.log(this.props.events)
     const classes = this.props.classes
     let meetings = []
     try {

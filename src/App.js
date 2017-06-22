@@ -55,7 +55,6 @@ class App extends Component {
   }
 
   componentWillUnmount() {
-    console.log("removed")
     window.removeEventListener("resize", this.updateWidth)
   }
 
