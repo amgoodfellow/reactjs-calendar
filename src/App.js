@@ -83,6 +83,7 @@ class App extends Component {
           <MonthView
             calendar={this.state.calendar}
             currentDateRange={this.state.currentDateRange}
+            changeDateRange={this.changeDateRange}
           />
         )
       case "scheduleview":
