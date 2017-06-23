@@ -4843,15 +4843,9 @@ progress@^1.1.8:
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/progress/-/progress-1.1.8.tgz#e260c78f6161cdd9b0e56cc3e0a85de17c7a57be"
 
-promise@7.1.1:
+promise@7.1.1, promise@^7.1.1:
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/promise/-/promise-7.1.1.tgz#489654c692616b8aa55b0724fa809bb7db49c5bf"
-  dependencies:
-    asap "~2.0.3"
-
-promise@^7.1.1:
-  version "7.3.1"
-  resolved "https://registry.yarnpkg.com/promise/-/promise-7.3.1.tgz#064b72602b18f90f29192b8b1bc418ffd1ebd3bf"
   dependencies:
     asap "~2.0.3"
 
@@ -4967,6 +4961,13 @@ react-a11y@^0.3.3:
   resolved "https://registry.yarnpkg.com/react-a11y/-/react-a11y-0.3.4.tgz#f31d6c165f09b47fdcc695b0f1fdae8a71f12a05"
   dependencies:
     object.assign "^4.0.3"
+
+react-addons-perf@^15.4.2:
+  version "15.4.2"
+  resolved "https://registry.yarnpkg.com/react-addons-perf/-/react-addons-perf-15.4.2.tgz#110bdcf5c459c4f77cb85ed634bcd3397536383b"
+  dependencies:
+    fbjs "^0.8.4"
+    object-assign "^4.1.0"
 
 react-dev-utils@^1.0.2:
   version "1.0.3"

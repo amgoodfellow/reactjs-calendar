@@ -8,6 +8,7 @@
     "raleway-webfont": "^3.0.1",
     "react": "^15.5.4",
     "react-a11y": "^0.3.3",
+    "react-addons-perf": "^15.4.2",
     "react-dom": "^15.5.4",
     "typeface-arimo": "^0.0.22",
     "typeface-oxygen": "^0.0.22",

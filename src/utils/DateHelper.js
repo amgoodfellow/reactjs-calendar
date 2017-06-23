@@ -1,22 +1,30 @@
-//Takes a Date object
-//Returns an integer number representing the number of weeks
-//of a month
+//Params: Date Object
+//Output: int number
+//Desc: A function that takes a date object and returns
+//the number of weeks in that date's month
 const getWeeksOfMonth = (day: Date) => {
   const firstDay = new Date(day.setDate(1)).getDay()
   const totalDays = new Date(day.getFullYear(), day.getMonth() + 1, 0).getDate()
   return Math.ceil((firstDay + totalDays) / 7)
 }
 
-//Returns an integer number representing the week of the month
+//Params: int month, int year, int week of month
+//Output: int saying how many weeks are in a month
+//Desc: Returns an integer number representing the week of the month
 //depending on the selected day
-const getWeekOfMonth = (year, month, day) => {
+//https://stackoverflow.com/a/36036273
+const getWeekOfMonth = (year: number, month: number, day: number) => {
   const firstWeekday = new Date(year, month, 1).getDay()
   const d = new Date(year, month, day)
   const offsetDate = d.getDate() + firstWeekday - 1
   return Math.floor(offsetDate / 7) + 1
 }
 
-const getWeekDateRange = (month, year, weekNumber) => {
+//Params: int month, int year, int week of month
+//Output: Array of start and end dates of week
+//Desc: Returns an array of integers - the 0th index being the start date
+//of the week, and then the 1st index is the end date
+const getWeekDateRange = (month: number, year: number, weekNumber: number) => {
   const day = new Date(year, month, 1)
   const weeksOfMonth = getWeeksOfMonth(day)
   const startDay = day.getDay()
@@ -41,7 +49,11 @@ const getWeekDateRange = (month, year, weekNumber) => {
   return [firstNum, endNum]
 }
 
-const getStartOfWeek = (month, year, weekNumber) => {
+//Params: int month, int year, int week of month
+//Output: int first number (date) of given week
+//Desc: given a month, year, and weeknumber, this method
+//returns the date of the first day in the week
+const getStartOfWeek = (month: number, year: number, weekNumber: number) => {
   const day = new Date(year, month, 1)
   const weeksOfMonth = getWeeksOfMonth(day)
   const startDay = day.getDay()
@@ -60,7 +72,11 @@ const getStartOfWeek = (month, year, weekNumber) => {
   return firstNum
 }
 
-const getWeekArray = (month, year, weekNumber) => {
+//Params: int month, int year, int week of month
+//Output: Array of objects containing the integer month and date
+//Desc: This method, given a month year and week number, will return
+//the month and day associated with the ith day of the week
+const getWeekArray = (month: number, year: number, weekNumber: number) => {
   const daysInMonth = new Date(year, month + 1, 0)
   const lastMonth = new Date(year, month, 0)
   const day = new Date(year, month, 1)
@@ -75,9 +91,15 @@ const getWeekArray = (month, year, weekNumber) => {
 
     for (let i = 0; i < 7; i++) {
       if (i < startDay) {
-        weekArray[i] = { month: month - 1, day: firstDay + i }
+        weekArray[i] = {
+          month: month - 1,
+          day: firstDay + i
+        }
       } else {
-        weekArray[i] = { month: month, day: 1 + (i - startDay) }
+        weekArray[i] = {
+          month: month,
+          day: 1 + (i - startDay)
+        }
       }
     }
   } else if (weekNumber === weeksOfMonth) {
@@ -86,7 +108,10 @@ const getWeekArray = (month, year, weekNumber) => {
 
     for (let i = 0; i < 7; i++) {
       if (i <= daysInMonth.getDay()) {
-        weekArray[i] = { month: month, day: firstDay + i }
+        weekArray[i] = {
+          month: month,
+          day: firstDay + i
+        }
       } else {
         weekArray[i] = {
           month: month + 1,
@@ -97,13 +122,20 @@ const getWeekArray = (month, year, weekNumber) => {
   } else {
     firstDay = 7 * (weekNumber - 1) - startDay + 1
     for (let i = 0; i < 7; i++) {
-      weekArray[i] = { month: month, day: firstDay + i }
+      weekArray[i] = {
+        month: month,
+        day: firstDay + i
+      }
     }
   }
   return weekArray
 }
 
-const getMilitaryTime = timeString => {
+//Params: A string that looks like '10:00pm'
+//Output: An object with minute and hour attributes in military (24 hour) time
+//Desc: This method take a human readable time string and transforms it into
+//an object with hour and minute attributes
+const getMilitaryTime = (timeString: string) => {
   const splitArray = timeString.split(":")
   let hours = parseInt(splitArray[0])
   const minutes = splitArray[1].substring(0, 2)
@@ -113,14 +145,17 @@ const getMilitaryTime = timeString => {
     afternoon = true
     hours += 12
   }
-  return { hours: hours, minutes: minutes }
+  return {
+    hours: hours,
+    minutes: minutes
+  }
 }
 
-//This method is used in the day and week view components to determine
-//how far eventButtons should be extended past their half hour slot. If
-//sizing is changed in the CSS, one must make sure to reevaluate the 4.6
-//number
-const getDesiredHeight = (starttime, endtime) => {
+//Params: start and end time human readable strings
+//Output: an integer number representing the percentage height a weekview event should take up
+//Desc: This method is used in the day and week view components to determine
+//how far eventButtons should be extended past their half hour slot.
+const getDesiredHeight = (starttime: string, endtime: string) => {
   const startObj = getMilitaryTime(starttime)
   const endObj = getMilitaryTime(endtime)
   const startHour = startObj.hours
@@ -132,10 +167,12 @@ const getDesiredHeight = (starttime, endtime) => {
   return (hours + minutes) * 200
 }
 
-//Similar to the getDesiredHeight() method, this method determines
+//Params: start time human readable string
+//Output: an integer number representing the pixels of padding that a weekview event should have
+//Desc: Similar to the getDesiredHeight() method, this method determines
 //how much a top margin the events in week and day view should have.
 //This is seen if a class starts at 2:15 or some other non half-hour time
-const getStartPadding = starttime => {
+const getStartPadding = (starttime: string) => {
   let startMinutes = getMilitaryTime(starttime).minutes
   if (startMinutes > 30) {
     startMinutes -= 30

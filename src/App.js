@@ -3,17 +3,22 @@ import Weekview from "./Weekview"
 import Scheduleview from "./Scheduleview"
 import Titlebar from "./Titlebar"
 import { getWeekOfMonth } from "./utils/DateHelper"
+import Perf from "react-addons-perf"
 
 class App extends Component {
-  state = {
-    meetings: null,
-    termBounds: null,
-    currentDateRange: null,
-    calendarType: "weekview",
-    theme: "oakland",
-    url: null,
-    width: document.getElementById("root").clientWidth,
-    mobile: false
+  constructor() {
+    super()
+    window.Perf = Perf
+    this.state = {
+      meetings: null,
+      termBounds: null,
+      currentDateRange: null,
+      calendarType: "weekview",
+      theme: "oakland",
+      url: null,
+      width: document.getElementById("root").clientWidth,
+      mobile: false
+    }
   }
 
   updateWidth = () => {
