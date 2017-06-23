@@ -30,7 +30,7 @@ class Scheduleview extends Component {
     let view = []
     for (let i = 0; i < week.length; i++) {
       view.push(
-        <Paper elevation={0} className={classes.dayPaper}>
+        <Paper key={"dayPaper" + i} elevation={0} className={classes.dayPaper}>
           <div
             className={classes.date}
             tabIndex="0"

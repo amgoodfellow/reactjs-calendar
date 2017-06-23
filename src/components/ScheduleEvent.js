@@ -41,7 +41,12 @@ class ScheduleEvent extends Component {
       if (this.props.events[month][day] !== undefined) {
         for (let i = 0; i < this.props.events[month][day].length; i++) {
           meetings.push(
-            <Paper elevation={1} className={classes.eventPaper} tabIndex="0">
+            <Paper
+              key={"scheduleEvent" + i}
+              elevation={1}
+              className={classes.eventPaper}
+              tabIndex="0"
+            >
               <Typography type="title" className={classes.courseTitle}>
                 {this.props.events[month][day][i].coursename}
               </Typography>
