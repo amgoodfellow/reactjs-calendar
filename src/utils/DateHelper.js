@@ -1,3 +1,6 @@
+
+import { dayNames, shortDayNames } from "./Strings"
+
 //Params: Date Object
 //Output: int number
 //Desc: A function that takes a date object and returns
@@ -49,6 +52,11 @@ const getWeekDateRange = (month: number, year: number, weekNumber: number) => {
   return [firstNum, endNum]
 }
 
+const getDaysInMonth = (year, month) => {
+  let d = new Date(year, month + 1, 0)
+  return d
+}
+
 //Params: int month, int year, int week of month
 //Output: int first number (date) of given week
 //Desc: given a month, year, and weeknumber, this method
@@ -57,8 +65,6 @@ const getStartOfWeek = (month: number, year: number, weekNumber: number) => {
   const day = new Date(year, month, 1)
   const weeksOfMonth = getWeeksOfMonth(day)
   const startDay = day.getDay()
-  let daysInMonth = new Date(year, month + 1, 0)
-  daysInMonth = daysInMonth.getDate()
   let firstNum
 
   if (weekNumber === 1) {
@@ -93,12 +99,16 @@ const getWeekArray = (month: number, year: number, weekNumber: number) => {
       if (i < startDay) {
         weekArray[i] = {
           month: month - 1,
-          day: firstDay + i
+          day: firstDay + i,
+          dayNameFull: dayNames[i],
+          dayName: shortDayNames[i]
         }
       } else {
         weekArray[i] = {
           month: month,
-          day: 1 + (i - startDay)
+          day: 1 + (i - startDay),
+          dayNameFull: dayNames[i],
+          dayName: shortDayNames[i]
         }
       }
     }
@@ -110,12 +120,16 @@ const getWeekArray = (month: number, year: number, weekNumber: number) => {
       if (i <= daysInMonth.getDay()) {
         weekArray[i] = {
           month: month,
-          day: firstDay + i
+          day: firstDay + i,
+          dayNameFull: dayNames[i],
+          dayName: shortDayNames[i]
         }
       } else {
         weekArray[i] = {
           month: month + 1,
-          day: endDay - (i - daysInMonth.getDay())
+          day: endDay - (i - daysInMonth.getDay()),
+          dayNameFull: dayNames[i],
+          dayName: shortDayNames[i]
         }
       }
     }
@@ -124,7 +138,9 @@ const getWeekArray = (month: number, year: number, weekNumber: number) => {
     for (let i = 0; i < 7; i++) {
       weekArray[i] = {
         month: month,
-        day: firstDay + i
+        day: firstDay + i,
+        dayNameFull: dayNames[i],
+        dayName: shortDayNames[i]
       }
     }
   }
@@ -137,12 +153,10 @@ const getWeekArray = (month: number, year: number, weekNumber: number) => {
 //an object with hour and minute attributes
 const getMilitaryTime = (timeString: string) => {
   const splitArray = timeString.split(":")
-  let hours = parseInt(splitArray[0])
+  let hours = parseInt(splitArray[0], 10)
   const minutes = splitArray[1].substring(0, 2)
-  let afternoon = false
 
-  if (splitArray[1].substring(2, 3) == "p") {
-    afternoon = true
+  if (splitArray[1].substring(2, 3) === "p") {
     hours += 12
   }
   return {
@@ -191,5 +205,6 @@ export {
   getStartOfWeek,
   getWeekArray,
   getMilitaryTime,
-  getDesiredHeight
+  getDesiredHeight,
+  getDaysInMonth
 }

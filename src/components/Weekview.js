@@ -1,20 +1,13 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
-import {
-  prettyHours,
-  shortDayNames,
-  dayNames,
-  monthNames
-} from "./utils/Strings"
+import { prettyHours, shortDayNames, monthNames } from "../utils/Strings"
 import { withStyles, createStyleSheet } from "material-ui/styles"
 import {
   getStartPadding,
   getDesiredHeight,
-  getStartOfWeek,
   getWeekArray,
   getMilitaryTime
-} from "./utils/DateHelper"
-import Button from "material-ui/Button"
+} from "../utils/DateHelper"
 import Typography from "material-ui/Typography"
 
 const styleSheet = createStyleSheet("Weekview", theme => ({
@@ -145,11 +138,6 @@ class Weekview extends Component {
   getWeekCol = () => {
     const currentDate = this.props.currentDateRange
     const classes = this.props.classes
-    const startOfWeek = getStartOfWeek(
-      currentDate.month,
-      currentDate.year,
-      currentDate.week
-    )
     let weekcols = []
     let weekArray = getWeekArray(
       currentDate.month,
@@ -165,10 +153,11 @@ class Weekview extends Component {
           classes
         )
       } catch (err) {
-        weekGrid = newWeekCol(null)
+        console.log(this.props.meetings)
+        //weekGrid = newWeekCol(null)
       }
       weekcols.push(
-        <div className={classes.weekColumn}>
+        <div className={classes.weekColumn} key={"hourDiv" + i}>
           <Typography component="div" className={classes.dayHeader}>
             {shortDayNames[i]}
           </Typography>
@@ -180,13 +169,7 @@ class Weekview extends Component {
   }
 
   render() {
-    const currentDate = this.props.currentDateRange
     const classes = this.props.classes
-    const startOfWeek = getStartOfWeek(
-      currentDate.month,
-      currentDate.year,
-      currentDate.week
-    )
     return (
       <div className={classes.weekContent}>
         <div className={classes.hourColumn}> {hourCol(classes)} </div>{" "}

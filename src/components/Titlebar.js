@@ -11,12 +11,12 @@ import AppBar from "material-ui/AppBar"
 import Snackbar from "material-ui/Snackbar"
 import Toolbar from "material-ui/Toolbar"
 import Typography from "material-ui/Typography"
-import { shortMonthNames, monthNames } from "./utils/Strings"
+import { shortMonthNames, monthNames } from "../utils/Strings"
 import {
   getWeekDateRange,
   getWeekOfMonth,
   getWeeksOfMonth
-} from "./utils/DateHelper"
+} from "./../utils/DateHelper"
 
 const styleSheet = createStyleSheet("SimpleAppBar", theme => ({
   root: {
@@ -95,7 +95,6 @@ class Titlebar extends Component {
 
     switch (this.props.calendarType) {
       case "monthview":
-      case "scheduleview":
         if (dateObj.month === endMonth) {
           this.openSnackbar("End of term reached")
           return
@@ -112,6 +111,7 @@ class Titlebar extends Component {
         break
 
       case "weekview":
+      case "scheduleview":
       default:
         if (dateObj.month === endMonth && dateObj.week === endWeek) {
           this.openSnackbar("End of term reached")
@@ -128,6 +128,7 @@ class Titlebar extends Component {
 
           break
         }
+        break
     }
   }
 
@@ -148,7 +149,6 @@ class Titlebar extends Component {
 
     switch (this.props.calendarType) {
       case "monthview":
-      case "scheduleview":
         if (dateObj.month === startMonth) {
           this.openSnackbar("Start of term reached")
           return
@@ -165,6 +165,7 @@ class Titlebar extends Component {
         break
 
       case "weekview":
+      case "scheduleview":
       default:
         if (dateObj.month === startMonth && dateObj.week === startWeek) {
           this.openSnackbar("Start of term reached")
@@ -182,6 +183,7 @@ class Titlebar extends Component {
 
           break
         }
+        break
     }
   }
 
@@ -198,20 +200,18 @@ class Titlebar extends Component {
     let text
     let ariaLabel
 
-    if (this.props.calendarType === "weekview") {
+    if (
+      this.props.calendarType === "weekview" ||
+      this.props.calendarType === "scheduleview"
+    ) {
       if (weekDateRange[1] === "") {
         text = `${shortMonthNames[dateObj.month]} ${weekDateRange[0]}`
         ariaLabel = `${longMonth} ${weekDateRange[0]}`
       } else {
-        text = `${shortMonthNames[
-          dateObj.month
-        ]} ${weekDateRange[0]} - ${weekDateRange[1]}`
+        text = `${shortMonthNames[dateObj.month]} ${weekDateRange[0]} - ${weekDateRange[1]}`
         ariaLabel = `${longMonth} ${weekDateRange[0]} to ${longMonth} ${weekDateRange[1]}`
       }
-    } else if (
-      this.props.calendarType === "monthview" ||
-      this.props.calendarType === "scheduleview"
-    ) {
+    } else if (this.props.calendarType === "monthview") {
       text = shortMonthNames[dateObj.month]
       ariaLabel = longMonth
     }
