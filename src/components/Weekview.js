@@ -1,20 +1,13 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
-import {
-  prettyHours,
-  shortDayNames,
-  dayNames,
-  monthNames
-} from "../utils/Strings"
+import { prettyHours, shortDayNames, monthNames } from "../utils/Strings"
 import { withStyles, createStyleSheet } from "material-ui/styles"
 import {
   getStartPadding,
   getDesiredHeight,
-  getStartOfWeek,
   getWeekArray,
   getMilitaryTime
 } from "../utils/DateHelper"
-import Button from "material-ui/Button"
 import Typography from "material-ui/Typography"
 
 const styleSheet = createStyleSheet("Weekview", theme => ({
@@ -116,7 +109,9 @@ const newWeekCol = (meetings, weekArrayObj, classes) => {
         height: desiredHeight.toString() + "%",
         marginTop: getStartPadding(meetings[j].starttime) + "px"
       }
-      let aria = `${meetings[j].coursename} on ${monthNames[weekArrayObj.month]} ${weekArrayObj.day} at ${meetings[j].starttime}`
+      let aria = `${meetings[j].coursename} on ${monthNames[
+        weekArrayObj.month
+      ]} ${weekArrayObj.day} at ${meetings[j].starttime}`
       column[colIndex] = (
         <Typography
           component="div"
@@ -143,11 +138,6 @@ class Weekview extends Component {
   getWeekCol = () => {
     const currentDate = this.props.currentDateRange
     const classes = this.props.classes
-    const startOfWeek = getStartOfWeek(
-      currentDate.month,
-      currentDate.year,
-      currentDate.week
-    )
     let weekcols = []
     let weekArray = getWeekArray(
       currentDate.month,
@@ -167,7 +157,7 @@ class Weekview extends Component {
         //weekGrid = newWeekCol(null)
       }
       weekcols.push(
-        <div className={classes.weekColumn}>
+        <div className={classes.weekColumn} key={"hourDiv" + i}>
           <Typography component="div" className={classes.dayHeader}>
             {shortDayNames[i]}
           </Typography>
@@ -179,13 +169,7 @@ class Weekview extends Component {
   }
 
   render() {
-    const currentDate = this.props.currentDateRange
     const classes = this.props.classes
-    const startOfWeek = getStartOfWeek(
-      currentDate.month,
-      currentDate.year,
-      currentDate.week
-    )
     return (
       <div className={classes.weekContent}>
         <div className={classes.hourColumn}> {hourCol(classes)} </div>{" "}

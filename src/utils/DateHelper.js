@@ -51,8 +51,6 @@ const getStartOfWeek = (month, year, weekNumber) => {
   const day = new Date(year, month, 1)
   const weeksOfMonth = getWeeksOfMonth(day)
   const startDay = day.getDay()
-  let daysInMonth = new Date(year, month + 1, 0)
-  daysInMonth = daysInMonth.getDate()
   let firstNum
 
   if (weekNumber === 1) {
@@ -133,12 +131,10 @@ const getWeekArray = (month, year, weekNumber) => {
 
 const getMilitaryTime = timeString => {
   const splitArray = timeString.split(":")
-  let hours = parseInt(splitArray[0])
+  let hours = parseInt(splitArray[0], 10)
   const minutes = splitArray[1].substring(0, 2)
-  let afternoon = false
 
-  if (splitArray[1].substring(2, 3) == "p") {
-    afternoon = true
+  if (splitArray[1].substring(2, 3) === "p") {
     hours += 12
   }
   return { hours: hours, minutes: minutes }

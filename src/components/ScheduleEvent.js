@@ -43,7 +43,7 @@ class ScheduleEvent extends Component {
           meetings.push(
             <Paper elevation={1} className={classes.eventPaper} tabIndex="0">
               <Typography type="title" className={classes.courseTitle}>
-                {this.props.events[month][day][i].courseman}
+                {this.props.events[month][day][i].coursename}
               </Typography>
               <Typography type="body1" className={classes.eventBody}>
                 {this.props.events[month][day][i].coursetitle}
