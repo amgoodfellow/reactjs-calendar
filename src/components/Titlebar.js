@@ -235,7 +235,7 @@ class Titlebar extends Component {
         text = `${shortMonthNames[dateObj.month]} ${weekDateArray[0]
           .day} - ${weekDateArray[weekDateArray.length - 1].day}`
         ariaLabel = `${longMonth} ${weekDateArray[0]
-          .day} to ${longEndMonth} ${weekDateArray[1].day}`
+          .day} to ${longEndMonth} ${weekDateArray[len - 1].day}`
       }
     } else if (this.props.calendarType === "monthview") {
       text = shortMonthNames[dateObj.month]
