@@ -70,11 +70,10 @@ const getWeekArray = (month, year, weekNumber) => {
   const day = new Date(year, month, 1)
   const weeksOfMonth = getWeeksOfMonth(day)
   const startDay = day.getDay()
-  let firstDay, endDay
+  let firstDay
   let weekArray = []
 
   if (weekNumber === 1) {
-    endDay = 7 - startDay
     firstDay = lastMonth.getDate() + 1 - startDay
 
     for (let i = 0; i < 7; i++) {
@@ -96,7 +95,6 @@ const getWeekArray = (month, year, weekNumber) => {
     }
   } else if (weekNumber === weeksOfMonth) {
     firstDay = 7 * (weeksOfMonth - 2) + (7 - startDay) + 1
-    endDay = 7 - daysInMonth.getDay()
 
     for (let i = 0; i < 7; i++) {
       if (i <= daysInMonth.getDay()) {
@@ -109,7 +107,7 @@ const getWeekArray = (month, year, weekNumber) => {
       } else {
         weekArray[i] = {
           month: month + 1,
-          day: endDay - (i - daysInMonth.getDay()),
+          day: i - daysInMonth.getDay(),
           dayNameFull: dayNames[i],
           dayName: shortDayNames[i]
         }

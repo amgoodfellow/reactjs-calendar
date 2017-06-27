@@ -93,7 +93,6 @@ const newWeekCol = (meetings, weekArrayObj, classes) => {
       <Typography
         component="div"
         key={weekArrayObj.day + "-" + i}
-        id={"weekCol-" + weekArrayObj.day + "-" + i}
         className={classes.weekBox}
       />
     )
@@ -153,8 +152,7 @@ class Weekview extends Component {
           classes
         )
       } catch (err) {
-        console.log(this.props.meetings)
-        //weekGrid = newWeekCol(null)
+        weekGrid = newWeekCol(null, weekArray, classes)
       }
       weekcols.push(
         <div className={classes.weekColumn} key={"hourDiv" + i}>
