@@ -13,7 +13,6 @@ import Toolbar from "material-ui/Toolbar"
 import Typography from "material-ui/Typography"
 import { shortMonthNames, monthNames } from "../utils/Strings"
 import {
-  getWeekDateRange,
   getWeekArray,
   getWeekOfMonth,
   getWeeksOfMonth
@@ -186,7 +185,6 @@ class Titlebar extends Component {
             dateObj.year,
             dateObj.week
           )
-          const len = weekArr.length
           if (dateObj.month === 0) {
             if (weekArr[0].month === 0 && weekArr[0].day < 7) {
               dateObj.month = 11
