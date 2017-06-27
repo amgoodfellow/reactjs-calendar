@@ -14,6 +14,7 @@ import Typography from "material-ui/Typography"
 import { shortMonthNames, monthNames } from "../utils/Strings"
 import {
   getWeekDateRange,
+  getWeekArray,
   getWeekOfMonth,
   getWeeksOfMonth
 } from "./../utils/DateHelper"
@@ -42,7 +43,8 @@ const styleSheet = createStyleSheet("SimpleAppBar", theme => ({
   },
   dateRange: {
     color: "inherit",
-    width: 120
+    width: 140,
+    textAlign: "center"
   }
 }))
 
@@ -116,19 +118,28 @@ class Titlebar extends Component {
         if (dateObj.month === endMonth && dateObj.week === endWeek) {
           this.openSnackbar("End of term reached")
         } else {
-          let dayOfMonth = new Date(dateObj.year, dateObj.month, dateObj.day)
-          if (getWeeksOfMonth(dayOfMonth) === dateObj.week) {
+          const weekArr = getWeekArray(
+            dateObj.month,
+            dateObj.year,
+            dateObj.week
+          )
+          const len = weekArr.length
+          if (dateObj.month === 11) {
+            if (weekArr[0].month === 11 && weekArr[len - 1].month === 0) {
+              dateObj.month = 0
+              dateObj.week = 2
+            }
+          } else if (weekArr[len - 1].month > dateObj.month) {
             dateObj.month++
-            dateObj.week = 1
-            this.props.changeDateRange(dateObj)
+            dateObj.week = 2
           } else {
             dateObj.week++
-            this.props.changeDateRange(dateObj)
           }
+
+          this.props.changeDateRange(dateObj)
 
           break
         }
-        break
     }
   }
 
@@ -170,32 +181,44 @@ class Titlebar extends Component {
         if (dateObj.month === startMonth && dateObj.week === startWeek) {
           this.openSnackbar("Start of term reached")
         } else {
-          let dayOfMonth = new Date(dateObj.year, dateObj.month, dateObj.day)
-          if (dateObj.week === 1) {
+          const weekArr = getWeekArray(
+            dateObj.month,
+            dateObj.year,
+            dateObj.week
+          )
+          const len = weekArr.length
+          if (dateObj.month === 0) {
+            if (weekArr[0].month === 0 && weekArr[0].day < 7) {
+              dateObj.month = 11
+              const d = new Date(dateObj.year, 11, 4)
+              dateObj.week = getWeeksOfMonth(d)
+            }
+          } else if (weekArr[0].day < 7) {
+            const d = new Date(dateObj.year, dateObj.month - 1, 4)
             dateObj.month--
-            dayOfMonth = new Date(dateObj.year, dateObj.month, 1)
-            dateObj.week = getWeeksOfMonth(dayOfMonth)
-            this.props.changeDateRange(dateObj)
+            dateObj.week = getWeeksOfMonth(d)
           } else {
             dateObj.week--
-            this.props.changeDateRange(dateObj)
           }
+
+          this.props.changeDateRange(dateObj)
 
           break
         }
-        break
     }
   }
 
   getDateRange = () => {
     const classes = this.props.classes
     const dateObj = this.props.currentDateRange
-    const weekDateRange = getWeekDateRange(
+    const weekDateArray = getWeekArray(
       dateObj.month,
       dateObj.year,
       dateObj.week
     )
+    const len = weekDateArray.length
     const longMonth = monthNames[dateObj.month]
+    const longEndMonth = monthNames[weekDateArray[len - 1].month]
 
     let text
     let ariaLabel
@@ -204,12 +227,17 @@ class Titlebar extends Component {
       this.props.calendarType === "weekview" ||
       this.props.calendarType === "scheduleview"
     ) {
-      if (weekDateRange[1] === "") {
-        text = `${shortMonthNames[dateObj.month]} ${weekDateRange[0]}`
-        ariaLabel = `${longMonth} ${weekDateRange[0]}`
+      if (weekDateArray[len - 1].month > dateObj.month) {
+        const endMonth = weekDateArray[len - 1].month
+        text = `${shortMonthNames[dateObj.month]} ${weekDateArray[0]
+          .day} - ${shortMonthNames[endMonth]} ${weekDateArray[len - 1].day}`
+        ariaLabel = `${longMonth} ${weekDateArray[0]
+          .day} to ${longEndMonth} ${weekDateArray[len - 1].day}`
       } else {
-        text = `${shortMonthNames[dateObj.month]} ${weekDateRange[0]} - ${weekDateRange[1]}`
-        ariaLabel = `${longMonth} ${weekDateRange[0]} to ${longMonth} ${weekDateRange[1]}`
+        text = `${shortMonthNames[dateObj.month]} ${weekDateArray[0]
+          .day} - ${weekDateArray[weekDateArray.length - 1].day}`
+        ariaLabel = `${longMonth} ${weekDateArray[0]
+          .day} to ${longEndMonth} ${weekDateArray[1].day}`
       }
     } else if (this.props.calendarType === "monthview") {
       text = shortMonthNames[dateObj.month]
@@ -220,6 +248,7 @@ class Titlebar extends Component {
       <Typography
         type="title"
         className={classes.dateRange}
+        style={{ width: 140 }}
         aria-label={ariaLabel}
         tabIndex="0"
       >

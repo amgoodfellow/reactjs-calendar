@@ -109,7 +109,7 @@ const getWeekArray = (month, year, weekNumber) => {
       } else {
         weekArray[i] = {
           month: month + 1,
-          day: endDay - (i - daysInMonth.getDay()),
+          day: i - daysInMonth.getDay(),
           dayNameFull: dayNames[i],
           dayName: shortDayNames[i]
         }
