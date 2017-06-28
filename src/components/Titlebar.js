@@ -19,13 +19,9 @@ import {
 } from "./../utils/DateHelper"
 
 const styleSheet = createStyleSheet("SimpleAppBar", theme => ({
-  root: {
-    position: "relative",
-    marginTop: 30,
-    width: "100%"
-  },
   appBar: {
-    position: "relative"
+    position: "relative",
+    height: "7vh"
   },
   toolbar: {
     display: "flex",
@@ -208,7 +204,9 @@ class Titlebar extends Component {
         text = `${shortMonthNames[dateObj.month]} ${weekDateRange[0]}`
         ariaLabel = `${longMonth} ${weekDateRange[0]}`
       } else {
-        text = `${shortMonthNames[dateObj.month]} ${weekDateRange[0]} - ${weekDateRange[1]}`
+        text = `${shortMonthNames[
+          dateObj.month
+        ]} ${weekDateRange[0]} - ${weekDateRange[1]}`
         ariaLabel = `${longMonth} ${weekDateRange[0]} to ${longMonth} ${weekDateRange[1]}`
       }
     } else if (this.props.calendarType === "monthview") {
@@ -298,7 +296,11 @@ class Titlebar extends Component {
           contentProps={{
             "aria-describedby": "message-id"
           }}
-          message={<span id="message-id">{this.state.snackbarMessage}</span>}
+          message={
+            <span id="message-id">
+              {this.state.snackbarMessage}
+            </span>
+          }
           action={
             <IconButton
               tabIndex="0"

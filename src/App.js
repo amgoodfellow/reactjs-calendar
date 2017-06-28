@@ -3,6 +3,7 @@ import Weekview from "./components/Weekview"
 import Scheduleview from "./components/Scheduleview"
 import Titlebar from "./components/Titlebar"
 import MonthView from "./components/MonthView"
+import MobileMonthView from "./components/MobileMonthView"
 import { getWeekOfMonth } from "./utils/DateHelper"
 
 class App extends Component {
@@ -19,7 +20,7 @@ class App extends Component {
 
   updateWidth = () => {
     this.setState({ width: document.getElementById("root").clientWidth })
-    if (this.state.width < 768) {
+    if (this.state.width < 796) {
       this.setState({ mobile: true })
     } else {
       this.setState({ mobile: false })
@@ -28,6 +29,11 @@ class App extends Component {
 
   componentDidMount() {
     window.addEventListener("resize", this.updateWidth)
+
+    if (document.getElementById("root").clientWidth < 796) {
+      this.setState({ mobile: true })
+    }
+
     fetch("http://localhost:8082/api/terms")
       .then(response => {
         return response.json()
@@ -83,13 +89,23 @@ class App extends Component {
           />
         )
       case "monthview":
-        return (
-          <MonthView
-            calendar={this.state.calendar}
-            currentDateRange={this.state.currentDateRange}
-            changeDateRange={this.changeDateRange}
-          />
-        )
+        if (this.state.mobile) {
+          return (
+            <MobileMonthView
+              calendar={this.state.calendar}
+              currentDateRange={this.state.currentDateRange}
+              changeDateRange={this.changeDateRange}
+            />
+          )
+        } else {
+          return (
+            <MonthView
+              calendar={this.state.calendar}
+              currentDateRange={this.state.currentDateRange}
+              changeDateRange={this.changeDateRange}
+            />
+          )
+        }
       case "scheduleview":
         return (
           <Scheduleview
