@@ -303,13 +303,9 @@ class Titlebar extends Component {
             <MenuItem onClick={() => this.handleMenuItemClick("weekview")}>
               Week View
             </MenuItem>
-            <MenuItem onClick={() => this.handleMenuItemClick("dayview")}>
-              Day View
-            </MenuItem>
             <MenuItem onClick={() => this.handleMenuItemClick("scheduleview")}>
               Schedule View
             </MenuItem>
-            <MenuItem onClick={this.handleRequestClose}>Download ICal</MenuItem>
           </Menu>
         </Toolbar>
         <Snackbar
