@@ -20,8 +20,7 @@ import {
 
 const styleSheet = createStyleSheet("SimpleAppBar", theme => ({
   appBar: {
-    position: "relative",
-    height: "7vh"
+    position: "relative"
   },
   toolbar: {
     display: "flex",
