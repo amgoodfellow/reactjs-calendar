@@ -15,7 +15,23 @@ class App extends Component {
     theme: "oakland",
     url: null,
     width: document.getElementById("root").clientWidth,
-    mobile: false
+    mobile: false,
+    monthViewClicked: null
+  }
+
+  updateMonthViewClicked = (year, month, week, day) => {
+    console.log("I've been called")
+    let newDateRange = {
+      year: year,
+      month: month,
+      week: week,
+      day: day
+    }
+    console.log(newDateRange)
+    this.setState({
+      currentDateRange: newDateRange,
+      calendarType: "scheduleview"
+    })
   }
 
   updateWidth = () => {
@@ -92,9 +108,11 @@ class App extends Component {
         if (this.state.mobile) {
           return (
             <MobileMonthView
-              calendar={this.state.calendar}
+              events={this.state.events}
               currentDateRange={this.state.currentDateRange}
               changeDateRange={this.changeDateRange}
+              updateClicked={(day, month, view, year) =>
+                this.updateMonthViewClicked(day, month, view, year)}
             />
           )
         } else {

@@ -1,14 +1,30 @@
+/* flow */
 import React, { Component } from "react"
-import { dayNames, shortDayNames } from "./../utils/Strings"
+import { shortDayNames } from "./../utils/Strings"
 import { withStyles, createStyleSheet } from "material-ui/styles"
 import Typography from "material-ui/Typography"
 import PropTypes from "prop-types"
 import Paper from "material-ui/Paper"
-import Toolbar from "material-ui/Toolbar"
 import { getWeeksOfMonth, getDaysInMonth } from "./../utils/DateHelper"
 import FiberManualRecord from "material-ui-icons/FiberManualRecord"
+import { blue } from "material-ui/styles/colors"
+import { getWeekOfMonth } from "./../utils/DateHelper"
 
 const stylesheet = createStyleSheet("MobileMonthView", theme => ({
+  todayNumber: {
+    marginLeft: "-5px",
+    marginTop: "-10px",
+    fontWeight: "600"
+  },
+  otherDayNumber: {
+    marginLeft: "-5px",
+    marginTop: "-10px"
+  },
+  eventIcon: {
+    fill: blue[500],
+    width: "15px",
+    height: "15px"
+  },
   root: {
     height: "100%"
   },
@@ -68,12 +84,33 @@ const stylesheet = createStyleSheet("MobileMonthView", theme => ({
 }))
 
 class MobileMonthView extends Component {
+  constructor() {
+    super()
+    this.state = {
+      width: window.outerWidth,
+      currentDay: null,
+      events: null
+    }
+    this.monthDayCounter = 1
+  }
+  // @flow
+  handleEventClick = (year: string, month: string, day: string) => {
+    let week = getWeekOfMonth(year, month, day)
+    console.log("day: " + day)
+    console.log("week: " + week)
+    console.log("month: " + month)
+    console.log("year: " + year)
+    console.log("I've been clicked")
+
+    this.props.updateClicked(year, month, week, day)
+  }
+
   weekDays = () => {
     let weekDaysRow = []
 
     for (let i = 0; i < 7; ++i) {
       weekDaysRow.push(
-        <td key={weekDaysRow[i]} style={{ width: "100rem" }}>
+        <td key={i + Math.random()} style={{ width: "100rem" }}>
           <Typography type="body1" component="div" style={{ fontWeight: 600 }}>
             {shortDayNames[i]}
           </Typography>
@@ -94,7 +131,7 @@ class MobileMonthView extends Component {
 
     for (let i = 0; i < wks; i++) {
       rows.push(
-        <tr>
+        <tr key={i + Math.random()}>
           {this.getDays(i)}
         </tr>
       )
@@ -103,6 +140,7 @@ class MobileMonthView extends Component {
     return rows
   }
 
+  // @flow
   getDays = (wk: number) => {
     const classes = this.props.classes
     let days = []
@@ -120,44 +158,118 @@ class MobileMonthView extends Component {
     let today = new Date()
     for (let i = 0; i < 7; i++) {
       if (this.monthDayCounter > numDays) {
-        days.push(<td className={classes.pastMonthDay} />)
+        days.push(
+          <td key={i + Math.random()} className={classes.pastMonthDay} />
+        )
       } else if (
         this.monthDayCounter === 1 &&
         wk === 0 &&
         first.getDay() !== i
       ) {
-        days.push(<td className={classes.pastMonthDay} />)
+        days.push(
+          <td key={i + Math.random()} className={classes.pastMonthDay} />
+        )
       } else {
         if (
           this.props.currentDateRange.year === today.getFullYear() &&
           this.props.currentDateRange.month === today.getMonth() &&
           this.monthDayCounter === today.getDate()
         ) {
-          days.push(
-            <td className={classes.currentDay}>
-              <Typography
-                type="body1"
-                component="div"
-                style={{ fontWeight: "600" }}
+          if (
+            this.props.events[this.props.currentDateRange.month] !==
+              undefined &&
+            this.props.events[this.props.currentDateRange.month][
+              this.monthDayCounter
+            ] !== undefined
+          ) {
+            let scopedDayNumber = this.monthDayCounter
+            days.push(
+              <td
+                onClick={(day, month, year) =>
+                  this.handleEventClick(
+                    this.props.currentDateRange.year,
+                    this.props.currentDateRange.month,
+                    scopedDayNumber
+                  )}
+                key={i + Math.random() + this.monthDayCounter}
+                className={classes.currentDay}
               >
-                {this.monthDayCounter}
-              </Typography>
-              <div className={classes.event}>
-                <FiberManualRecord />
-              </div>
-            </td>
-          )
+                <Typography
+                  type="body1"
+                  component="div"
+                  className={classes.todayNumber}
+                >
+                  {this.monthDayCounter}
+                </Typography>
+                <div className={classes.event}>
+                  <FiberManualRecord className={classes.eventIcon} />
+                </div>
+              </td>
+            )
+          } else {
+            days.push(
+              <td
+                key={i + Math.random() + this.monthDayCounter}
+                className={classes.currentDay}
+              >
+                <Typography
+                  type="body1"
+                  component="div"
+                  className={classes.todayNumber}
+                >
+                  {this.monthDayCounter}
+                </Typography>
+              </td>
+            )
+          }
         } else {
-          days.push(
-            <td className={classes.monthDay}>
-              <Typography type="body1" component="div">
-                {this.monthDayCounter}
-              </Typography>
-              <div className={classes.event}>
-                <FiberManualRecord />
-              </div>
-            </td>
-          )
+          if (
+            this.props.events[this.props.currentDateRange.month] !==
+              undefined &&
+            this.props.events[this.props.currentDateRange.month][
+              this.monthDayCounter
+            ] !== undefined
+          ) {
+            let scopedDayNumber = this.monthDayCounter
+            days.push(
+              <td
+                onClick={(day, month, year) =>
+                  this.handleEventClick(
+                    this.props.currentDateRange.year,
+                    this.props.currentDateRange.month,
+                    scopedDayNumber
+                  )}
+                key={i + Math.random() + this.monthDayCounter}
+                className={classes.monthDay}
+              >
+                <Typography
+                  type="body1"
+                  component="div"
+                  className={classes.otherDayNumber}
+                >
+                  {this.monthDayCounter}
+                </Typography>
+                <div className={classes.event}>
+                  <FiberManualRecord className={classes.eventIcon} />
+                </div>
+              </td>
+            )
+          } else {
+            days.push(
+              <td
+                key={i + Math.random() + this.monthDayCounter}
+                className={classes.monthDay}
+              >
+                <Typography
+                  type="body1"
+                  component="div"
+                  className={classes.otherDayNumber}
+                >
+                  {this.monthDayCounter}
+                </Typography>
+              </td>
+            )
+          }
         }
         this.monthDayCounter++
       }
@@ -167,6 +279,7 @@ class MobileMonthView extends Component {
 
   render() {
     const classes = this.props.classes
+    console.log(this.props.events[5][3])
     return (
       <Paper className={classes.root}>
         <div className={classes.monthDiv}>

@@ -2,7 +2,7 @@ import { dayNames, shortDayNames } from "./Strings"
 //Takes a Date object
 //Returns an integer number representing the number of weeks
 //of a month
-const getWeeksOfMonth = day => {
+export const getWeeksOfMonth = day => {
   const firstDay = new Date(day.setDate(1)).getDay()
   const totalDays = new Date(day.getFullYear(), day.getMonth() + 1, 0).getDate()
   return Math.ceil((firstDay + totalDays) / 7)
@@ -10,14 +10,14 @@ const getWeeksOfMonth = day => {
 
 //Returns an integer number representing the week of the month
 //depending on the selected day
-const getWeekOfMonth = (year, month, day) => {
+export const getWeekOfMonth = (year, month, day) => {
   const firstWeekday = new Date(year, month, 1).getDay()
   const d = new Date(year, month, day)
   const offsetDate = d.getDate() + firstWeekday - 1
   return Math.floor(offsetDate / 7) + 1
 }
 
-const getWeekDateRange = (month, year, weekNumber) => {
+export const getWeekDateRange = (month, year, weekNumber) => {
   const day = new Date(year, month, 1)
   const weeksOfMonth = getWeeksOfMonth(day)
   const startDay = day.getDay()
@@ -42,12 +42,12 @@ const getWeekDateRange = (month, year, weekNumber) => {
   return [firstNum, endNum]
 }
 
-const getDaysInMonth = (year, month) => {
+export const getDaysInMonth = (year, month) => {
   let d = new Date(year, month + 1, 0)
   return d
 }
 
-const getStartOfWeek = (month, year, weekNumber) => {
+export const getStartOfWeek = (month, year, weekNumber) => {
   const day = new Date(year, month, 1)
   const weeksOfMonth = getWeeksOfMonth(day)
   const startDay = day.getDay()
@@ -64,7 +64,7 @@ const getStartOfWeek = (month, year, weekNumber) => {
   return firstNum
 }
 
-const getWeekArray = (month, year, weekNumber) => {
+export const getWeekArray = (month, year, weekNumber) => {
   const daysInMonth = new Date(year, month + 1, 0)
   const lastMonth = new Date(year, month, 0)
   const day = new Date(year, month, 1)
@@ -129,7 +129,7 @@ const getWeekArray = (month, year, weekNumber) => {
   return weekArray
 }
 
-const getMilitaryTime = timeString => {
+export const getMilitaryTime = timeString => {
   const splitArray = timeString.split(":")
   let hours = parseInt(splitArray[0], 10)
   const minutes = splitArray[1].substring(0, 2)
@@ -144,7 +144,7 @@ const getMilitaryTime = timeString => {
 //how far eventButtons should be extended past their half hour slot. If
 //sizing is changed in the CSS, one must make sure to reevaluate the 4.6
 //number
-const getDesiredHeight = (starttime, endtime) => {
+export const getDesiredHeight = (starttime, endtime) => {
   const startObj = getMilitaryTime(starttime)
   const endObj = getMilitaryTime(endtime)
   const startHour = startObj.hours
@@ -159,7 +159,7 @@ const getDesiredHeight = (starttime, endtime) => {
 //Similar to the getDesiredHeight() method, this method determines
 //how much a top margin the events in week and day view should have.
 //This is seen if a class starts at 2:15 or some other non half-hour time
-const getStartPadding = starttime => {
+export const getStartPadding = starttime => {
   let startMinutes = getMilitaryTime(starttime).minutes
   if (startMinutes > 30) {
     startMinutes -= 30
@@ -168,16 +168,4 @@ const getStartPadding = starttime => {
   }
   startMinutes /= 30
   return startMinutes * 27
-}
-
-export {
-  getStartPadding,
-  getWeekOfMonth,
-  getWeeksOfMonth,
-  getWeekDateRange,
-  getStartOfWeek,
-  getWeekArray,
-  getMilitaryTime,
-  getDesiredHeight,
-  getDaysInMonth
 }
