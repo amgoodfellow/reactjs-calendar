@@ -9,6 +9,7 @@ import { getWeeksOfMonth, getDaysInMonth } from "./../utils/DateHelper"
 import FiberManualRecord from "material-ui-icons/FiberManualRecord"
 import { blue } from "material-ui/styles/colors"
 import { getWeekOfMonth } from "./../utils/DateHelper"
+import { monthNames } from "./../utils/Strings"
 
 const stylesheet = createStyleSheet("MobileMonthView", theme => ({
   addMargin: {
@@ -116,6 +117,14 @@ class MobileMonthView extends Component {
     this.props.updateClicked(year, month, week, day)
   }
 
+  handleKeyDown = (e: any, year: string, month: string, day: string) => {
+    if (Object.is(e.keyCode, 13) || Object.is(e.keyCode, 32)) {
+      e.preventDefault()
+      let week = getWeekOfMonth(year, month, day)
+      this.props.updateClicked(year, month, week, day)
+    }
+  }
+
   weekDays = () => {
     let weekDaysRow = []
 
@@ -201,8 +210,25 @@ class MobileMonthView extends Component {
             let scopedDayNumber = this.monthDayCounter
             days.push(
               <td
+                tabIndex="0"
+                aria-label={
+                  "View events for " +
+                  monthNames[this.props.currentDateRange.month] +
+                  " " +
+                  scopedDayNumber +
+                  " " +
+                  this.props.currentDateRange.year +
+                  " in the schedule view."
+                }
                 onClick={(day, month, year) =>
                   this.handleEventClick(
+                    this.props.currentDateRange.year,
+                    this.props.currentDateRange.month,
+                    scopedDayNumber
+                  )}
+                onKeyDown={(e, day, month, year) =>
+                  this.handleKeyDown(
+                    e,
                     this.props.currentDateRange.year,
                     this.props.currentDateRange.month,
                     scopedDayNumber
@@ -255,8 +281,25 @@ class MobileMonthView extends Component {
             let scopedDayNumber = this.monthDayCounter
             days.push(
               <td
+                tabIndex="0"
+                aria-label={
+                  "View events for " +
+                  monthNames[this.props.currentDateRange.month] +
+                  " " +
+                  scopedDayNumber +
+                  " " +
+                  this.props.currentDateRange.year +
+                  " in the schedule view."
+                }
                 onClick={(day, month, year) =>
                   this.handleEventClick(
+                    this.props.currentDateRange.year,
+                    this.props.currentDateRange.month,
+                    scopedDayNumber
+                  )}
+                onKeyDown={(e, day, month, year) =>
+                  this.handleKeyDown(
+                    e,
                     this.props.currentDateRange.year,
                     this.props.currentDateRange.month,
                     scopedDayNumber
