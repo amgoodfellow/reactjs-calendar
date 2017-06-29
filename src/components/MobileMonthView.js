@@ -113,12 +113,6 @@ class MobileMonthView extends Component {
   // @flow
   handleEventClick = (year: string, month: string, day: string) => {
     let week = getWeekOfMonth(year, month, day)
-    console.log("day: " + day)
-    console.log("week: " + week)
-    console.log("month: " + month)
-    console.log("year: " + year)
-    console.log("I've been clicked")
-
     this.props.updateClicked(year, month, week, day)
   }
 
