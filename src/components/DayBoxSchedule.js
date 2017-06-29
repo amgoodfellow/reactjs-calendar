@@ -26,10 +26,6 @@ class DayBoxSchedule extends Component {
             this.props.calendarMeeting[this.props.month][this.props.day].length;
             i++
           ) {
-            console.log(
-              this.props.calendarMeeting[this.props.month][this.props.day][i]
-                .coursetitle
-            )
             card.push(
               <ListItem
                 component="div"

@@ -41,8 +41,22 @@ class ExpandedCards extends Component {
 
  render(){
    const classes = this.props.classes;
-   const i = this.props.i;
    const card=[]
+   console.log(this.props.calendar[this.props.month][this.props.day][this.props.increment]
+)
+
+            console.log(
+              this.props.calendar[this.props.month][this.props.day]
+            )
+    if (this.props.calendar === undefined ||
+    this.props.calendar[this.props.month] === undefined ||
+     this.props.calendar[this.props.month][this.props.day] === undefined){
+          return (
+            <div/>
+          )
+        }else{
+             const i = 0
+
    return(
 
 <div>
@@ -52,12 +66,10 @@ class ExpandedCards extends Component {
         className={classes.card}>
           <div className={classes.flexGrow}>
           <CardHeader
-            title={ this.props.calendarMeeting[this.props.month][
-                          this.props.day
-                        ][i].coursetitle
+            title={ this.props.calendar[this.props.month][this.props.day][i].coursetitle
                       }
-            subheader={`${this.props.calendarMeeting[this.props.month][this.props.day][i].starttime} - 
-                     ${this.props.calendarMeeting[this.props.month][this.props.day][i].starttime}`}
+            subheader={`${this.props.calendar[this.props.month][this.props.day][i].starttime} - 
+                     ${this.props.calendar[this.props.month][this.props.day][i].starttime}`}
           />          
           <CardActions disableActionSpacing> 
             <IconButton
@@ -76,14 +88,14 @@ class ExpandedCards extends Component {
             <CardContent >
               <Typography paragraph type="body2">Location:</Typography>
               <Typography paragraph type="caption">
-               { this.props.calendarMeeting[this.props.month][
+               { this.props.calendar[this.props.month][
                           this.props.day
                         ][i].buildingroom
                       }
               </Typography>
              <Typography paragraph type="body2">Course Name:</Typography>              
               <Typography paragraph type="caption">
-                {this.props.calendarMeeting[this.props.month][
+                {this.props.calendar[this.props.month][
                           this.props.day
                         ][i].courseman
                       }
@@ -95,7 +107,7 @@ class ExpandedCards extends Component {
       </div>
             
    )
-        
+        }
       }
     }
 

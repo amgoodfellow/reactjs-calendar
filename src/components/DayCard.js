@@ -9,6 +9,8 @@ import IconButton from 'material-ui/IconButton';
 import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import ExpandedCards from "./ExpandedCards"
+
 const styleSheet = createStyleSheet('DayCard', theme => ({
   card:{
     transition: theme.transitions.create('transform', {
@@ -27,16 +29,7 @@ const styleSheet = createStyleSheet('DayCard', theme => ({
     justifyContent: "space-around",
     flexFlow: "row nowrap" },
 })) 
-class DayCard extends Component {
-   
-   state = {
-     expand: false,
-     
-   };
-  handleExpandClick() {
-    this.setState({expand: !this.state.expand})
-  }
-
+class DayCard extends Component {  
   NoClassesCard() {
     let card = []
       card.push(
@@ -59,61 +52,6 @@ class DayCard extends Component {
       )
       return card
     }
-  
-  HaveClassesCard(){
-    let card = []
-    for (   let i = 0;
-            i <
-            this.props.calendarMeeting[this.props.month][this.props.day].length;
-            i++
-          ) {
-            card.push(
-              <div key={card[i]}>
-      <CardHeader
-            title={ this.props.calendarMeeting[this.props.month][
-                          this.props.day
-                        ][i].coursetitle
-                      }
-            subheader={`${this.props.calendarMeeting[this.props.month][this.props.day][i].starttime} - 
-                     ${this.props.calendarMeeting[this.props.month][this.props.day][i].starttime}`}
-            /> 
-            </div>
-             )
-            return card  
-
-  }}
-  ExpandedCard(){   
-    let card=[]    
-          for (
-            let i = 0;
-            i <
-            this.props.calendarMeeting[this.props.month][this.props.day].length;
-            i++
-          ) {
-            card.push(
-               <div  key={card[i]}
->
-                  <Typography paragraph type="body2">Location:</Typography>
-              <Typography paragraph type="caption">
-               { this.props.calendarMeeting[this.props.month][
-                          this.props.day
-                        ][i].buildingroom
-                      }
-              </Typography>
-             <Typography paragraph type="body2">Course Name:</Typography>              
-              <Typography paragraph type="caption">
-                {this.props.calendarMeeting[this.props.month][
-                          this.props.day
-                        ][i].courseman
-                      }
-              </Typography> 
-              </div> 
-            )
-          }
-    
-    return card
-  }
-
   render() {
     const classes = this.props.classes;
 
@@ -129,34 +67,19 @@ class DayCard extends Component {
           this.props.calendarMeeting[this.props.month][this.props.day] !==
           undefined
         ) {
+          for (let i =0; i< this.props.calendarMeeting[this.props.month][this.props.day].length; ++i ){            
+            console.log(this.props.calendarMeeting[this.props.month][this.props.day][i])
     return (
       <List>
-        <div
-  
-        className={classes.card}>
-          <div className={classes.flexGrow}>
-            {this.HaveClassesCard()}
-        <IconButton
-              className={classnames(classes.expand, { 
-                [classes.expandOpen]: this.state.expand, 
-              })}
-              onClick={() =>  (this.handleExpandClick())}
-              aria-expanded={this.state.expanded}
-              aria-label="Expand"
-            >
-              <ExpandMoreIcon />
-            </IconButton>
-  
-          </div>
-          <Collapse in={this.state.expand} transitionDuration="auto" unmountOnExit>
-            <CardContent >
-                      {this.ExpandedCard()}  
-            </CardContent>
-          </Collapse>
-      </div>
+        <ExpandedCards        
+                  calendar={this.props.calendarMeeting}
+                  month={this.props.month}
+                  day={this.props.day}                 
+                  increment={i}
+                /> 
 </List>
     )
-  }}}
+  }}}}
 }
 DayCard.propTypes = {
   classes: PropTypes.object.isRequired,
