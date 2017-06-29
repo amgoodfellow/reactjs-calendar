@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import Weekview from "./components/Weekview"
-import Scheduleview from "./components/Scheduleview"
+import ScheduleView from "./components/ScheduleView"
 import Titlebar from "./components/Titlebar"
 import MonthView from "./components/MonthView"
 import MobileMonthView from "./components/MobileMonthView"
@@ -15,8 +15,7 @@ class App extends Component {
     theme: "oakland",
     url: null,
     width: document.getElementById("root").clientWidth,
-    mobile: false,
-    monthViewClicked: null
+    mobile: false
   }
 
   updateMonthViewClicked = (year, month, week, day) => {
@@ -27,7 +26,6 @@ class App extends Component {
       week: week,
       day: day
     }
-    console.log(newDateRange)
     this.setState({
       currentDateRange: newDateRange,
       calendarType: "scheduleview"
@@ -126,7 +124,7 @@ class App extends Component {
         }
       case "scheduleview":
         return (
-          <Scheduleview
+          <ScheduleView
             events={this.state.events}
             currentDateRange={this.state.currentDateRange}
           />

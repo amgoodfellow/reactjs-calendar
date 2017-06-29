@@ -11,29 +11,39 @@ import { blue } from "material-ui/styles/colors"
 import { getWeekOfMonth } from "./../utils/DateHelper"
 
 const stylesheet = createStyleSheet("MobileMonthView", theme => ({
+  addMargin: {
+    marginTop: "2em"
+  },
+
   todayNumber: {
     marginLeft: "-5px",
     marginTop: "-10px",
     fontWeight: "600"
   },
+
   otherDayNumber: {
     marginLeft: "-5px",
     marginTop: "-10px"
   },
+
   eventIcon: {
-    fill: blue[500],
+    fill: theme.palette.accent[400],
     width: "15px",
-    height: "15px"
+    height: "15px",
+    marginTop: "2em"
   },
+
   root: {
-    height: "100%"
+    height: "550px"
   },
+
   pastMonthDay: {
     fontSize: "15px",
     border: "1px solid white",
     padding: "10px",
     backgroundColor: "#E0E0E0"
   },
+
   currentDay: {
     fontSize: "15px",
     fontWeight: "bold",
@@ -42,22 +52,27 @@ const stylesheet = createStyleSheet("MobileMonthView", theme => ({
     padding: "10px",
     backgroundColor: "rgba(86,162,234, 0.5)"
   },
+
   monthDay: {
     fontSize: "15px",
     border: "1px solid white",
     padding: "10px"
   },
+
   event: {
     display: "flex",
     justifyContent: "center"
   },
+
   monthDiv: {
     height: "100%"
   },
+
   monthTitleBar: {
     position: "relative",
     height: "50px"
   },
+
   table: {
     width: "100%",
     borderTop: "hidden",
@@ -66,6 +81,7 @@ const stylesheet = createStyleSheet("MobileMonthView", theme => ({
     borderCollapse: "collapse",
     height: "100%"
   },
+
   tableHead: {
     border: "1px solid rgba(0, 0, 0, 0.075)",
     color: "#000000",
@@ -75,6 +91,7 @@ const stylesheet = createStyleSheet("MobileMonthView", theme => ({
     borderTop: "hidden",
     height: "20%"
   },
+
   tableBody: {
     backgroundColor: "rgb(255,243,233)",
     color: "#000000",
@@ -171,16 +188,21 @@ class MobileMonthView extends Component {
         )
       } else {
         if (
-          this.props.currentDateRange.year === today.getFullYear() &&
-          this.props.currentDateRange.month === today.getMonth() &&
-          this.monthDayCounter === today.getDate()
+          Object.is(this.props.currentDateRange.year, today.getFullYear()) &&
+          Object.is(this.props.currentDateRange.month, today.getMonth()) &&
+          Object.is(this.monthDayCounter, today.getDate())
         ) {
           if (
-            this.props.events[this.props.currentDateRange.month] !==
-              undefined &&
-            this.props.events[this.props.currentDateRange.month][
-              this.monthDayCounter
-            ] !== undefined
+            !Object.is(
+              this.props.events[this.props.currentDateRange.month],
+              undefined
+            ) &&
+            !Object.is(
+              this.props.events[this.props.currentDateRange.month][
+                this.monthDayCounter
+              ],
+              undefined
+            )
           ) {
             let scopedDayNumber = this.monthDayCounter
             days.push(
@@ -219,16 +241,22 @@ class MobileMonthView extends Component {
                 >
                   {this.monthDayCounter}
                 </Typography>
+                <div className={classes.addMargin} />
               </td>
             )
           }
         } else {
           if (
-            this.props.events[this.props.currentDateRange.month] !==
-              undefined &&
-            this.props.events[this.props.currentDateRange.month][
-              this.monthDayCounter
-            ] !== undefined
+            !Object.is(
+              this.props.events[this.props.currentDateRange.month],
+              undefined
+            ) &&
+            !Object.is(
+              this.props.events[this.props.currentDateRange.month][
+                this.monthDayCounter
+              ],
+              undefined
+            )
           ) {
             let scopedDayNumber = this.monthDayCounter
             days.push(
@@ -267,6 +295,7 @@ class MobileMonthView extends Component {
                 >
                   {this.monthDayCounter}
                 </Typography>
+                <div className={classes.addMargin} />
               </td>
             )
           }
@@ -279,7 +308,6 @@ class MobileMonthView extends Component {
 
   render() {
     const classes = this.props.classes
-    console.log(this.props.events[5][3])
     return (
       <Paper className={classes.root}>
         <div className={classes.monthDiv}>
