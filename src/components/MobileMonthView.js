@@ -7,9 +7,9 @@ import PropTypes from "prop-types"
 import Paper from "material-ui/Paper"
 import { getWeeksOfMonth, getDaysInMonth } from "./../utils/DateHelper"
 import FiberManualRecord from "material-ui-icons/FiberManualRecord"
-import { blue } from "material-ui/styles/colors"
 import { getWeekOfMonth } from "./../utils/DateHelper"
 import { monthNames } from "./../utils/Strings"
+import { pink } from "material-ui/styles/colors"
 
 const stylesheet = createStyleSheet("MobileMonthView", theme => ({
   addMargin: {
@@ -28,7 +28,7 @@ const stylesheet = createStyleSheet("MobileMonthView", theme => ({
   },
 
   eventIcon: {
-    fill: theme.palette.accent[400],
+    fill: pink[600],
     width: "15px",
     height: "15px",
     marginTop: "2em"

@@ -153,8 +153,7 @@ class Weekview extends Component {
           classes
         )
       } catch (err) {
-        console.log(this.props.meetings)
-        //weekGrid = newWeekCol(null)
+        console.error(err)
       }
       weekcols.push(
         <div className={classes.weekColumn} key={"hourDiv" + i}>
