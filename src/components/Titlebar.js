@@ -19,11 +19,6 @@ import {
 } from "./../utils/DateHelper"
 
 const styleSheet = createStyleSheet("SimpleAppBar", theme => ({
-  root: {
-    position: "relative",
-    marginTop: 30,
-    width: "100%"
-  },
   appBar: {
     position: "relative"
   },
@@ -232,6 +227,7 @@ class Titlebar extends Component {
         ariaLabel = `${longMonth} ${weekDateArray[0]
           .day} to ${longEndMonth} ${weekDateArray[len - 1].day}`
       } else {
+
         text = `${shortMonthNames[dateObj.month]} ${weekDateArray[0]
           .day} - ${weekDateArray[weekDateArray.length - 1].day}`
         ariaLabel = `${longMonth} ${weekDateArray[0]
@@ -321,7 +317,11 @@ class Titlebar extends Component {
           contentProps={{
             "aria-describedby": "message-id"
           }}
-          message={<span id="message-id">{this.state.snackbarMessage}</span>}
+          message={
+            <span id="message-id">
+              {this.state.snackbarMessage}
+            </span>
+          }
           action={
             <IconButton
               tabIndex="0"

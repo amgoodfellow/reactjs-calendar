@@ -10,7 +10,7 @@ const styleSheet = createStyleSheet("ScheduleEvent", theme => ({
     backgroundColor: "#0074b7",
     color: "#000000",
     boxShadow: "0 0.125rem 0.3125rem 0 rgba(0, 0, 0, 0.16)",
-    height: "90px",
+    height: "100%",
     transition: "box-shadow ease-in 300ms 10ms",
     "&:hover": {
       boxShadow: "0 0.25rem 0.9375rem 0 rgba(0, 0, 0, 0.5)"
@@ -42,7 +42,7 @@ class ScheduleEvent extends Component {
         for (let i = 0; i < this.props.events[month][day].length; i++) {
           meetings.push(
             <Paper
-              key={"scheduleEvent" + i}
+              key={"scheduleEvent" + i + Math.random()}
               elevation={1}
               className={classes.eventPaper}
               tabIndex="0"
