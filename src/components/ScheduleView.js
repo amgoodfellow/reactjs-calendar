@@ -5,6 +5,7 @@ import { getWeekArray } from "./../utils/DateHelper"
 import ScheduleEvent from "./ScheduleEvent"
 import { withStyles, createStyleSheet } from "material-ui/styles"
 import PropTypes from "prop-types"
+import { monthNames } from "./../utils/Strings"
 
 const styleSheet = createStyleSheet("ScheduleView", theme => ({
   dayPaper: {
@@ -70,7 +71,15 @@ class ScheduleView extends Component {
             <div
               className={classes.date}
               tabIndex="0"
-              aria-label={week[i].day + " " + week[i].dayNameFull}
+              aria-label={
+                week[i].dayNameFull +
+                " " +
+                monthNames[this.props.currentDateRange.month] +
+                " " +
+                week[i].day +
+                " " +
+                this.props.currentDateRange.year
+              }
             >
               <Typography type="display2" aria-hidden="true">
                 {week[i].day}
