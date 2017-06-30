@@ -22,8 +22,8 @@ const (
 	//Meeting table creation.
 	meetingSQL = "create table if not exists meetings(id serial primary key, crn text, startdate text, enddate text, starttime text, endtime text, coursetype text, coursetypecode text, buildingroom text, campus text, meetday text)"
 
-  //Calendar meeting table creation
-  meetingCalendarSQL = "create table if not exists calmeetins(id serial primary key, day text, month text, year text, starttime text, endtime text, coursetype text, buildingroom text, campus text, coursename text, coursetitle text)"
+	//Calendar meeting table creation
+	meetingCalendarSQL = "create table if not exists calmeetins(id serial primary key, day text, month text, year text, starttime text, endtime text, coursetype text, buildingroom text, campus text, coursename text, coursetitle text, color text)"
 
 	//meetingSQL = "create table if not exists meeting(id serial primary key, crn text, startdate text, enddate text, starttime text, endtime text, coursetype text, coursetypecode text, buildingroom text, campus text, meetdays text, starthour text, startminutes text, startmonth text, startyear text, startdayofmonth text, startdayofweek text, startweekofmonth text, endhour text, endminutes text, endmonth text, endyear text, enddayofmonth text, enddayofweek text, endweekofmonth text)"
 	//Instructor table creation.
@@ -136,17 +136,18 @@ type Person struct {
 }
 
 type MeetingCalendar struct {
-  Id            int 
-  Day           string `json:"day"`
-  Month         string `json:"month"`
-  Year          string `json:"year"`
-  StartTime     string `json:"starttime"`
-  EndTime       string `json:"endtime"`
-  BuildingRoom  string `json:"buildingroom"`
-  Campus        string `json:"campus"`
-  CourseType    string `json:"coursetype"`
-  CourseName    string `json:"coursename"`
-  CourseTitle   string `json:"coursetitle"`
+	Id           int
+	Day          string `json:"day"`
+	Month        string `json:"month"`
+	Year         string `json:"year"`
+	StartTime    string `json:"starttime"`
+	EndTime      string `json:"endtime"`
+	BuildingRoom string `json:"buildingroom"`
+	Campus       string `json:"campus"`
+	CourseType   string `json:"coursetype"`
+	CourseName   string `json:"coursename"`
+	CourseTitle  string `json:"coursetitle"`
+	Color        string `json:"color"`
 }
 
 type MeetingCalendarArray []MeetingCalendar
@@ -323,14 +324,12 @@ func calendarMeeting(w http.ResponseWriter, r *http.Request) {
 
 	for rows.Next() {
 		var t MeetingCalendar
-		if err := rows.Scan(&t.Id, &t.Day, &t.Month, &t.Year, &t.StartTime, &t.EndTime, &t.CourseType, &t.BuildingRoom, &t.Campus, &t.CourseName, &t.CourseTitle); err != nil {
+		if err := rows.Scan(&t.Id, &t.Day, &t.Month, &t.Year, &t.StartTime, &t.EndTime, &t.CourseType, &t.BuildingRoom, &t.Campus, &t.CourseName, &t.CourseTitle, &t.Color); err != nil {
 			fmt.Println("error on coruses")
 			panic(err)
 		}
 		meetings = append(meetings, t)
 	}
-
-	fmt.Println(meetings)
 
 	q := make(map[string]map[string]MeetingCalendarArray)
 
