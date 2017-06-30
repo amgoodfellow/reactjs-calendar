@@ -19,7 +19,6 @@ class App extends Component {
   }
 
   updateMonthViewClicked = (year, month, week, day) => {
-    console.log("I've been called")
     let newDateRange = {
       year: year,
       month: month,
