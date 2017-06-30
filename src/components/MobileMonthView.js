@@ -17,14 +17,14 @@ const stylesheet = createStyleSheet("MobileMonthView", theme => ({
   },
 
   todayNumber: {
-    marginLeft: "-5px",
-    marginTop: "-10px",
+    marginLeft: "5px",
+    marginTop: "5px",
     fontWeight: "600"
   },
 
   otherDayNumber: {
-    marginLeft: "-5px",
-    marginTop: "-10px"
+    marginTop: "5px",
+    marginLeft: "5px"
   },
 
   eventIcon: {
@@ -50,14 +50,12 @@ const stylesheet = createStyleSheet("MobileMonthView", theme => ({
     fontWeight: "bold",
     color: "#000000",
     border: "1px solid white",
-    padding: "10px",
     backgroundColor: "rgba(86,162,234, 0.5)"
   },
 
   monthDay: {
     fontSize: "15px",
-    border: "1px solid white",
-    padding: "10px"
+    border: "1px solid white"
   },
 
   event: {
