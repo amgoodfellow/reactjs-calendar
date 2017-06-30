@@ -12,6 +12,10 @@ import { monthNames } from "./../utils/Strings"
 import { pink } from "material-ui/styles/colors"
 
 const stylesheet = createStyleSheet("MobileMonthView", theme => ({
+  dayRow: {
+    height: "50px"
+  },
+
   rowHeight: {
     height: "100px"
   },
@@ -357,7 +361,7 @@ class MobileMonthView extends Component {
         <div className={classes.monthDiv}>
           <table className={classes.table}>
             <thead className={classes.tableHead}>
-              <tr style={{ height: "50px" }}>
+              <tr className={classes.dayRow}>
                 {this.weekDays()}
               </tr>
             </thead>
