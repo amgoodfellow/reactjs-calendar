@@ -12,8 +12,12 @@ import { monthNames } from "./../utils/Strings"
 import { pink } from "material-ui/styles/colors"
 
 const stylesheet = createStyleSheet("MobileMonthView", theme => ({
+  rowHeight: {
+    height: "100px"
+  },
+
   addMargin: {
-    marginTop: "2em"
+    marginTop: "1.3em"
   },
 
   todayNumber: {
@@ -31,11 +35,15 @@ const stylesheet = createStyleSheet("MobileMonthView", theme => ({
     fill: pink[600],
     width: "15px",
     height: "15px",
-    marginTop: "2em"
+    marginTop: "1.3em"
+  },
+
+  monthRow: {
+    height: "100px"
   },
 
   root: {
-    height: "550px"
+    height: "100%"
   },
 
   pastMonthDay: {
@@ -139,6 +147,7 @@ class MobileMonthView extends Component {
   }
 
   getMonthRows = () => {
+    const classes = this.props.classes
     let first = new Date(
       this.props.currentDateRange.year,
       this.props.currentDateRange.month,
@@ -149,7 +158,7 @@ class MobileMonthView extends Component {
 
     for (let i = 0; i < wks; i++) {
       rows.push(
-        <tr key={i + Math.random()}>
+        <tr className={classes.rowHeight} key={i + Math.random()}>
           {this.getDays(i)}
         </tr>
       )
