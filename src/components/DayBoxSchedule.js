@@ -19,13 +19,15 @@ class DayBoxSchedule extends Component {
         if (
           this.props.calendarMeeting[this.props.month][this.props.day] !==
           undefined
-        ) {
-          for (
+        ) {    
+          if(this.props.calendarMeeting[this.props.month][this.props.day].length > 2 ){
+            let moreClasses=0;
+            moreClasses=this.props.calendarMeeting[this.props.month][this.props.day].length -2           
+            for (
             let i = 0;
-            i <
-            this.props.calendarMeeting[this.props.month][this.props.day].length;
+            i <2;
             i++
-          ) {
+          ) {                        
             card.push(
               <ListItem
                 component="div"
@@ -57,10 +59,55 @@ class DayBoxSchedule extends Component {
                     ][i].coursetitle
                   }
                 </Typography>
-
-              </ListItem>
+                </ListItem>             
             )
-          }
+            
+           }        
+             card.push(
+               <div style={{border: "1px solid rgba(0, 0, 0, 0.075)", borderRadius: "10px", padding: 0}}>
+              <Typography> +{moreClasses} </Typography>
+              </div>
+            )    
+          } else{
+            for (
+            let i = 0;
+            i <this.props.calendarMeeting[this.props.month][this.props.day].length;
+            i++
+          ) {                        
+            card.push(
+              <ListItem
+                component="div"
+                style={{
+                  padding: "2px",
+                  margin: 0,
+                  marginBottom: "1px",
+                  width: "100%",
+                  boxSizing: "border-box",
+                  float: "left",
+                  boxShadow: "inset -0.5px -3px 0 rgba(0, 0, 0, 0.2)",
+                  marginRight: "10px",
+                  backgroundColor: "rgba(0, 16, 83, 0.6)",
+                  fontWeight: "bold",
+                  borderRadius: "4px"
+                }}
+              >
+                <Typography
+                  type="body2"
+                  style={{
+                    marginLeft: 10,
+                    fontWeight: "bold",
+                    color: "white"
+                  }}
+                >
+                  {
+                    this.props.calendarMeeting[this.props.month][
+                      this.props.day
+                    ][i].coursetitle
+                  }
+                </Typography>
+                </ListItem>             
+            )
+          }}
         }
       }
     }

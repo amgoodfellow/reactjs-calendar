@@ -14,7 +14,7 @@ const styleSheet = createStyleSheet("MonthView", theme => ({
   root: {
     display: "flex",
     position: "relative",
-    height: "550px"
+    height: "550px",
   },
   dayDiv: {
     position: "relative",
@@ -24,7 +24,8 @@ const styleSheet = createStyleSheet("MonthView", theme => ({
     position: "relative",
     height: "50px",
     borderBottom: "1px solid transparent",
-    color: "#FFFFFF"
+    color: "#FFFFFF",
+    whiteSpace: "nowrap"
   },
   monthDiv: {
     width: "80%",
@@ -41,7 +42,7 @@ const styleSheet = createStyleSheet("MonthView", theme => ({
     borderLeft: "1px solid white",
     borderRight: "hidden",
     borderCollapse: "collapse",
-    height: "100%"
+    height: "100%",
   },
   tableHead: {
     border: "1px solid rgba(0, 0, 0, 0.075)",
@@ -56,7 +57,8 @@ const styleSheet = createStyleSheet("MonthView", theme => ({
     backgroundColor: "rgb(255,243,233)",
     color: "#000000",
     textAlign: "left",
-    verticalAlign: "top"
+    verticalAlign: "top",
+    
   }
 }))
 
@@ -95,8 +97,7 @@ class MonthView extends Component {
       rows.push(
         <tr
           style={{
-            maxHeight: "99px",
-            minHeight: "84px"
+          height:"100px",
           }}
         >
           {this.getDays(i)}
@@ -126,12 +127,11 @@ class MonthView extends Component {
         days.push(
           <td
             style={{
+              overflow: "hidden",
               fontSize: "15px",
               border: "1px solid white",
               padding: "10px",
               backgroundColor: "#E0E0E0",
-              maxHeight: "99px",
-              minHeight: "84px"
             }}
           />
         )
@@ -143,12 +143,11 @@ class MonthView extends Component {
         days.push(
           <td
             style={{
+              overflow: "hidden",
               fontSize: "15px",
               border: "1px solid white",
               padding: "10px",
               backgroundColor: "#E0E0E0",
-              maxHeight: "99px",
-              minHeight: "84px"
             }}
           />
         )
@@ -172,14 +171,13 @@ class MonthView extends Component {
               tabIndex="0"
               onClick={() => this.props.changeDateRange(newDateObj)}
               style={{
+                overflow: "hidden",
                 fontSize: "15px",
                 fontWeight: "bold",
                 color: "#000000",
                 border: "1px solid white",
                 padding: "10px",
                 backgroundColor: "rgba(86,162,100, 0.4)",
-                maxHeight: "99px",
-                minHeight: "84px"
               }}
             >
               <Typography
@@ -212,11 +210,10 @@ class MonthView extends Component {
               tabIndex="0"
               onClick={() => this.props.changeDateRange(newDateObj)}
               style={{
+                overflow: "hidden",
                 fontSize: "15px",
                 border: "1px solid white",
                 padding: "10px",
-                maxHeight: "99px",
-                minHeight: "84px"
               }}
             >
               <Typography type="body1" component="div">
@@ -243,7 +240,7 @@ class MonthView extends Component {
 
     for (let i = 0; i < 7; ++i) {
       weekDaysRow.push(
-        <td key={weekDaysRow[i]} style={{ width: "100rem" }}>
+        <td key={dayNames[i]} style={{ width: "100rem" }}>
           <Typography type="body1" component="div" style={{ fontWeight: 600 }}>
             {shortDayNames[i]}
           </Typography>

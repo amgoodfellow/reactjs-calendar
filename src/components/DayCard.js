@@ -30,10 +30,15 @@ const styleSheet = createStyleSheet('DayCard', theme => ({
     flexFlow: "row nowrap" },
 })) 
 class DayCard extends Component {  
-  NoClassesCard() {
+  render() {
+    const classes = this.props.classes;
+
     let card = []
-      card.push(
-        <ListItem
+    if (this.props.calendarMeeting == undefined || this.props.calendarMeeting[this.props.month] === undefined ||
+    this.props.calendarMeeting[this.props.month][this.props.day] ===
+        undefined) {
+          return(
+      <ListItem
           style={{
             padding: "10px",
             margin: 0,
@@ -48,38 +53,19 @@ class DayCard extends Component {
           }}
         >
           <ListItemText type="title" primary="You have no classes " />
-        </ListItem>
-      )
-      return card
-    }
-  render() {
-    const classes = this.props.classes;
-
-    let card = []
-    if (this.props.calendarMeeting[this.props.month] === undefined ||
-    this.props.calendarMeeting[this.props.month][this.props.day] ===
-        undefined) {
-          return(
-            this.NoClassesCard()
-          )
-          }else{
-      if (
-          this.props.calendarMeeting[this.props.month][this.props.day] !==
-          undefined
-        ) {
-          for (let i =0; i< this.props.calendarMeeting[this.props.month][this.props.day].length; ++i ){            
-            console.log(this.props.calendarMeeting[this.props.month][this.props.day][i])
+        </ListItem>          )
+          }else{          
     return (
       <List>
         <ExpandedCards        
                   calendar={this.props.calendarMeeting}
                   month={this.props.month}
                   day={this.props.day}                 
-                  increment={i}
+                  classesArray= {this.props.calendarMeeting[this.props.month][this.props.day]}
                 /> 
 </List>
     )
-  }}}}
+  }}
 }
 DayCard.propTypes = {
   classes: PropTypes.object.isRequired,
