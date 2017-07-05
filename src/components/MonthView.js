@@ -6,7 +6,7 @@ import PropTypes from "prop-types"
 import Paper from "material-ui/Paper"
 import Toolbar from "material-ui/Toolbar"
 import { getWeeksOfMonth, getDaysInMonth } from "./../utils/DateHelper"
-import DayCard from "./DayCard"
+import DayList from "./DayList"
 import DayBoxSchedule from "./DayBoxSchedule"
 import { getEvents } from "./../api/api"
 
@@ -14,7 +14,7 @@ const styleSheet = createStyleSheet("MonthView", theme => ({
   root: {
     display: "flex",
     position: "relative",
-    height: "550px",
+    height: "550px"
   },
   dayDiv: {
     position: "relative",
@@ -42,7 +42,7 @@ const styleSheet = createStyleSheet("MonthView", theme => ({
     borderLeft: "1px solid white",
     borderRight: "hidden",
     borderCollapse: "collapse",
-    height: "100%",
+    height: "100%"
   },
   tableHead: {
     border: "1px solid rgba(0, 0, 0, 0.075)",
@@ -57,8 +57,7 @@ const styleSheet = createStyleSheet("MonthView", theme => ({
     backgroundColor: "rgb(255,243,233)",
     color: "#000000",
     textAlign: "left",
-    verticalAlign: "top",
-    
+    verticalAlign: "top"
   }
 }))
 
@@ -114,7 +113,7 @@ class MonthView extends Component {
       rows.push(
         <tr
           style={{
-          height:"100px",
+            height: "100px"
           }}
         >
           {this.getDays(i)}
@@ -144,7 +143,7 @@ class MonthView extends Component {
     )
 
     let today = new Date()
-    
+
     //Greyed out days at the end of monthview
     for (let i = 0; i < 7; i++) {
       if (this.monthDayCounter > numDays) {
@@ -155,11 +154,11 @@ class MonthView extends Component {
               fontSize: "15px",
               border: "1px solid white",
               padding: "10px",
-              backgroundColor: "#E0E0E0",
+              backgroundColor: "#E0E0E0"
             }}
           />
         )
-      //Greyed out days at the beginning of monthview
+        //Greyed out days at the beginning of monthview
       } else if (
         this.monthDayCounter === 1 &&
         wk === 0 &&
@@ -172,7 +171,7 @@ class MonthView extends Component {
               fontSize: "15px",
               border: "1px solid white",
               padding: "10px",
-              backgroundColor: "#E0E0E0",
+              backgroundColor: "#E0E0E0"
             }}
           />
         )
@@ -180,10 +179,10 @@ class MonthView extends Component {
         //This first if statement just checks if it is 'today' or not
         //There's a lot of duplicated code between these two statements
         //The style could be put up top into a class, and the only thing that
-        //is different between the two is wether or not an additional style is 
+        //is different between the two is wether or not an additional style is
         //applied
         //Though you don't have to follow my stuff exactly, here's how I'm thinkin'
-        //It's a little more concise. 
+        //It's a little more concise.
         /*
         
         const dateObj = this.props.currentDateRange        
@@ -221,7 +220,8 @@ class MonthView extends Component {
             </td>
           )
         }
-        */       
+        */
+
         if (
           this.props.currentDateRange.year === today.getFullYear() &&
           this.props.currentDateRange.month === today.getMonth() &&
@@ -247,9 +247,9 @@ class MonthView extends Component {
                 color: "#000000",
                 border: "1px solid white",
                 padding: "10px",
-                backgroundColor: "rgba(86,162,100, 0.4)",
+                backgroundColor: "rgba(86,162,100, 0.4)"
               }}
-            >first if
+            >
               <Typography
                 type="body1"
                 component="div"
@@ -283,9 +283,9 @@ class MonthView extends Component {
                 overflow: "hidden",
                 fontSize: "15px",
                 border: "1px solid white",
-                padding: "10px",
+                padding: "10px"
               }}
-            >second if
+            >
               <Typography type="body1" component="div">
                 {this.monthDayCounter}
                 <DayBoxSchedule
@@ -295,7 +295,6 @@ class MonthView extends Component {
                   day={this.monthDayCounter}
                 />
               </Typography>
-
             </td>
           )
         }
@@ -337,7 +336,12 @@ class MonthView extends Component {
               {this.displayWeekDay()}
             </Typography>
           </Toolbar>
-
+          <DayList
+            calendarMeeting={this.props.calendar}
+            year={this.props.currentDateRange.year}
+            month={this.props.currentDateRange.month}
+            day={this.props.currentDateRange.day}
+          />
         </div>
         <div className={classes.monthDiv}>
           <table className={classes.table}>
@@ -349,7 +353,6 @@ class MonthView extends Component {
             <tbody className={classes.tableBody}>
               {this.getMonthRows()}
             </tbody>
-
           </table>
         </div>
       </Paper>
