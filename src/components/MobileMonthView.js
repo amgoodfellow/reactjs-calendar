@@ -9,7 +9,7 @@ import { getWeeksOfMonth, getDaysInMonth } from "./../utils/DateHelper"
 import FiberManualRecord from "material-ui-icons/FiberManualRecord"
 import { getWeekOfMonth } from "./../utils/DateHelper"
 import { monthNames } from "./../utils/Strings"
-import { pink } from "material-ui/styles/colors"
+import { pink } from "material-ui/colors"
 
 const stylesheet = createStyleSheet("MobileMonthView", theme => ({
   dayRow: {
