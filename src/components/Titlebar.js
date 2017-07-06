@@ -17,6 +17,8 @@ import {
   getWeekOfMonth,
   getWeeksOfMonth
 } from "./../utils/DateHelper"
+import { translate, Interpolate } from "react-i18next"
+import i18n from "./../utils/i18n"
 
 const styleSheet = createStyleSheet("SimpleAppBar", theme => ({
   appBar: {
@@ -202,6 +204,7 @@ class Titlebar extends Component {
   }
 
   getDateRange = () => {
+    const { t } = this.props
     const classes = this.props.classes
     const dateObj = this.props.currentDateRange
     const weekDateArray = getWeekArray(
@@ -222,19 +225,24 @@ class Titlebar extends Component {
     ) {
       if (weekDateArray[len - 1].month > dateObj.month) {
         const endMonth = weekDateArray[len - 1].month
-        text = `${shortMonthNames[dateObj.month]} ${weekDateArray[0]
-          .day} - ${shortMonthNames[endMonth]} ${weekDateArray[len - 1].day}`
-        ariaLabel = `${longMonth} ${weekDateArray[0]
-          .day} to ${longEndMonth} ${weekDateArray[len - 1].day}`
+        text = `${t(shortMonthNames[dateObj.month], {})} ${weekDateArray[0]
+          .day} - ${t(shortMonthNames[endMonth], {})} ${weekDateArray[len - 1]
+          .day}`
+        ariaLabel = `${t(longMonth, {})} ${weekDateArray[0].day} to ${t(
+          longEndMonth,
+          {}
+        )} ${weekDateArray[len - 1].day}`
       } else {
-
-        text = `${shortMonthNames[dateObj.month]} ${weekDateArray[0]
+        text = `${t(shortMonthNames[dateObj.month], {})} ${weekDateArray[0]
           .day} - ${weekDateArray[weekDateArray.length - 1].day}`
-        ariaLabel = `${longMonth} ${weekDateArray[0]
-          .day} to ${longEndMonth} ${weekDateArray[len - 1].day}`
+        ariaLabel = `${t(longMonth, {})} ${weekDateArray[0].day} to ${t(
+          longEndMonth,
+          {}
+        )} ${weekDateArray[len - 1].day}`
       }
     } else if (this.props.calendarType === "monthview") {
-      text = shortMonthNames[dateObj.month]
+      console.log(shortMonthNames[dateObj.month])
+      text = t(shortMonthNames[dateObj.month], {})
       ariaLabel = longMonth
     }
 
@@ -263,6 +271,7 @@ class Titlebar extends Component {
     // }
 
     const classes = this.props.classes
+    const { t } = this.props
     return (
       <AppBar className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
@@ -294,13 +303,13 @@ class Titlebar extends Component {
             onRequestClose={this.handleRequestClose}
           >
             <MenuItem onClick={() => this.handleMenuItemClick("monthview")}>
-              Month View
+              {t("Month", {})}
             </MenuItem>
             <MenuItem onClick={() => this.handleMenuItemClick("weekview")}>
-              Week View
+              {t("Week", {})}
             </MenuItem>
             <MenuItem onClick={() => this.handleMenuItemClick("scheduleview")}>
-              Schedule View
+              {t("Schedule", {})}
             </MenuItem>
           </Menu>
         </Toolbar>
@@ -344,4 +353,6 @@ Titlebar.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styleSheet)(Titlebar)
+export default withStyles(styleSheet)(
+  translate("view", { wait: true })(Titlebar)
+)

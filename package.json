@@ -4,6 +4,10 @@
   "private": true,
   "dependencies": {
     "all": "^0.0.0",
+    "i18next": "^8.4.3",
+    "i18next-browser-languagedetector": "^2.0.0",
+    "i18next-fetch-backend": "^0.0.1",
+    "i18next-localstorage-cache": "^1.1.1",
     "material-ui": "next",
     "material-ui-icons": "^1.0.0-alpha.3",
     "package.json": "^2.0.1",
@@ -11,6 +15,7 @@
     "react": "^15.5.4",
     "react-a11y": "^0.3.3",
     "react-dom": "^15.5.4",
+    "react-i18next": "^4.6.1",
     "serve": "^5.2.2",
     "typeface-arimo": "^0.0.22",
     "typeface-oxygen": "^0.0.22",
