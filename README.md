@@ -88,3 +88,7 @@ The developers of this project use Postgres 5.5 currently, but the project aims 
 ## Licensing
 
 This project is under the Apache 2 License. All contributions will be made under that license. 
+
+## Screenshots
+
+![Schedule View](./screenshots/schedule.png?raw=true "Schedule View")
