@@ -10,14 +10,15 @@ of user events
 ## Installing / Getting started
 > This section is a work-in-progress  
 
-A quick introduction of the minimal setup you need to get a hello world up &
-running.
+For first time developers, an _init_ script is provided that goes through some of the process
+of setting up a workstation. Go-lang and postgresql have to be setup on your computer 
+for this to work
 
 ```shell
-    source startup.sh
+    source init.sh
 ```
 
-This will 
+This will create a user `coursesuser` and a database `courses` with password `courses`
 
 ## Developing
 
