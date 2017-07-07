@@ -6,8 +6,7 @@ import ScheduleEvent from "./ScheduleEvent"
 import { withStyles, createStyleSheet } from "material-ui/styles"
 import PropTypes from "prop-types"
 import { monthNames } from "./../utils/Strings"
-import { translate, Interpolate } from "react-i18next"
-import i18n from "./../utils/i18n"
+import { translate } from "react-i18next"
 
 const styleSheet = createStyleSheet("ScheduleView", theme => ({
   dayPaper: {

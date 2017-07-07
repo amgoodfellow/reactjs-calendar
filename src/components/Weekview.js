@@ -9,8 +9,7 @@ import {
   getMilitaryTime
 } from "../utils/DateHelper"
 import Typography from "material-ui/Typography"
-import { translate, Interpolate } from "react-i18next"
-import i18n from "./../utils/i18n"
+import { translate } from "react-i18next"
 
 const styleSheet = createStyleSheet("Weekview", theme => ({
   weekContent: {

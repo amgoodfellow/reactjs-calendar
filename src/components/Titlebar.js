@@ -17,8 +17,7 @@ import {
   getWeekOfMonth,
   getWeeksOfMonth
 } from "./../utils/DateHelper"
-import { translate, Interpolate } from "react-i18next"
-import i18n from "./../utils/i18n"
+import { translate } from "react-i18next"
 
 const styleSheet = createStyleSheet("SimpleAppBar", theme => ({
   appBar: {
