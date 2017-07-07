@@ -126,7 +126,6 @@ class DayBoxSchedule extends Component {
   render() {
     return (
       <List
-        tabIndex="0"
         style={{
           padding: 0,
           margin: 0

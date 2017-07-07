@@ -177,6 +177,7 @@ class MonthView extends Component {
               formatMacher: "best fit",
               localeMatcher: "best fit"
             })}
+            aria-activedescendant={this.monthDayCounter + "class"}
             key={this.monthDayCounter}
             tabIndex="0"
             id={this.monthDayCounter}
@@ -188,12 +189,14 @@ class MonthView extends Component {
           >
             <Typography type="body1" component="div" style={fontStyle}>
               {this.monthDayCounter}
-              <DayBoxSchedule
-                calendarMeeting={this.props.calendar}
-                year={this.props.currentDateRange.year}
-                month={this.props.currentDateRange.month}
-                day={this.monthDayCounter}
-              />
+              <div id={this.monthDayCounter + "class"}>
+                <DayBoxSchedule
+                  calendarMeeting={this.props.calendar}
+                  year={this.props.currentDateRange.year}
+                  month={this.props.currentDateRange.month}
+                  day={this.monthDayCounter}
+                />
+              </div>
             </Typography>
           </td>
         );
