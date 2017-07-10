@@ -79,7 +79,6 @@ class MonthView extends Component {
   getFocus() {
     document.getElementById("focusElement").focus();
   }
-
   resetFocus() {
     document.getElementById(this.props.currentDateRange.day).focus();
   }
@@ -180,12 +179,21 @@ class MonthView extends Component {
             aria-activedescendant={this.monthDayCounter + "class"}
             key={this.monthDayCounter}
             tabIndex="0"
+            className={classes.cellStyle}
+            style={todaysColor}
+            role="button"
             id={this.monthDayCounter}
             onClick={() => {
               this.props.changeDateRange(newDateObj), this.getFocus();
             }}
-            className={classes.cellStyle}
-            style={todaysColor}
+            onKeyPress={event => {
+              if (event.charCode === 13 || event.charCode === 32) {
+                console.log(event.charCode);
+                {
+                  this.props.changeDateRange(newDateObj), this.getFocus();
+                }
+              }
+            }}
           >
             <Typography type="body1" component="div" style={fontStyle}>
               {this.monthDayCounter}
@@ -253,12 +261,20 @@ class MonthView extends Component {
               day={this.props.currentDateRange.day}
             />
           </div>
-          <span
+          <div
             tabIndex="0"
             role="button"
             aria-label="Return to month schedule"
             onClick={() => {
               this.resetFocus();
+            }}
+            onKeyPress={event => {
+              if (event.charCode === 13 || event.charCode === 32) {
+                console.log(event.charCode);
+                {
+                  this.resetFocus();
+                }
+              }
             }}
           />
         </div>

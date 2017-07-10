@@ -57,8 +57,9 @@ class DayCard extends Component {
       return <div />;
     } else {
       return (
-        <div>
+        <div role="list" tabIndex="0">
           <ListItem
+            role="listitem"
             style={{
               paddingTop: "1px",
               width: "100%",
@@ -75,10 +76,7 @@ class DayCard extends Component {
               }}
               className={classes.card}
             >
-              <div
-                aria-describe="Course title and meet times"
-                className={classes.CardHead}
-              >
+              <div className={classes.CardHead}>
                 <CardHeader
                   title={meeting.coursetitle}
                   subheader={`${meeting.starttime} - 

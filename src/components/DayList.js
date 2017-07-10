@@ -18,7 +18,11 @@ class DayList extends Component {
       }
 
       classList = (
-        <List style={{ overflowY: "auto", height: "92%", padding: 0 }}>
+        <List
+          tabIndex="0"
+          role="list"
+          style={{ overflowY: "auto", height: "599px", padding: 0 }}
+        >
           {cardArray}
         </List>
       );
