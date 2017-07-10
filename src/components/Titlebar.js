@@ -240,7 +240,6 @@ class Titlebar extends Component {
         )} ${weekDateArray[len - 1].day}`
       }
     } else if (this.props.calendarType === "monthview") {
-      console.log(shortMonthNames[dateObj.month])
       text = t(shortMonthNames[dateObj.month], {})
       ariaLabel = longMonth
     }
