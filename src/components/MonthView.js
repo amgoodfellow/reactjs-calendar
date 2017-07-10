@@ -8,8 +8,6 @@ import Toolbar from "material-ui/Toolbar";
 import { getWeeksOfMonth, getDaysInMonth } from "./../utils/DateHelper";
 import DayList from "./DayList";
 import DayBoxSchedule from "./DayBoxSchedule";
-import { getEvents } from "./../api/api";
-import Button from "material-ui/Button";
 
 const styleSheet = createStyleSheet("MonthView", theme => ({
   root: {
@@ -87,7 +85,6 @@ class MonthView extends Component {
     const dateObject = this.props.currentDateRange;
     const day = new Date(dateObject.year, dateObject.month, dateObject.day);
     const title = `${dayNames[day.getDay()]} ${dateObject.day}`;
-    let date = day.getDate();
     let weekDay = day.getDay();
     for (let i = 0; i < 7; i++) {
       if (weekDay === i) {
@@ -106,6 +103,7 @@ class MonthView extends Component {
     for (let i = 0; i < wks; i++) {
       rows.push(
         <tr
+          key={"weeks" + i}
           style={{
             height: "100px"
           }}
@@ -126,18 +124,19 @@ class MonthView extends Component {
     //Just let me know
     let dateObject = this.props.currentDateRange;
     const numDays = getDaysInMonth(dateObject.year, dateObject.month).getDate();
-
     const first = new Date(dateObject.year, dateObject.month, 1);
-
     let today = new Date();
     //Greyed out days at the end of monthview
+    let grayedDays = 0;
     for (let i = 0; i < 7; i++) {
       if (
         this.monthDayCounter > numDays ||
         (this.monthDayCounter === 1 && wk === 0 && first.getDay() !== i)
       ) {
+        ++grayedDays;
         days.push(
           <td
+            key={"grayed" + grayedDays}
             className={classes.cellStyle}
             style={{
               backgroundColor: "#E0E0E0"
@@ -181,14 +180,13 @@ class MonthView extends Component {
             tabIndex="0"
             className={classes.cellStyle}
             style={todaysColor}
-            role="button"
             id={this.monthDayCounter}
+            role="button"
             onClick={() => {
               this.props.changeDateRange(newDateObj), this.getFocus();
             }}
             onKeyPress={event => {
               if (event.charCode === 13 || event.charCode === 32) {
-                console.log(event.charCode);
                 {
                   this.props.changeDateRange(newDateObj), this.getFocus();
                 }
@@ -253,14 +251,12 @@ class MonthView extends Component {
               {this.displayWeekDay()}
             </Typography>
           </Toolbar>
-          <div tabIndex="0">
-            <DayList
-              calendarMeeting={this.props.calendar}
-              year={this.props.currentDateRange.year}
-              month={this.props.currentDateRange.month}
-              day={this.props.currentDateRange.day}
-            />
-          </div>
+          <DayList
+            calendarMeeting={this.props.calendar}
+            year={this.props.currentDateRange.year}
+            month={this.props.currentDateRange.month}
+            day={this.props.currentDateRange.day}
+          />
           <div
             tabIndex="0"
             role="button"
@@ -270,7 +266,6 @@ class MonthView extends Component {
             }}
             onKeyPress={event => {
               if (event.charCode === 13 || event.charCode === 32) {
-                console.log(event.charCode);
                 {
                   this.resetFocus();
                 }

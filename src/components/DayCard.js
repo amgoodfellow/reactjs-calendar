@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import List, { ListItem } from "material-ui/List";
+import ListItem from "material-ui/List";
 import Typography from "material-ui/Typography";
 import { withStyles, createStyleSheet } from "material-ui/styles";
 import Card, { CardHeader, CardContent, CardActions } from "material-ui/Card";
@@ -10,6 +10,8 @@ import PropTypes from "prop-types";
 import classnames from "classnames";
 const styleSheet = createStyleSheet("ExpandedCard", theme => ({
   card: {
+    width: "100%",
+    backgroundColor: "#fafafa ",
     transition: theme.transitions.create("transform", {
       easing: theme.transitions.easing.easeInOut
     })
@@ -20,6 +22,13 @@ const styleSheet = createStyleSheet("ExpandedCard", theme => ({
   },
   expandOpen: {
     transform: "rotate(180deg)"
+  },
+  list: {
+    paddingTop: "1px",
+    width: "100%",
+    boxSizing: "border-box",
+    float: "left",
+    alignContent: "center"
   },
   CardHead: {
     display: "flex",
@@ -57,74 +66,56 @@ class DayCard extends Component {
       return <div />;
     } else {
       return (
-        <div role="list" tabIndex="0">
-          <ListItem
-            role="listitem"
-            style={{
-              paddingTop: "1px",
-              width: "100%",
-              boxSizing: "border-box",
-              float: "left",
-              alignContent: "center"
-            }}
-          >
-            <Card
-              tabIndex="0"
-              style={{
-                width: "100%",
-                backgroundColor: "rgb(255,243,233)"
-              }}
-              className={classes.card}
-            >
-              <div className={classes.CardHead}>
-                <CardHeader
-                  title={meeting.coursetitle}
-                  subheader={`${meeting.starttime} - 
+        <ListItem role="listitem" className={classes.list}>
+          <Card tabIndex="0" className={classes.card}>
+            <div className={classes.CardHead}>
+              <CardHeader
+                title={meeting.coursetitle}
+                subheader={`${meeting.starttime} - 
                      ${meeting.starttime}`}
-                />
-                <CardActions disableActionSpacing>
-                  <IconButton
-                    aria-label="More Course Information"
-                    className={classnames(
-                      classes.expand,
-                      {
-                        [classes.expandOpen]: this.state.expand
-                      },
-                      [classes.collapse]
-                    )}
-                    onClick={this.handleExpandClick}
-                    aria-expanded={this.state.expand}
-                  >
-                    <ExpandMoreIcon />
-                  </IconButton>
-                </CardActions>
+              />
+              <CardActions disableActionSpacing>
+                <IconButton
+                  aria-label="More Course Information"
+                  className={classnames(
+                    classes.expand,
+                    {
+                      [classes.expandOpen]: this.state.expand
+                    },
+                    [classes.collapse]
+                  )}
+                  onClick={this.handleExpandClick}
+                  aria-expanded={this.state.expand}
+                >
+                  <ExpandMoreIcon />
+                </IconButton>
+              </CardActions>
+            </div>
+            <Collapse
+              className={classes.collapse}
+              in={this.state.expand}
+              transitionDuration="auto"
+              unmountOnExit
+            >
+              <div className={classes.CardBody}>
+                <CardContent tabIndex="0">
+                  <Typography paragraph type="body2">
+                    Location:
+                  </Typography>
+                  <Typography paragraph type="caption">
+                    {meeting.buildingroom}
+                  </Typography>
+                  <Typography paragraph type="body2">
+                    Course Name:
+                  </Typography>
+                  <Typography paragraph type="caption">
+                    {meeting.courseman}
+                  </Typography>
+                </CardContent>
               </div>
-              <Collapse
-                className={classes.collapse}
-                in={this.state.expand}
-                transitionDuration="auto"
-                unmountOnExit
-              >
-                <div className={classes.CardBody}>
-                  <CardContent tabIndex="0">
-                    <Typography paragraph type="body2">
-                      Location:
-                    </Typography>
-                    <Typography paragraph type="caption">
-                      {meeting.buildingroom}
-                    </Typography>
-                    <Typography paragraph type="body2">
-                      Course Name:
-                    </Typography>
-                    <Typography paragraph type="caption">
-                      {meeting.courseman}
-                    </Typography>
-                  </CardContent>
-                </div>
-              </Collapse>
-            </Card>
-          </ListItem>
-        </div>
+            </Collapse>
+          </Card>
+        </ListItem>
       );
     }
   }

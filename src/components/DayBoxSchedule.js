@@ -1,17 +1,16 @@
 import React, { Component } from "react";
-import List, { ListItem, ListItemText } from "material-ui/List";
-import Card, { CardContent, CardHeader } from "material-ui/Card";
+import List, { ListItem } from "material-ui/List";
 import Typography from "material-ui/Typography";
-import { withStyles, createStyleSheet } from "material-ui/styles";
-import Divider from "material-ui/Divider";
 class DayBoxSchedule extends Component {
   displayClasses() {
     let card = [];
+    let divKey = 0;
     if (
       this.props.calendarMeeting[this.props.month] === undefined ||
       this.props.calendarMeeting[this.props.month][this.props.day] === undefined
     ) {
-      card.push(<div aria-label="No classes" />);
+      ++divKey;
+      card.push(<div key={"noclasses" + divKey} aria-label="No classes" />);
     } else {
       if (
         this.props.calendarMeeting[this.props.month][this.props.day] !==
@@ -29,6 +28,7 @@ class DayBoxSchedule extends Component {
             card.push(
               <ListItem
                 component="div"
+                key={"classSchedule" + i}
                 style={{
                   padding: "2px",
                   margin: 0,
@@ -61,6 +61,7 @@ class DayBoxSchedule extends Component {
           }
           card.push(
             <ListItem
+              key={"moreClasses"}
               style={{
                 backgroundColor: "rgba(0, 16, 83, 0.6)",
                 borderRadius: "10px",
@@ -86,6 +87,7 @@ class DayBoxSchedule extends Component {
           ) {
             card.push(
               <ListItem
+                key={"classesSchedule" + i}
                 component="div"
                 style={{
                   padding: "2px",

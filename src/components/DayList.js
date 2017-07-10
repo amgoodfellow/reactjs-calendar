@@ -5,16 +5,18 @@ import DayCard from "./DayCard";
 class DayList extends Component {
   render() {
     let classList;
+    let classNo = 0;
     try {
       let cardArray = [];
       const meetings = this.props.calendarMeeting[this.props.month][
         this.props.day
       ];
-
-      //The new for...of loop is cleaner syntactically and more similar
-      //to java's forEach than a JS forEach function
       for (let meeting of meetings) {
-        cardArray.push(<DayCard meeting={meeting} />);
+        ++classNo;
+        cardArray.push(
+          <DayCard key={"DayCards" + classNo} meeting={meeting} />
+        );
+        console.log(meetings.length);
       }
 
       classList = (
