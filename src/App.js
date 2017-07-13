@@ -13,16 +13,16 @@ class App extends Component {
     calendarType: "weekview",
     theme: "oakland",
     url: null,
-    width: document.getElementById('root').clientWidth,
-    mobile: false,
+    width: document.getElementById("root").clientWidth,
+    mobile: false
   }
-  
+
   updateWidth = () => {
-    this.setState({width: document.getElementById('root').clientWidth})
-    if (this.state.width < 768){
-      this.setState({mobile: true})
-    }else{
-      this.setState({mobile: false})
+    this.setState({ width: document.getElementById("root").clientWidth })
+    if (this.state.width < 768) {
+      this.setState({ mobile: true })
+    } else {
+      this.setState({ mobile: false })
     }
   }
 

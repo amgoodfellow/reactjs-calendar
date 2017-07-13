@@ -1,22 +1,19 @@
-import React, { Component } from "react";
-import List, { ListItem, ListItemText } from "material-ui/List";
-import DayCard from "./DayCard";
+import React, { Component } from "react"
+import List, { ListItem, ListItemText } from "material-ui/List"
+import DayCard from "./DayCard"
 
 class DayList extends Component {
   render() {
-    let classList;
-    let classNo = 0;
+    let classList
+    let classNo = 0
     try {
-      let cardArray = [];
+      let cardArray = []
       const meetings = this.props.calendarMeeting[this.props.month][
         this.props.day
-      ];
+      ]
       for (let meeting of meetings) {
-        ++classNo;
-        cardArray.push(
-          <DayCard key={"DayCards" + classNo} meeting={meeting} />
-        );
-        console.log(meetings.length);
+        ++classNo
+        cardArray.push(<DayCard key={"DayCards" + classNo} meeting={meeting} />)
       }
 
       classList = (
@@ -27,9 +24,9 @@ class DayList extends Component {
         >
           {cardArray}
         </List>
-      );
+      )
     } catch (err) {
-      console.log("Attempted render of undefined");
+      //console.log("Attempted render of undefined");
       classList = (
         <List style={{ padding: 0 }}>
           <ListItem
@@ -45,9 +42,9 @@ class DayList extends Component {
             <ListItemText type="title" primary="You have no classes " />
           </ListItem>
         </List>
-      );
+      )
     }
-    return classList;
+    return classList
   }
 }
-export default DayList;
+export default DayList

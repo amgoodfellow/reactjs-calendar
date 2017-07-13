@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import ListItem from "material-ui/List";
-import Typography from "material-ui/Typography";
-import { withStyles, createStyleSheet } from "material-ui/styles";
-import Card, { CardHeader, CardContent, CardActions } from "material-ui/Card";
-import Collapse from "material-ui/transitions/Collapse";
-import IconButton from "material-ui/IconButton";
-import ExpandMoreIcon from "material-ui-icons/ExpandMore";
-import PropTypes from "prop-types";
-import classnames from "classnames";
+import React, { Component } from "react"
+import ListItem from "material-ui/List"
+import Typography from "material-ui/Typography"
+import { withStyles, createStyleSheet } from "material-ui/styles"
+import Card, { CardHeader, CardContent, CardActions } from "material-ui/Card"
+import Collapse from "material-ui/transitions/Collapse"
+import IconButton from "material-ui/IconButton"
+import ExpandMoreIcon from "material-ui-icons/ExpandMore"
+import PropTypes from "prop-types"
+import classnames from "classnames"
 const styleSheet = createStyleSheet("ExpandedCard", theme => ({
   card: {
     width: "100%",
@@ -41,29 +41,28 @@ const styleSheet = createStyleSheet("ExpandedCard", theme => ({
     justifyContent: "space-around",
     flexFlow: "row nowrap"
   }
-}));
+}))
 class DayCard extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       expand: false
-    };
+    }
   }
 
   handleExpandClick = () => {
-    this.setState(state => ({ expand: !state.expand }));
-  };
+    this.setState(state => ({ expand: !state.expand }))
+  }
 
   render() {
-    const classes = this.props.classes;
-    const meeting = this.props.meeting;
-    console.log(this.props.meeting);
+    const classes = this.props.classes
+    const meeting = this.props.meeting
     if (
       Object.is(this.props.meeting, null) ||
       Object.is(this.props.meeting, undefined)
     ) {
-      return <div />;
+      return <div />
     } else {
       return (
         <ListItem role="listitem" className={classes.list}>
@@ -116,12 +115,12 @@ class DayCard extends Component {
             </Collapse>
           </Card>
         </ListItem>
-      );
+      )
     }
   }
 }
 
 DayCard.propTypes = {
   classes: PropTypes.object.isRequired
-};
-export default withStyles(styleSheet)(DayCard);
+}
+export default withStyles(styleSheet)(DayCard)

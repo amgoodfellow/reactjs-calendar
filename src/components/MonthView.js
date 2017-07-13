@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import { dayNames, shortDayNames } from "./../utils/Strings";
-import { withStyles, createStyleSheet } from "material-ui/styles";
-import Typography from "material-ui/Typography";
-import PropTypes from "prop-types";
-import Paper from "material-ui/Paper";
-import Toolbar from "material-ui/Toolbar";
-import { getWeeksOfMonth, getDaysInMonth } from "./../utils/DateHelper";
-import DayList from "./DayList";
-import DayBoxSchedule from "./DayBoxSchedule";
+import React, { Component } from "react"
+import { dayNames, shortDayNames } from "./../utils/Strings"
+import { withStyles, createStyleSheet } from "material-ui/styles"
+import Typography from "material-ui/Typography"
+import PropTypes from "prop-types"
+import Paper from "material-ui/Paper"
+import Toolbar from "material-ui/Toolbar"
+import { getWeeksOfMonth, getDaysInMonth } from "./../utils/DateHelper"
+import DayList from "./DayList"
+import DayBoxSchedule from "./DayBoxSchedule"
 
 const styleSheet = createStyleSheet("MonthView", theme => ({
   root: {
@@ -66,39 +66,39 @@ const styleSheet = createStyleSheet("MonthView", theme => ({
     padding: "10px",
     whiteSpace: "nowarp"
   }
-}));
+}))
 
 class MonthView extends Component {
   constructor() {
-    super();
-    this.monthDayCounter = 1;
+    super()
+    this.monthDayCounter = 1
   }
 
   getFocus() {
-    document.getElementById("focusElement").focus();
+    document.getElementById("focusElement").focus()
   }
   resetFocus() {
-    document.getElementById(this.props.currentDateRange.day).focus();
+    document.getElementById(this.props.currentDateRange.day).focus()
   }
 
   displayWeekDay() {
-    const dateObject = this.props.currentDateRange;
-    const day = new Date(dateObject.year, dateObject.month, dateObject.day);
-    const title = `${dayNames[day.getDay()]} ${dateObject.day}`;
-    let weekDay = day.getDay();
+    const dateObject = this.props.currentDateRange
+    const day = new Date(dateObject.year, dateObject.month, dateObject.day)
+    const title = `${dayNames[day.getDay()]} ${dateObject.day}`
+    let weekDay = day.getDay()
     for (let i = 0; i < 7; i++) {
       if (weekDay === i) {
-        weekDay = dayNames[i];
+        weekDay = dayNames[i]
       }
     }
-    return title;
+    return title
   }
 
   getMonthRows = () => {
-    let dateObject = this.props.currentDateRange;
-    const first = new Date(dateObject.year, dateObject.month, 1);
-    const wks = getWeeksOfMonth(first);
-    let rows = [];
+    let dateObject = this.props.currentDateRange
+    const first = new Date(dateObject.year, dateObject.month, 1)
+    const wks = getWeeksOfMonth(first)
+    let rows = []
 
     for (let i = 0; i < wks; i++) {
       rows.push(
@@ -110,30 +110,30 @@ class MonthView extends Component {
         >
           {this.getDays(i)}
         </tr>
-      );
+      )
     }
-    this.monthDayCounter = 1;
-    return rows;
-  };
+    this.monthDayCounter = 1
+    return rows
+  }
 
   getDays = wk => {
-    const classes = this.props.classes;
-    let days = [];
+    const classes = this.props.classes
+    let days = []
     //I can change this so it actually gives you the days
     //That way you won't have to do `.getDate()` at the end
     //Just let me know
-    let dateObject = this.props.currentDateRange;
-    const numDays = getDaysInMonth(dateObject.year, dateObject.month).getDate();
-    const first = new Date(dateObject.year, dateObject.month, 1);
-    let today = new Date();
+    let dateObject = this.props.currentDateRange
+    const numDays = getDaysInMonth(dateObject.year, dateObject.month).getDate()
+    const first = new Date(dateObject.year, dateObject.month, 1)
+    let today = new Date()
     //Greyed out days at the end of monthview
-    let grayedDays = 0;
+    let grayedDays = 0
     for (let i = 0; i < 7; i++) {
       if (
         this.monthDayCounter > numDays ||
         (this.monthDayCounter === 1 && wk === 0 && first.getDay() !== i)
       ) {
-        ++grayedDays;
+        ++grayedDays
         days.push(
           <td
             key={"grayed" + grayedDays}
@@ -142,39 +142,34 @@ class MonthView extends Component {
               backgroundColor: "#E0E0E0"
             }}
           />
-        );
+        )
       } else {
-        let localDay = this.monthDayCounter;
+        let localDay = this.monthDayCounter
         let newDateObj = {
           year: dateObject.year,
           month: dateObject.month,
           week: dateObject.week,
           day: localDay
-        };
-        let fontStyle;
-        let todaysColor;
+        }
+        let fontStyle
+        let todaysColor
         let currentDate = new Date(
           dateObject.year,
           dateObject.month,
           this.monthDayCounter
-        );
+        )
 
         if (
           dateObject.year === today.getFullYear() &&
           dateObject.month === today.getMonth() &&
           this.monthDayCounter === today.getDate()
         ) {
-          todaysColor = { backgroundColor: "rgba(86,162,100, 0.4)" };
-          fontStyle = { fontWeight: "600" };
+          todaysColor = { backgroundColor: "rgba(86,162,100, 0.4)" }
+          fontStyle = { fontWeight: "600" }
         }
         days.push(
           <td
-            aria-label={currentDate.toLocaleDateString(["en-US"], {
-              day: "numeric",
-              month: "long",
-              formatMacher: "best fit",
-              localeMatcher: "best fit"
-            })}
+            aria-label={currentDate.toDateString()}
             aria-activedescendant={this.monthDayCounter + "class"}
             key={this.monthDayCounter}
             tabIndex="0"
@@ -183,13 +178,13 @@ class MonthView extends Component {
             id={this.monthDayCounter}
             role="button"
             onClick={() => {
-              this.props.changeDateRange(newDateObj), this.getFocus();
+              this.props.changeDateRange(newDateObj)
+              this.getFocus()
             }}
             onKeyPress={event => {
               if (event.charCode === 13 || event.charCode === 32) {
-                {
-                  this.props.changeDateRange(newDateObj), this.getFocus();
-                }
+                this.props.changeDateRange(newDateObj)
+                this.getFocus()
               }
             }}
           >
@@ -205,31 +200,36 @@ class MonthView extends Component {
               </div>
             </Typography>
           </td>
-        );
+        )
 
-        this.monthDayCounter++;
+        this.monthDayCounter++
       }
     }
-    return days;
-  };
+    return days
+  }
 
   weekDays() {
-    let weekDaysRow = [];
+    let weekDaysRow = []
 
     for (let i = 0; i < 7; ++i) {
       weekDaysRow.push(
         <th scope="col" key={dayNames[i]} style={{ width: "100rem" }}>
-          <Typography type="body1" component="div" style={{ fontWeight: 600 }}>
+          <Typography
+            type="body1"
+            component="div"
+            style={{ fontWeight: 600 }}
+            aria-label={dayNames[i]}
+          >
             {shortDayNames[i]}
           </Typography>
         </th>
-      );
+      )
     }
-    return weekDaysRow;
+    return weekDaysRow
   }
 
   render() {
-    const classes = this.props.classes;
+    const classes = this.props.classes
     return (
       <Paper
         tabIndex="0"
@@ -262,13 +262,11 @@ class MonthView extends Component {
             role="button"
             aria-label="Return to month schedule"
             onClick={() => {
-              this.resetFocus();
+              this.resetFocus()
             }}
             onKeyPress={event => {
               if (event.charCode === 13 || event.charCode === 32) {
-                {
-                  this.resetFocus();
-                }
+                this.resetFocus()
               }
             }}
           />
@@ -286,12 +284,12 @@ class MonthView extends Component {
           </table>
         </div>
       </Paper>
-    );
+    )
   }
 }
 
 MonthView.propTypes = {
   classes: PropTypes.object.isRequired
-};
+}
 
-export default withStyles(styleSheet)(MonthView);
+export default withStyles(styleSheet)(MonthView)
