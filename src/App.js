@@ -18,6 +18,7 @@ class App extends Component {
     mobile: false
   }
 
+
   updateMonthViewClicked = (year, month, week, day) => {
     let newDateRange = {
       year: year,
@@ -34,6 +35,7 @@ class App extends Component {
   updateWidth = () => {
     this.setState({ width: document.getElementById("root").clientWidth })
     if (this.state.width < 796) {
+
       this.setState({ mobile: true })
     } else {
       this.setState({ mobile: false })
@@ -99,6 +101,7 @@ class App extends Component {
           <Weekview
             meetings={this.state.events}
             currentDateRange={this.state.currentDateRange}
+            changeDateRange={this.changeDateRange}
           />
         )
       case "monthview":
