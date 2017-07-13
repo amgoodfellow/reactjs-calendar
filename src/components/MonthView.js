@@ -77,6 +77,7 @@ class MonthView extends Component {
   getFocus() {
     document.getElementById("focusElement").focus()
   }
+
   resetFocus() {
     document.getElementById(this.props.currentDateRange.day).focus()
   }
@@ -89,6 +90,7 @@ class MonthView extends Component {
     for (let i = 0; i < 7; i++) {
       if (weekDay === i) {
         weekDay = dayNames[i]
+
       }
     }
     return title

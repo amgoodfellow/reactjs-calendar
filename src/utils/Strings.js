@@ -1,4 +1,4 @@
-const dayNames = [
+export const dayNames = [
   "Sunday",
   "Monday",
   "Tuesday",
@@ -7,9 +7,10 @@ const dayNames = [
   "Friday",
   "Saturday"
 ]
-const shortDayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 
-const monthNames = [
+export const shortDayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+
+export const shortMonthNames = [
   "Jan",
   "Feb",
   "Mar",
@@ -24,7 +25,22 @@ const monthNames = [
   "Dec"
 ]
 
-const prettyHours = [
+export const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
+]
+
+export const prettyHours = [
   "7am",
   "8am",
   "9am",
@@ -44,4 +60,3 @@ const prettyHours = [
   "11pm"
 ]
 
-export { dayNames, shortDayNames, monthNames, prettyHours }
