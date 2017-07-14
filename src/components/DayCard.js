@@ -1,167 +1,126 @@
 import React, { Component } from "react"
-import List, { ListItem } from "material-ui/List"
-import Card, { CardContent, CardHeader } from "material-ui/Card"
+import ListItem from "material-ui/List"
 import Typography from "material-ui/Typography"
 import { withStyles, createStyleSheet } from "material-ui/styles"
-import Divider from "material-ui/Divider"
-
-const styleSheet = createStyleSheet("DayCard", theme => ({
-  root: {
+import Card, { CardHeader, CardContent, CardActions } from "material-ui/Card"
+import Collapse from "material-ui/transitions/Collapse"
+import IconButton from "material-ui/IconButton"
+import ExpandMoreIcon from "material-ui-icons/ExpandMore"
+import PropTypes from "prop-types"
+import classnames from "classnames"
+const styleSheet = createStyleSheet("ExpandedCard", theme => ({
+  card: {
+    width: "100%",
+    backgroundColor: "#fafafa ",
+    transition: theme.transitions.create("transform", {
+      easing: theme.transitions.easing.easeInOut
+    })
+  },
+  expand: {
+    transform: "rotate(0deg)",
+    duration: theme.transitions.duration.shorter
+  },
+  expandOpen: {
+    transform: "rotate(180deg)"
+  },
+  list: {
+    paddingTop: "1px",
+    width: "100%",
+    boxSizing: "border-box",
+    float: "left",
+    alignContent: "center"
+  },
+  CardHead: {
     display: "flex",
-    position: "relative",
-    height: "550px"
-  },
-  dayDiv: {
-    position: "relative",
-    width: "20%"
-  },
-  dayTitleBar: {
-    position: "relative",
-    height: "50px",
-    backgroundColor: "#004987",
-    color: "#FFFFFF",
+    justifyContent: "space-around",
+    flexFlow: "row nowrap",
     fontWeight: "bold"
   },
-  monthDiv: {
-    width: "80%",
-    height: "100%",
-    overflow: "hidden"
-  },
-  monthTitleBar: {
-    position: "relative",
-    height: "50px"
-  },
-  table: {
-    width: "100%",
-    borderTop: "hidden",
-    borderLeft: "hidden",
-    borderRight: "hidden",
-    borderCollapse: "collapse"
-  },
-  tableHead: {
-    border: "1px solid rgba(0, 0, 0, 0.075)",
-    backgroundColor: "#004987",
-    color: "#FFFFFF",
-    textAlign: "center",
-    fontWeight: "bold",
-    borderTop: "hidden",
-    height: "20%"
-  },
-  tableBody: {
-    backgroundColor: "rgb(255,243,233)",
-    color: "#004987",
-    textAlign: "left",
-    verticalAlign: "top"
+  CardBody: {
+    display: "flex",
+    justifyContent: "space-around",
+    flexFlow: "row nowrap"
   }
 }))
-
 class DayCard extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      expand: false
+    }
+  }
+
+  handleExpandClick = () => {
+    this.setState(state => ({ expand: !state.expand }))
+  }
+
   render() {
-    return (
-      <List
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "500px",
-          flexFlow: "wrap",
-          overflowX: "hidden",
-          overflowY: "scroll"
-        }}
-      >
-        <ListItem>
-          <Card>
-            <CardHeader
-              style={{ backgroundColor: "#004987", textAlign: "center" }}
-              title={this.props.events[5][13][0].coursetitle}
-            />
-            <CardContent
-              style={{
-                textAlign: "center",
-                backgroundColor: "rgb(255,243,233)"
-              }}
+    const classes = this.props.classes
+    const meeting = this.props.meeting
+    if (
+      Object.is(this.props.meeting, null) ||
+      Object.is(this.props.meeting, undefined)
+    ) {
+      return <div />
+    } else {
+      return (
+        <ListItem role="listitem" className={classes.list}>
+          <Card tabIndex="0" className={classes.card}>
+            <div className={classes.CardHead}>
+              <CardHeader
+                title={meeting.coursetitle}
+                subheader={`${meeting.starttime} - 
+                     ${meeting.starttime}`}
+              />
+              <CardActions disableActionSpacing>
+                <IconButton
+                  aria-label="More Course Information"
+                  className={classnames(
+                    classes.expand,
+                    {
+                      [classes.expandOpen]: this.state.expand
+                    },
+                    [classes.collapse]
+                  )}
+                  onClick={this.handleExpandClick}
+                  aria-expanded={this.state.expand}
+                >
+                  <ExpandMoreIcon />
+                </IconButton>
+              </CardActions>
+            </div>
+            <Collapse
+              className={classes.collapse}
+              in={this.state.expand}
+              transitionDuration="auto"
+              unmountOnExit
             >
-              <Typography type="body2" style={{ color: "#004987" }}>
-                Meet times
-              </Typography>
-              <Typography type="body2">
-                {this.props.events[5][13][0].starttime}{" - "}
-                {this.props.events[5][13][0].endtime}
-              </Typography>
-              <Divider />
-              <Typography type="body2" style={{ color: "#004987" }}>
-                Building room
-              </Typography>
-              <Typography type="body1">
-                {this.props.events[5][13][0].buildingroom}
-              </Typography>
-            </CardContent>
+              <div className={classes.CardBody}>
+                <CardContent tabIndex="0">
+                  <Typography paragraph type="body2">
+                    Location:
+                  </Typography>
+                  <Typography paragraph type="caption">
+                    {meeting.buildingroom}
+                  </Typography>
+                  <Typography paragraph type="body2">
+                    Course Name:
+                  </Typography>
+                  <Typography paragraph type="caption">
+                    {meeting.courseman}
+                  </Typography>
+                </CardContent>
+              </div>
+            </Collapse>
           </Card>
         </ListItem>
-        <ListItem>
-          <Card>
-            <CardContent
-              style={{
-                textAlign: "center",
-                backgroundColor: "rgb(255,243,233)"
-              }}
-            >
-              <Typography type="title" style={{ color: "#004987" }}>
-                {this.props.events[5][13][0].coursetitle}
-              </Typography>
-
-              <Divider />
-              <Typography type="body2" style={{ color: "#004987" }}>
-                Meet times
-              </Typography>
-              <Typography type="body2">
-                {this.props.events[5][13][0].starttime}{" - "}
-                {this.props.events[5][13][0].endtime}
-              </Typography>
-              <Divider />
-              <Typography type="body2" style={{ color: "#004987" }}>
-                Building room
-              </Typography>
-              <Typography type="body1">
-                {this.props.events[5][13][0].buildingroom}
-              </Typography>
-            </CardContent>
-          </Card>
-        </ListItem>
-        <ListItem>
-          <Card>
-            <CardContent
-              style={{
-                textAlign: "center",
-                backgroundColor: "rgb(255,243,233)"
-              }}
-            >
-              <Typography type="title" style={{ color: "#004987" }}>
-                {this.props.events[5][13][0].coursetitle}
-              </Typography>
-
-              <Divider />
-              <Typography type="body2" style={{ color: "#004987" }}>
-                Meet times
-              </Typography>
-              <Typography type="body2">
-                {this.props.events[5][13][0].starttime}{" - "}
-                {this.props.events[5][13][0].endtime}
-              </Typography>
-              <Divider />
-              <Typography type="body2" style={{ color: "#004987" }}>
-                Building room
-              </Typography>
-              <Typography type="body1">
-                {this.props.events[5][13][0].buildingroom}
-              </Typography>
-            </CardContent>
-          </Card>
-        </ListItem>
-      </List>
-    )
+      )
+    }
   }
 }
 
+DayCard.propTypes = {
+  classes: PropTypes.object.isRequired
+}
 export default withStyles(styleSheet)(DayCard)

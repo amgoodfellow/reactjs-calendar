@@ -53,6 +53,7 @@ insert into grades(crn, credit, grade) values('10057', '3', '2.0');
 
 
 -- create calendar meetings for summer 2017
+
 insert into calmeetins (day, month, year, starttime, endtime, coursetype, buildingroom, campus, coursename, coursetitle, color) values (3, 5, 2017, '15:00pm', '18:00pm', 'lecture', 'DH 202', 'main campus', 'Sophomore Project', 'CSE 280', '#00796B');
 insert into calmeetins (day, month, year, starttime, endtime, coursetype, buildingroom, campus, coursename, coursetitle, color) values (13, 5, 2017, '12:00pm', '14:00pm', 'lecture', 'DH 202', 'main campus', 'Sophomore Project', 'CSE 280', '#00796B');
 insert into calmeetins (day, month, year, starttime, endtime, coursetype, buildingroom, campus, coursename, coursetitle, color) values (14, 5, 2017, '9:20am', '10:27:00am', 'lecture', 'HHB 2086', 'main campus', 'Literature', 'HC 2020', '#D81B60');

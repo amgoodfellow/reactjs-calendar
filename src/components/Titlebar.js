@@ -99,6 +99,7 @@ class Titlebar extends Component {
         if (dateObj.month === 11) {
           dateObj.year++
           dateObj.month = 0
+          dateObj.day = 1
           this.props.changeDateRange(dateObj)
         } else {
           dateObj.month++
@@ -161,10 +162,12 @@ class Titlebar extends Component {
         }
         if (dateObj.year === 0) {
           dateObj.year--
+          dateObj.day = 1
           dateObj.month = 11
           this.props.changeDateRange(dateObj)
         } else {
           dateObj.month--
+          dateObj.day = 1
           this.props.changeDateRange(dateObj)
         }
 
