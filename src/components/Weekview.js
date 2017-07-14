@@ -9,6 +9,7 @@ import {
   getMilitaryTime
 } from "../utils/DateHelper"
 import Typography from "material-ui/Typography"
+import { translate } from "react-i18next"
 
 const styleSheet = createStyleSheet("Weekview", theme => ({
   weekContent: {
@@ -63,7 +64,7 @@ const styleSheet = createStyleSheet("Weekview", theme => ({
   }
 }))
 
-const hourCol = classes => {
+const hourCol = (t, classes) => {
   let column = [
     <div
       key="TopLeftCorner"
@@ -79,7 +80,7 @@ const hourCol = classes => {
         className={classes.hourHeader}
         key={prettyHours[i]}
       >
-        {prettyHours[i]}
+        {t(prettyHours[i], {})}
       </Typography>
     )
   }
@@ -136,6 +137,7 @@ const newWeekCol = (meetings, weekArrayObj, classes) => {
 
 class Weekview extends Component {
   getWeekCol = () => {
+    const { t } = this.props
     const currentDate = this.props.currentDateRange
     const classes = this.props.classes
     let weekcols = []
@@ -158,7 +160,7 @@ class Weekview extends Component {
       weekcols.push(
         <div className={classes.weekColumn} key={"hourDiv" + i}>
           <Typography component="div" className={classes.dayHeader}>
-            {shortDayNames[i]}
+            {t(shortDayNames[i], {})}
           </Typography>
           {weekGrid}
         </div>
@@ -169,9 +171,10 @@ class Weekview extends Component {
 
   render() {
     const classes = this.props.classes
+    const { t } = this.props
     return (
       <div className={classes.weekContent}>
-        <div className={classes.hourColumn}> {hourCol(classes)} </div>{" "}
+        <div className={classes.hourColumn}> {hourCol(t, classes)} </div>{" "}
         {this.getWeekCol()}
       </div>
     )
@@ -182,4 +185,6 @@ Weekview.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styleSheet)(Weekview)
+export default withStyles(styleSheet)(
+  translate("view", { wait: true })(Weekview)
+)
