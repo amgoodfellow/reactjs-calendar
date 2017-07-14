@@ -99,6 +99,7 @@ class App extends Component {
           <Weekview
             meetings={this.state.events}
             currentDateRange={this.state.currentDateRange}
+            changeDateRange={this.changeDateRange}
           />
         )
       case "monthview":
@@ -115,7 +116,7 @@ class App extends Component {
         } else {
           return (
             <MonthView
-              calendar={this.state.calendar}
+              calendar={this.state.events}
               currentDateRange={this.state.currentDateRange}
               changeDateRange={this.changeDateRange}
             />

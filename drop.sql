@@ -1,7 +1,1 @@
-drop table terms;
-drop table courses;
-drop table meetings;
-drop table instructors;
-drop table grades;
-drop table gpa;
-drop table calmeetins;
+drop table terms, courses, meetings, instructors, grades, gpa, calmeetins;

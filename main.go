@@ -20,7 +20,7 @@ const (
 	courseSQL = "create table if not exists courses(id serial primary key, crn text, waitlistpos text, registrationstatus text, registrationdescription text, departmentcode text, departmentdescription text, coursetitle text, coursedescription text, termcode text, subjectcode text, subjectnumber text, credit text, section text)"
 
 	//Meeting table creation.
-	meetingSQL = "create table if not exists meetings(id serial primary key, crn text, startdate text, enddate text, starttime text, endtime text, coursetype text, coursetypecode text, buildingroom text, campus text, meetday text)"
+	meetingSQL = "create table if not exists meetings(id serial primary key, crn text, startday text, startmonth text, startyear text, endday text, endmonth text, endyear text, starttime text, endtime text, coursetype text, coursetypecode text, buildingroom text, campus text, meetday text)"
 
 	//Calendar meeting table creation
 	meetingCalendarSQL = "create table if not exists calmeetins(id serial primary key, day text, month text, year text, starttime text, endtime text, coursetype text, buildingroom text, campus text, coursename text, coursetitle text, color text)"
