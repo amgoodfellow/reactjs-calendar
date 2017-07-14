@@ -9,7 +9,6 @@ i18n.use(Fetch).use(Cache).use(LanguageDetector).init({
   ns: ["view"],
   defaultNS: "view",
 
-  debug: true,
   load: "all",
   backend: {
     loadPath: "http://localhost:8082/locales/{{lng}}/{{ns}}.json"
