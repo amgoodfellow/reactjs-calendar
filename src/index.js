@@ -58,10 +58,16 @@ const theme = createMuiTheme({
   })
 })
 
+const termBounds = [1494216000000, 1503720000000]
+
 ReactDOM.render(
   <I18nextProvider i18n={i18n}>
     <MuiThemeProvider theme={theme}>
-      <App theme={theme} />
+      <App
+        theme={theme}
+        eventsURL="http://localhost:8082/api/calendar"
+        termBounds={termBounds}
+      />
     </MuiThemeProvider>
   </I18nextProvider>,
   document.getElementById("root")
