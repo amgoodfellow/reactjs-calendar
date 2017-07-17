@@ -45,7 +45,9 @@ class ScheduleEvent extends Component {
               key={"scheduleEvent" + i + Math.random()}
               elevation={1}
               className={classes.eventPaper}
-              style={{backgroundColor: this.props.events[month][day][i].color}}
+              style={{
+                backgroundColor: this.props.events[month][day][i].color
+              }}
               tabIndex="0"
             >
               <Typography type="title" className={classes.courseTitle}>

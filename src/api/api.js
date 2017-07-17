@@ -1,4 +1,4 @@
-export const getEvents = async (url) => {
+export const getEvents = async url => {
   try {
     const response = await fetch(url)
     const events = await response.json()

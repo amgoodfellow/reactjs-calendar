@@ -59,4 +59,3 @@ export const prettyHours = [
   "10pm",
   "11pm"
 ]
-

@@ -227,20 +227,11 @@ class Titlebar extends Component {
     ) {
       if (weekDateArray[len - 1].month > dateObj.month) {
         const endMonth = weekDateArray[len - 1].month
-        text = `${t(shortMonthNames[dateObj.month], {})} ${weekDateArray[0]
-          .day} - ${t(shortMonthNames[endMonth], {})} ${weekDateArray[len - 1]
-          .day}`
-        ariaLabel = `${t(longMonth, {})} ${weekDateArray[0].day} to ${t(
-          longEndMonth,
-          {}
-        )} ${weekDateArray[len - 1].day}`
+        text = `${t(shortMonthNames[dateObj.month], {})} ${weekDateArray[0].day} - ${t(shortMonthNames[endMonth], {})} ${weekDateArray[len - 1].day}`
+        ariaLabel = `${t(longMonth, {})} ${weekDateArray[0].day} to ${t(longEndMonth, {})} ${weekDateArray[len - 1].day}`
       } else {
-        text = `${t(shortMonthNames[dateObj.month], {})} ${weekDateArray[0]
-          .day} - ${weekDateArray[weekDateArray.length - 1].day}`
-        ariaLabel = `${t(longMonth, {})} ${weekDateArray[0].day} to ${t(
-          longEndMonth,
-          {}
-        )} ${weekDateArray[len - 1].day}`
+        text = `${t(shortMonthNames[dateObj.month], {})} ${weekDateArray[0].day} - ${weekDateArray[weekDateArray.length - 1].day}`
+        ariaLabel = `${t(longMonth, {})} ${weekDateArray[0].day} to ${t(longEndMonth, {})} ${weekDateArray[len - 1].day}`
       }
     } else if (this.props.calendarType === "monthview") {
       text = t(shortMonthNames[dateObj.month], {})

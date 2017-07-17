@@ -75,12 +75,12 @@ class ScheduleView extends Component {
               tabIndex="0"
               aria-label={
                 t(week[i].dayNameFull, {}) +
-                " " +
-                t(monthNames[this.props.currentDateRange.month], {}) +
-                " " +
-                week[i].day +
-                " " +
-                this.props.currentDateRange.year
+                  " " +
+                  t(monthNames[this.props.currentDateRange.month], {}) +
+                  " " +
+                  week[i].day +
+                  " " +
+                  this.props.currentDateRange.year
               }
             >
               <Typography type="display2" aria-hidden="true">
