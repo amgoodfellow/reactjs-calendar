@@ -90,7 +90,6 @@ class MonthView extends Component {
     for (let i = 0; i < 7; i++) {
       if (weekDay === i) {
         weekDay = dayNames[i]
-
       }
     }
     return title

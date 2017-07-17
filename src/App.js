@@ -15,7 +15,7 @@ class App extends Component {
     calendarType: "weekview",
     theme: "oakland",
     url: null,
-    width: document.getElementById("root").clientWidth,
+    width: document.getElementById(this.props.rootID).clientWidth,
     mobile: false
   }
 
@@ -33,7 +33,9 @@ class App extends Component {
   }
 
   updateWidth = () => {
-    this.setState({ width: document.getElementById("root").clientWidth })
+    this.setState({
+      width: document.getElementById(this.props.rootID).clientWidth
+    })
     if (this.state.width < 796) {
       this.setState({ mobile: true })
     } else {
@@ -44,7 +46,7 @@ class App extends Component {
   componentDidMount() {
     window.addEventListener("resize", this.updateWidth)
 
-    if (document.getElementById("root").clientWidth < 796) {
+    if (document.getElementById(this.props.rootID).clientWidth < 796) {
       this.setState({ mobile: true })
     }
 

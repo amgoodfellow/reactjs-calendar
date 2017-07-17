@@ -67,6 +67,7 @@ ReactDOM.render(
         theme={theme}
         eventsURL="http://localhost:8082/api/calendar"
         termBounds={termBounds}
+        rootID="root"
       />
     </MuiThemeProvider>
   </I18nextProvider>,

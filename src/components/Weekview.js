@@ -110,9 +110,7 @@ const newWeekCol = (meetings, weekArrayObj, classes) => {
         marginTop: getStartPadding(meetings[j].starttime) + "px",
         backgroundColor: meetings[j].color
       }
-      let aria = `${meetings[j].coursename} on ${monthNames[
-        weekArrayObj.month
-      ]} ${weekArrayObj.day} at ${meetings[j].starttime}`
+      let aria = `${meetings[j].coursename} on ${monthNames[weekArrayObj.month]} ${weekArrayObj.day} at ${meetings[j].starttime}`
       column[colIndex] = (
         <Typography
           component="div"
