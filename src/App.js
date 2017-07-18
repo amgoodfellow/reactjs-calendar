@@ -4,6 +4,7 @@ import ScheduleView from "./components/ScheduleView"
 import Titlebar from "./components/Titlebar"
 import MonthView from "./components/MonthView"
 import MobileMonthView from "./components/MobileMonthView"
+import { getEvents } from "./api/api"
 import { getWeekOfMonth } from "./utils/DateHelper"
 
 class App extends Component {
@@ -14,7 +15,7 @@ class App extends Component {
     calendarType: "weekview",
     theme: "oakland",
     url: null,
-    width: document.getElementById("root").clientWidth,
+    width: document.getElementById(this.props.rootID).clientWidth,
     mobile: false
   }
 
@@ -32,7 +33,9 @@ class App extends Component {
   }
 
   updateWidth = () => {
-    this.setState({ width: document.getElementById("root").clientWidth })
+    this.setState({
+      width: document.getElementById(this.props.rootID).clientWidth
+    })
     if (this.state.width < 796) {
       this.setState({ mobile: true })
     } else {
@@ -43,25 +46,15 @@ class App extends Component {
   componentDidMount() {
     window.addEventListener("resize", this.updateWidth)
 
-    if (document.getElementById("root").clientWidth < 796) {
+    if (document.getElementById(this.props.rootID).clientWidth < 796) {
       this.setState({ mobile: true })
     }
 
-    fetch("http://localhost:8082/api/terms")
-      .then(response => {
-        return response.json()
-      })
-      .then(data => {
-        this.setState({ termBounds: [1494216000000, 1503720000000] })
-      })
+    getEvents(this.props.eventsURL).then(events => {
+      this.setState({ events })
+    })
 
-    fetch("http://localhost:8082/api/calendar")
-      .then(response => {
-        return response.json()
-      })
-      .then(data => {
-        this.setState({ events: data })
-      })
+    this.setState({ termBounds: this.props.termBounds })
 
     let d = new Date()
     let obj = {

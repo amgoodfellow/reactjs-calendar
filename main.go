@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/gorilla/mux"
+
 	_ "github.com/lib/pq"
 )
 
@@ -105,38 +107,8 @@ type Grade struct {
 	Crn    string `json:"crn"`
 }
 
-// Student represents the academic information about a student
-type Student struct {
-	ClassStanding        string `json:"classStanding"`
-	Major1               string `json:"major1"`
-	DegreeType           string `json:"degreeType"`
-	College              string `json:"college"`
-	Level                string `json:"level"`
-	Major1concentration1 string `json:"major1concentration1"`
-	Major1concentration2 string `json:"major1concentration2"`
-	Major1concentration3 string `json:"major1concentration3"`
-	Major2               string `json:"major2"`
-	Major2Department     string `json:"major2Department"`
-	Major2concentration1 string `json:"major2concentration1"`
-	Major2concentration2 string `json:"major2concentration2"`
-	Major2concentration3 string `json:"major2concentration3"`
-	Minor1               string `json:"minor1"`
-	Minor2               string `json:"minor2"`
-}
-
-// Person represents the personal information about a student
-type Person struct {
-	Address       string `json:"address"`
-	Email         string `json:"email"`
-	Gid           string `json:"gid"`
-	LegalName     string `json:"legalName"`
-	PhoneNumber   string `json:"phoneNumber"`
-	Pidm          string `json:"pidm"`
-	PrefFirstName string `json:"prefFirstName"`
-}
-
 type MeetingCalendar struct {
-	Id           int
+	ID           int
 	Day          string `json:"day"`
 	Month        string `json:"month"`
 	Year         string `json:"year"`
@@ -152,46 +124,65 @@ type MeetingCalendar struct {
 
 type MeetingCalendarArray []MeetingCalendar
 
-func person(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-
-	data := Person{
-		"318 Meadow Brook Rd, Rochester, MI 48309",
-		"grizz@oakland.edu",
-		"G00000000",
-		"Grizz OU",
-		"(248) 370-2100",
-		"111111",
-		"Grizz",
-	}
-
-	person := struct {
-		Person Person `json:"person"`
-	}{
-		data,
-	}
-
-	if err := json.NewEncoder(w).Encode(person); err != nil {
-		panic(err)
-	}
-}
-
-func mydetails(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-
-	var students []Student
-	data := Student{"Senior", "computer science", "Bach of Sci", "School CS", "Undergrad", "", "", "", "", "", "", "", "", "", ""}
-	students = append(students, data)
-
-	student := struct {
-		Student []Student `json:"studentDetails"`
-	}{
-		students,
-	}
-
-	if err := json.NewEncoder(w).Encode(student); err != nil {
-		panic(err)
-	}
+// LanguageStrings represents words that will be internationalized
+type LanguageStrings struct {
+	Monday    string `json:"Monday"`
+	Mon       string `json:"Mon"`
+	Tuesday   string `json:"Tuesday"`
+	Tue       string `json:"Tue"`
+	Wednesday string `json:"Wednesday"`
+	Wed       string `json:"Wed"`
+	Thrusday  string `json:"Thursday"`
+	Thu       string `json:"Thu"`
+	Friday    string `json:"Friday"`
+	Fri       string `json:"Fri"`
+	Saturday  string `json:"Saturday"`
+	Sat       string `json:"Sat"`
+	Sunday    string `json:"Sunday"`
+	Sun       string `json:"Sun"`
+	January   string `json:"January"`
+	Jan       string `json:"Jan"`
+	February  string `json:"February"`
+	Feb       string `json:"Feb"`
+	March     string `json:"March"`
+	Mar       string `json:"Mar"`
+	April     string `json:"April"`
+	Apr       string `json:"Apr"`
+	May       string `json:"May"`
+	June      string `json:"June"`
+	Jun       string `json:"Jun"`
+	July      string `json:"July"`
+	Jul       string `json:"Jul"`
+	August    string `json:"August"`
+	Aug       string `json:"Aug"`
+	September string `json:"September"`
+	Sep       string `json:"Sep"`
+	October   string `json:"October"`
+	Oct       string `json:"Oct"`
+	November  string `json:"November"`
+	Nov       string `json:"Nov"`
+	December  string `json:"December"`
+	Dec       string `json:"Dec"`
+	Week      string `json:"Week"`
+	Schedule  string `json:"Schedule"`
+	Month     string `json:"Month"`
+	Am7       string `json:"7am"`
+	Am8       string `json:"8am"`
+	Am9       string `json:"9am"`
+	Am10      string `json:"10am"`
+	Am11      string `json:"11am"`
+	Pm12      string `json:"12pm"`
+	Pm1       string `json:"1pm"`
+	Pm2       string `json:"2pm"`
+	Pm3       string `json:"3pm"`
+	Pm4       string `json:"4pm"`
+	Pm5       string `json:"5pm"`
+	Pm6       string `json:"6pm"`
+	Pm7       string `json:"7pm"`
+	Pm8       string `json:"8pm"`
+	Pm9       string `json:"9pm"`
+	Pm10      string `json:"10pm"`
+	Pm11      string `json:"11pm"`
 }
 
 func courses(w http.ResponseWriter, r *http.Request) {
@@ -324,7 +315,7 @@ func calendarMeeting(w http.ResponseWriter, r *http.Request) {
 
 	for rows.Next() {
 		var t MeetingCalendar
-		if err := rows.Scan(&t.Id, &t.Day, &t.Month, &t.Year, &t.StartTime, &t.EndTime, &t.CourseType, &t.BuildingRoom, &t.Campus, &t.CourseName, &t.CourseTitle, &t.Color); err != nil {
+		if err := rows.Scan(&t.ID, &t.Day, &t.Month, &t.Year, &t.StartTime, &t.EndTime, &t.CourseType, &t.BuildingRoom, &t.Campus, &t.CourseName, &t.CourseTitle, &t.Color); err != nil {
 			fmt.Println("error on coruses")
 			panic(err)
 		}
@@ -343,6 +334,260 @@ func calendarMeeting(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := json.NewEncoder(w).Encode(q); err != nil {
+		panic(err)
+	}
+
+}
+
+func lang(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	vars := mux.Vars(r)
+	var data LanguageStrings
+	switch vars["lng"] {
+	case "en-US":
+		data = LanguageStrings{
+			"Monday",
+			"Mon",
+			"Tuesday",
+			"Tue",
+			"Wednesday",
+			"Wed",
+			"Thursday",
+			"Thu",
+			"Friday",
+			"Fri",
+			"Saturday",
+			"Sat",
+			"Sunday",
+			"Sun",
+			"January",
+			"Jan",
+			"February",
+			"Feb",
+			"March",
+			"Mar",
+			"April",
+			"Apr",
+			"May",
+			"June",
+			"Jun",
+			"July",
+			"Jul",
+			"August",
+			"Aug",
+			"September",
+			"Sep",
+			"October",
+			"Oct",
+			"November",
+			"Nov",
+			"December",
+			"Dec",
+			"Week",
+			"Schedule",
+			"Month",
+			"7am",
+			"8am",
+			"9am",
+			"10am",
+			"11am",
+			"12pm",
+			"1pm",
+			"2pm",
+			"3pm",
+			"4pm",
+			"5pm",
+			"6pm",
+			"7pm",
+			"8pm",
+			"9pm",
+			"10pm",
+			"11pm",
+		}
+	case "en":
+		data = LanguageStrings{
+			"Monday",
+			"Mon",
+			"Tuesday",
+			"Tue",
+			"Wednesday",
+			"Wed",
+			"Thursday",
+			"Thu",
+			"Friday",
+			"Fri",
+			"Saturday",
+			"Sat",
+			"Sunday",
+			"Sun",
+			"January",
+			"Jan",
+			"February",
+			"Feb",
+			"March",
+			"Mar",
+			"April",
+			"Apr",
+			"May",
+			"June",
+			"Jun",
+			"July",
+			"Jul",
+			"August",
+			"Aug",
+			"September",
+			"Sep",
+			"October",
+			"Oct",
+			"November",
+			"Nov",
+			"December",
+			"Dec",
+			"Week",
+			"Schedule",
+			"Month",
+			"7am",
+			"8am",
+			"9am",
+			"10am",
+			"11am",
+			"12pm",
+			"1pm",
+			"2pm",
+			"3pm",
+			"4pm",
+			"5pm",
+			"6pm",
+			"7pm",
+			"8pm",
+			"9pm",
+			"10pm",
+			"11pm",
+		}
+	case "fr":
+		data = LanguageStrings{
+			"lundi",
+			"lun",
+			"mardi",
+			"mar",
+			"mercredi",
+			"mer",
+			"jeudi",
+			"jeu",
+			"vendredi",
+			"ven",
+			"samedi",
+			"sam",
+			"dimanche",
+			"dim",
+			"janvier",
+			"janv",
+			"février",
+			"févr",
+			"mars",
+			"mars",
+			"avril",
+			"avril",
+			"mai",
+			"juin",
+			"juin",
+			"juillet",
+			"juil",
+			"août",
+			"août",
+			"septembre",
+			"sept",
+			"octobre",
+			"oct",
+			"novembre",
+			"nov",
+			"décembre",
+			"déc",
+			"Semaine",
+			"Planning",
+			"Mois",
+			"07h00",
+			"08h00",
+			"09h00",
+			"10h00",
+			"11h00",
+			"12h00",
+			"13h00",
+			"14h00",
+			"15h00",
+			"16h00",
+			"17h00",
+			"18h00",
+			"19h00",
+			"20h00",
+			"21h00",
+			"22h00",
+			"23h00",
+		}
+
+	case "es":
+		data = LanguageStrings{
+			"lunes",
+			"lun",
+			"martes",
+			"mar",
+			"miércoles",
+			"mié",
+			"jueves",
+			"jue",
+			"viernes",
+			"vie",
+			"sábado",
+			"sáb",
+			"domingo",
+			"dom",
+			"enero",
+			"enero",
+			"febrero",
+			"feb",
+			"marzo",
+			"marzo",
+			"abril",
+			"abr",
+			"mayo",
+			"junio",
+			"jun",
+			"julio",
+			"jul",
+			"agosto",
+			"agosto",
+			"septiembre",
+			"sept",
+			"octubre",
+			"oct",
+			"noviembre",
+			"nov",
+			"diciembre",
+			"dic",
+			"Semana",
+			"Orden del día",
+			"Mes",
+			"07:00",
+			"08:00",
+			"09:00",
+			"10:00",
+			"11:00",
+			"12:00",
+			"13:00",
+			"14:00",
+			"15:00",
+			"16:00",
+			"17:00",
+			"18:00",
+			"19:00",
+			"20:00",
+			"21:00",
+			"22:00",
+			"23:00",
+		}
+	}
+
+	if err := json.NewEncoder(w).Encode(data); err != nil {
 		panic(err)
 	}
 
@@ -402,10 +647,11 @@ func init() {
 }
 
 func main() {
-	http.HandleFunc("/api/person", person)
-	http.HandleFunc("/api/mydetails", mydetails)
-	http.HandleFunc("/api/courses", courses)
-	http.HandleFunc("/api/terms", terms)
-	http.HandleFunc("/api/calendar", calendarMeeting)
+	r := mux.NewRouter()
+	r.HandleFunc("/locales/{lng}/{ns}", lang)
+	r.HandleFunc("/api/courses", courses)
+	r.HandleFunc("/api/terms", terms)
+	r.HandleFunc("/api/calendar", calendarMeeting)
+	http.Handle("/", r)
 	http.ListenAndServe(":8082", nil)
 }

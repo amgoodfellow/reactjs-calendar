@@ -1,8 +1,7 @@
-export const getEvents = async () => {
+export const getEvents = async url => {
   try {
-    const response = await fetch("http://localhost:8082/api/calendar")
+    const response = await fetch(url)
     const events = await response.json()
-    console.log(events)
     return events
   } catch (err) {
     console.error(err)
