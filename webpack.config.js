@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin")
 
 module.exports = {
   //input
-  entry: "./src/App.js",
+  entry: ["babel-polyfill", "./src/App.js"],
 
   //output
   output: {
