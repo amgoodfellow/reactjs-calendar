@@ -89,8 +89,8 @@ class ConfirmationDialog extends Component {
     return (
       <Dialog
         role="dialog"
-        id="dialogbox"
-        aria-label="course description"
+        id="dialogbox-calendar"
+        aria-label="View selection"
         tabIndex="0"
         open={this.props.open}
         onRequestClose={this.handleClose}
@@ -137,14 +137,14 @@ class ConfirmationDialog extends Component {
         <DialogActions>
           <Button
             onClick={this.handleOk}
-            aria-label={"Confirm selection"}
+            aria-label="Confirm selection"
             color="accent"
           >
             {t("ok", {})}
           </Button>
           <Button
             onClick={this.handleCancel}
-            aria-label={"Cancel selection"}
+            aria-label="Cancel selection"
             color="accent"
           >
             {t("cancel", {})}
