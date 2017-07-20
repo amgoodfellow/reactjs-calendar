@@ -65,7 +65,7 @@ ReactDOM.render(
     <MuiThemeProvider theme={theme}>
       <App
         theme={theme}
-        eventsURL="http://localhost:8082/api/calendar"
+        eventsURLObj={{url: "http://localhost:8082/api/calendar", credentialsNeeded: false}}
         termBounds={termBounds}
         rootID="root"
       />

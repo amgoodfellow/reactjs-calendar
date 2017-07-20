@@ -6,6 +6,7 @@ import MonthView from "./components/MonthView"
 import MobileMonthView from "./components/MobileMonthView"
 import { getEvents } from "./api/api"
 import { getWeekOfMonth } from "./utils/DateHelper"
+import { changeURL } from "./utils/i18n.js"
 
 class App extends Component {
   state = {
@@ -46,11 +47,13 @@ class App extends Component {
   componentDidMount() {
     window.addEventListener("resize", this.updateWidth)
 
+    changeURL(this.props.translateURL)
+
     if (document.getElementById(this.props.rootID).clientWidth < 796) {
       this.setState({ mobile: true })
     }
 
-    getEvents(this.props.eventsURL).then(events => {
+    getEvents(this.props.eventsURLObj).then(events => {
       this.setState({ events })
     })
 

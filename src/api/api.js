@@ -1,6 +1,11 @@
-export const getEvents = async url => {
+export const getEvents = async obj => {
   try {
-    const response = await fetch(url)
+    let response
+    if (obj.credentialsNeeded === false){
+      response = await fetch(obj.url)
+    }else{
+      response = await fetch(obj.url, { credentials: "include" })
+    }
     const events = await response.json()
     return events
   } catch (err) {
