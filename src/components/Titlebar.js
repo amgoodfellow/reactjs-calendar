@@ -175,8 +175,6 @@ class Titlebar extends Component {
   }
 
   handleRequestClose = value => {
-    console.log(value)
-    console.log("handleRequestClose")
     this.setState({ open: false, selected: value, selectedValue: value })
     this.props.changeCalendarView(value)
   }
