@@ -39,7 +39,7 @@ export const oaklandAccent = {
   800: "#00579f",
   900: "#004490",
   A100: "#bcd6ff",
-  A200: "#89b8ff",
+  A200: "#0074b7",
   A400: "#5699ff",
   A700: "#3c8aff",
   contrastDefaultColor: "light"
