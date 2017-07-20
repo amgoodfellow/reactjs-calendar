@@ -4,16 +4,26 @@ import Typography from "material-ui/Typography";
 import Card, { CardHeader, CardContent, CardMedia } from "material-ui/Card";
 import { withStyles, createStyleSheet } from "material-ui/styles";
 import PropTypes from "prop-types";
-import Icon from "material-ui/Icon";
+import SvgIcon from "material-ui/SvgIcon";
 
 const styleSheet = createStyleSheet("ErrorMessages", theme => ({
   root: {
     position: "relative",
     width: "70%",
-    textAlign: "center",
+    textAlign: "center"
   },
-  materialIcons: {      
-    padding: "10px"
+  card: {
+    backgroundColor: "#fafafa "
+    /**
+    borderLeftStyle: "solid",
+    borderLeftWidth: "10px",
+    borderLeftColor: "rgba(0, 0, 0, 0.6)",
+     */
+  },
+  materialIcons: {
+    width: "100%",
+    padding: "10px",
+    backgroundColor: "#0074b7"
   }
 }));
 class ErrorMessages extends Component {
@@ -21,19 +31,19 @@ class ErrorMessages extends Component {
     const classes = this.props.classes;
     return (
       <div className={classes.root}>
-        <Card>
-          <Icon className={classes.materialIcons}>
+        <Card className={classes.card}>
+          <SvgIcon className={classes.materialIcons}>
             <svg
-              fill="#000000"
+              fill="#FFFFFF"
               height="24"
               viewBox="0 0 24 24"
               width="24"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path d="M0 0h24v24H0z" fill="none" />
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+              <path d="M0 0h24v24H0V0z" fill="none" />
+              <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z" />
             </svg>
-          </Icon>
+          </SvgIcon>
           <CardHeader title="We were unable to fetch data at this time" />
 
           <CardContent>
