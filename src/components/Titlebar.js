@@ -4,7 +4,14 @@ import NavigateBefore from "material-ui-icons/NavigateBefore"
 import NavigateNext from "material-ui-icons/NavigateNext"
 import CloseIcon from "material-ui-icons/Close"
 import MoreVert from "material-ui-icons/MoreVert"
-import Menu, { MenuItem } from "material-ui/Menu"
+import Button from "material-ui/Button"
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogTitle
+} from "material-ui/Dialog"
+import Radio, { RadioGroup } from "material-ui/Radio"
+import { FormControlLabel } from "material-ui/Form"
 import { withStyles, createStyleSheet } from "material-ui/styles"
 import PropTypes from "prop-types"
 import AppBar from "material-ui/AppBar"
@@ -17,6 +24,7 @@ import {
   getWeekOfMonth,
   getWeeksOfMonth
 } from "./../utils/DateHelper"
+import Slide from "material-ui/transitions/Slide"
 import { translate } from "react-i18next"
 
 const styleSheet = createStyleSheet("SimpleAppBar", theme => ({
@@ -43,21 +51,134 @@ const styleSheet = createStyleSheet("SimpleAppBar", theme => ({
   }
 }))
 
+class ConfirmationDialog extends Component {
+  state = {
+    selectedValue: undefined
+  }
+
+  componentWillMount() {
+    this.setState({ selectedValue: this.props.selectedValue })
+  }
+
+  componentWillUpdate(nextProps) {
+    if (nextProps.selectedValue !== this.props.selectedValue) {
+      // eslint-disable-next-line react/no-will-update-set-state
+      this.setState({ selectedValue: nextProps.selectedValue })
+    }
+  }
+
+  radioGroup = null
+
+  handleEntering = () => {
+    this.radioGroup.focus()
+  }
+
+  handleCancel = () => {
+    this.props.onRequestClose(this.props.selectedValue)
+  }
+
+  handleOk = () => {
+    this.props.onRequestClose(this.state.selectedValue)
+  }
+
+  handleChange = (event, value) => {
+    this.setState({ selectedValue: value })
+  }
+  render() {
+    const { selectedValue, t, ...other } = this.props
+    return (
+      <Dialog
+        role="dialog"
+        id="dialogbox"
+        aria-label="course description"
+        tabIndex="0"
+        open={this.props.open}
+        onRequestClose={this.handleClose}
+        transition={<Slide direction="down" />}
+        ignoreBackdropClick
+        ignoreEscapeKeyUp
+        maxWidth="xs"
+        onEntering={this.handleEntering}
+        {...other}
+      >
+        <DialogTitle>
+          {"Change view?"}
+        </DialogTitle>
+        <DialogContent>
+          <RadioGroup
+            innerRef={node => {
+              this.radioGroup = node
+            }}
+            aria-label="viewSelector"
+            name="viewSelector"
+            selectedValue={this.state.selectedValue}
+            onChange={this.handleChange}
+          >
+            <FormControlLabel
+              value="monthview"
+              key="monthView"
+              control={<Radio />}
+              label="Month View"
+            />
+            <FormControlLabel
+              value="weekview"
+              key="weekView"
+              control={<Radio />}
+              label="Week View"
+            />
+            <FormControlLabel
+              value="scheduleview"
+              key="scheduleView"
+              control={<Radio />}
+              label="Schedule View"
+            />
+          </RadioGroup>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={this.handleOk}
+            aria-label={"Confirm selection"}
+            color="accent"
+          >
+            {t("ok", {})}
+          </Button>
+          <Button
+            onClick={this.handleCancel}
+            aria-label={"Cancel selection"}
+            color="accent"
+          >
+            {t("cancel", {})}
+          </Button>
+        </DialogActions>
+      </Dialog>
+    )
+  }
+}
+
+ConfirmationDialog.propTypes = {
+  onRequestClose: PropTypes.func,
+  selectedValue: PropTypes.string
+}
+
 class Titlebar extends Component {
   state = {
     anchorEl: undefined,
     snackbar: false,
     snackbarMessage: "",
     open: false,
-    selected: ""
+    selected: "",
+    selectedValue: "weekview"
   }
 
-  handleClick = event => {
-    this.setState({ open: true, anchorEl: event.currentTarget })
+  handleClick = () => {
+    this.setState({ open: true })
   }
 
-  handleRequestClose = () => {
-    this.setState({ open: false })
+  handleRequestClose = value => {
+    console.log(value)
+    console.log("handleRequestClose")
+    this.setState({ open: false, selected: value, selectedValue: value })
+    this.props.changeCalendarView(value)
   }
 
   openSnackbar = message => {
@@ -227,11 +348,20 @@ class Titlebar extends Component {
     ) {
       if (weekDateArray[len - 1].month > dateObj.month) {
         const endMonth = weekDateArray[len - 1].month
-        text = `${t(shortMonthNames[dateObj.month], {})} ${weekDateArray[0].day} - ${t(shortMonthNames[endMonth], {})} ${weekDateArray[len - 1].day}`
-        ariaLabel = `${t(longMonth, {})} ${weekDateArray[0].day} to ${t(longEndMonth, {})} ${weekDateArray[len - 1].day}`
+        text = `${t(shortMonthNames[dateObj.month], {})} ${weekDateArray[0]
+          .day} - ${t(shortMonthNames[endMonth], {})} ${weekDateArray[len - 1]
+          .day}`
+        ariaLabel = `${t(longMonth, {})} ${weekDateArray[0].day} to ${t(
+          longEndMonth,
+          {}
+        )} ${weekDateArray[len - 1].day}`
       } else {
-        text = `${t(shortMonthNames[dateObj.month], {})} ${weekDateArray[0].day} - ${weekDateArray[weekDateArray.length - 1].day}`
-        ariaLabel = `${t(longMonth, {})} ${weekDateArray[0].day} to ${t(longEndMonth, {})} ${weekDateArray[len - 1].day}`
+        text = `${t(shortMonthNames[dateObj.month], {})} ${weekDateArray[0]
+          .day} - ${weekDateArray[weekDateArray.length - 1].day}`
+        ariaLabel = `${t(longMonth, {})} ${weekDateArray[0].day} to ${t(
+          longEndMonth,
+          {}
+        )} ${weekDateArray[len - 1].day}`
       }
     } else if (this.props.calendarType === "monthview") {
       text = t(shortMonthNames[dateObj.month], {})
@@ -249,11 +379,6 @@ class Titlebar extends Component {
         {text}
       </Typography>
     )
-  }
-
-  handleMenuItemClick = index => {
-    this.props.changeCalendarView(index)
-    this.setState({ open: false })
   }
 
   render() {
@@ -288,23 +413,13 @@ class Titlebar extends Component {
           >
             <MoreVert style={{ color: "white" }} />
           </IconButton>
-
-          <Menu
-            anchorEl={this.state.anchorEl}
-            open={this.state.open}
-            onRequestClose={this.handleRequestClose}
-          >
-            <MenuItem onClick={() => this.handleMenuItemClick("monthview")}>
-              {t("Month", {})}
-            </MenuItem>
-            <MenuItem onClick={() => this.handleMenuItemClick("weekview")}>
-              {t("Week", {})}
-            </MenuItem>
-            <MenuItem onClick={() => this.handleMenuItemClick("scheduleview")}>
-              {t("Schedule", {})}
-            </MenuItem>
-          </Menu>
         </Toolbar>
+        <ConfirmationDialog
+          open={this.state.open}
+          onRequestClose={this.handleRequestClose}
+          selectedValue={this.state.selectedValue}
+          t={t}
+        />
         <Snackbar
           id="calendar-alert-snackbar"
           tabIndex="0"
