@@ -116,7 +116,6 @@ class App extends Component {
       const termEnd = new Date(nextProps.termBounds[1])
 
       if (termStart < d && d < termEnd) {
-        console.log("if")
         obj = {
           year: d.getFullYear(),
           month: d.getMonth(),
@@ -124,7 +123,6 @@ class App extends Component {
           day: d.getDate()
         }
       } else {
-        console.log("else")
         
         obj = {
           year: termStart.getFullYear(),

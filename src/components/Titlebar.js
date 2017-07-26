@@ -434,9 +434,6 @@ class Titlebar extends Component {
           open={this.state.snackbar}
           autoHideDuration={6e3}
           onRequestClose={this.closeSnackbar}
-          contentProps={{
-            "aria-describedby": "message-id"
-          }}
           message={
             <span id="message-id">
               {this.state.snackbarMessage}
