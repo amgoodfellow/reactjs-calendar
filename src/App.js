@@ -59,14 +59,99 @@ class App extends Component {
 
     this.setState({ termBounds: this.props.termBounds })
 
-    let d = new Date()
-    let obj = {
-      year: d.getFullYear(),
-      month: d.getMonth(),
-      week: getWeekOfMonth(d.getFullYear(), d.getMonth(), d.getDate()),
-      day: d.getDate()
+    let obj
+    const d = new Date()
+
+    try {
+      const termStart = new Date(this.props.termBounds[0]) 
+      const termEnd = new Date(this.props.termBounds[1])
+
+      if (termStart < d && d < termEnd) {
+        obj = {
+          year: d.getFullYear(),
+          month: d.getMonth(),
+          week: getWeekOfMonth(d.getFullYear(), d.getMonth(), d.getDate()),
+          day: d.getDate()
+        }
+      } else {
+        
+        obj = {
+          year: termStart.getFullYear(),
+          month: termStart.getMonth(),
+          week: getWeekOfMonth(
+            termStart.getFullYear(),
+            termStart.getMonth(),
+            termStart.getDate()
+          ),
+
+          day: termStart.getDate()
+        }
+      }
+    } catch (err) {
+      const d = new Date()
+
+      obj = {
+        year: d.getFullYear(),
+        month: d.getMonth(),
+        week: getWeekOfMonth(
+          d.getFullYear(),
+          d.getMonth(),
+          d.getDate()
+        ),
+        day: d.getDate()
+      }
+    }
+
+    this.setState({ currentDateRange: obj })
+  }
+
+  componentWillReceiveProps(nextProps){
+    if (Object.is(nextProps.termBounds, this.props.termBounds)){
+      return
+    }
+    let obj
+    const d = new Date()
+    try {
+      const termStart = new Date(nextProps.termBounds[0]) 
+      const termEnd = new Date(nextProps.termBounds[1])
+
+      if (termStart < d && d < termEnd) {
+        obj = {
+          year: d.getFullYear(),
+          month: d.getMonth(),
+          week: getWeekOfMonth(d.getFullYear(), d.getMonth(), d.getDate()),
+          day: d.getDate()
+        }
+      } else {
+        
+        obj = {
+          year: termStart.getFullYear(),
+          month: termStart.getMonth(),
+          week: getWeekOfMonth(
+            termStart.getFullYear(),
+            termStart.getMonth(),
+            termStart.getDate()
+          ),
+
+          day: termStart.getDate()
+        }
+      }
+    } catch (err) {
+      const d = new Date()
+
+      obj = {
+        year: d.getFullYear(),
+        month: d.getMonth(),
+        week: getWeekOfMonth(
+          d.getFullYear(),
+          d.getMonth(),
+          d.getDate()
+        ),
+        day: d.getDate()
+      }
     }
     this.setState({ currentDateRange: obj })
+
   }
 
   componentWillUnmount() {

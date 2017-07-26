@@ -78,8 +78,14 @@ export const getWeekArray = (month, year, weekNumber) => {
 
     for (let i = 0; i < 7; i++) {
       if (i < startDay) {
+        let newMonth
+        if (month - 1 === -1){
+          newMonth = 11
+        }else{
+          newMonth = month - 1
+        }
         weekArray[i] = {
-          month: month - 1,
+          month: newMonth,
           day: firstDay + i,
           dayNameFull: dayNames[i],
           dayName: shortDayNames[i]
@@ -105,8 +111,14 @@ export const getWeekArray = (month, year, weekNumber) => {
           dayName: shortDayNames[i]
         }
       } else {
+        let newMonth
+        if (month + 1 === 12){
+          newMonth = 0
+        }else{
+          newMonth = month + 1
+        }
         weekArray[i] = {
-          month: month + 1,
+          month: newMonth,
           day: i - daysInMonth.getDay(),
           dayNameFull: dayNames[i],
           dayName: shortDayNames[i]
