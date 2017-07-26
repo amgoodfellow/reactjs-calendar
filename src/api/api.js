@@ -1,7 +1,7 @@
 export const getEvents = async obj => {
   try {
     let response
-    if (obj.credentialsNeeded === false){
+    if ((Object.is(obj, null)) || (obj.credentialsNeeded === false)){
       response = await fetch(obj.url)
     }else{
       response = await fetch(obj.url, { credentials: "include" })
