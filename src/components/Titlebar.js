@@ -201,6 +201,7 @@ class Titlebar extends Component {
     ) {
       return
     }
+    
     let termEnd = new Date(this.props.termBounds[1])
 
     const endMonth = termEnd.getMonth()
@@ -239,14 +240,19 @@ class Titlebar extends Component {
             dateObj.week
           )
           const len = weekArr.length
+          const d = new Date(dateObj.year, dateObj.month + 1, 0)
+          const endDayOfMonth = d.getDate()
           if (dateObj.month === 11) {
             if (weekArr[0].month === 11 && weekArr[len - 1].month === 0) {
               dateObj.month = 0
               dateObj.week = 2
             }
-          } else if (weekArr[len - 1].month > dateObj.month) {
+          } else if (weekArr[len - 1].month > dateObj.month ) {
             dateObj.month++
             dateObj.week = 2
+          }else if(weekArr[len-1].day === endDayOfMonth){
+            dateObj.month++
+            dateObj.week = 1
           } else {
             dateObj.week++
           }
@@ -334,7 +340,7 @@ class Titlebar extends Component {
       dateObj.week
     )
     const len = weekDateArray.length
-    const longMonth = monthNames[dateObj.month]
+    const longMonth = monthNames[weekDateArray[0].month]
     const longEndMonth = monthNames[weekDateArray[len - 1].month]
 
     let text
@@ -344,9 +350,9 @@ class Titlebar extends Component {
       this.props.calendarType === "weekview" ||
       this.props.calendarType === "scheduleview"
     ) {
-      if (weekDateArray[len - 1].month > dateObj.month) {
+      if (weekDateArray[len - 1].month > dateObj.month || (weekDateArray[0].month === 11 && weekDateArray[len - 1].month === 0)) {
         const endMonth = weekDateArray[len - 1].month
-        text = `${t(shortMonthNames[dateObj.month], {})} ${weekDateArray[0]
+        text = `${t(shortMonthNames[weekDateArray[0].month], {})} ${weekDateArray[0]
           .day} - ${t(shortMonthNames[endMonth], {})} ${weekDateArray[len - 1]
           .day}`
         ariaLabel = `${t(longMonth, {})} ${weekDateArray[0].day} to ${t(
@@ -354,7 +360,7 @@ class Titlebar extends Component {
           {}
         )} ${weekDateArray[len - 1].day}`
       } else {
-        text = `${t(shortMonthNames[dateObj.month], {})} ${weekDateArray[0]
+        text = `${t(shortMonthNames[weekDateArray[0].month], {})} ${weekDateArray[0]
           .day} - ${weekDateArray[weekDateArray.length - 1].day}`
         ariaLabel = `${t(longMonth, {})} ${weekDateArray[0].day} to ${t(
           longEndMonth,
