@@ -37,7 +37,6 @@ class ScheduleView extends Component {
           <Paper
             key={"dayPaper" + i + Math.random()}
             elevation={0}
-            ref={"event" + this.props.currentDateRange.day}
             className={classes.dayPaper}
           >
             <div
