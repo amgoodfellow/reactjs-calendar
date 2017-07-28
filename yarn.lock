@@ -1411,7 +1411,7 @@ caniuse-db@^1.0.30000529, caniuse-db@^1.0.30000634, caniuse-db@^1.0.30000639:
 
 caniuse-lite@^1.0.30000670, caniuse-lite@^1.0.30000704:
   version "1.0.30000708"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000708.tgz#71dbf388c57f379b1bb66c89a890edc04c2509b6"
+
 
 capture-stack-trace@^1.0.0:
   version "1.0.0"
@@ -4544,7 +4544,9 @@ miller-rabin@^4.0.0:
     bn.js "^4.0.0"
     brorand "^1.0.1"
 
+
 "mime-db@>= 1.29.0 < 2", mime-db@~1.29.0:
+
   version "1.29.0"
   resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.29.0.tgz#48d26d235589651704ac5916ca06001914266878"
 
