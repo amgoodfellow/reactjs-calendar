@@ -4,7 +4,6 @@ import Typography from "material-ui/Typography";
 import Card, { CardHeader, CardContent, CardMedia } from "material-ui/Card";
 import { withStyles, createStyleSheet } from "material-ui/styles";
 import PropTypes from "prop-types";
-import grizzHead from "/home/dorisgjata/react-calendar-2.0/src/utils/grizzHead.png";
 
 const styleSheet = createStyleSheet("ErrorMessages", theme => ({
   root: {
@@ -47,13 +46,7 @@ class ErrorMessages extends Component {
         <Card className={classes.card}>
           <div className={classes.main}>
             <CardMedia className={classes.media}>
-              <img
-                src={grizzHead}
-                width="123.6px"
-                height="95.6px"
-                alt="Grizz Head Image"
-                aria-hidden="true"
-              />
+               ¯\_(ツ)_/¯
             </CardMedia>
             <div className={classes.head}>
               <CardHeader title="We were unable to fetch data at this time" />
