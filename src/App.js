@@ -6,7 +6,9 @@ import MonthView from "./components/MonthView"
 import MobileMonthView from "./components/MobileMonthView"
 import { getEvents } from "./api/api"
 import { getWeekOfMonth } from "./utils/DateHelper"
+import ErrorMessages from "./components/ErrorMessages.js"
 import { changeURL } from "./utils/i18n.js"
+
 
 class App extends Component {
   state = {
@@ -222,7 +224,7 @@ class App extends Component {
 
   render() {
     if (this.state.events === null || this.state.events === undefined) {
-      return <div>boom</div>
+      return <div><ErrorMessages/></div>
     }
     return (
       <div>
