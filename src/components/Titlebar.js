@@ -29,6 +29,7 @@ import { translate } from "react-i18next"
 
 const styleSheet = createStyleSheet("SimpleAppBar", theme => ({
   appBar: {
+    zIndex: "999",
     position: "relative"
   },
   toolbar: {

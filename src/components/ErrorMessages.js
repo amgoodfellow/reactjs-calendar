@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import List, { ListItem, ListItemText } from "material-ui/List";
 import Typography from "material-ui/Typography";
 import Card, { CardHeader, CardContent, CardMedia } from "material-ui/Card";
 import { withStyles, createStyleSheet } from "material-ui/styles";

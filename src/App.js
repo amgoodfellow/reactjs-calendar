@@ -7,11 +7,13 @@ import MobileMonthView from "./components/MobileMonthView"
 import { getEvents } from "./api/api"
 import { getWeekOfMonth } from "./utils/DateHelper"
 import ErrorMessages from "./components/ErrorMessages.js"
+import { CircularProgress } from 'material-ui/Progress';
 import { changeURL } from "./utils/i18n.js"
 
 
 class App extends Component {
   state = {
+    loading: true,
     events: null,
     termBounds: null,
     currentDateRange: null,
@@ -51,12 +53,17 @@ class App extends Component {
 
     changeURL(this.props.translateURL)
 
+
     if (document.getElementById(this.props.rootID).clientWidth < 796) {
       this.setState({ mobile: true })
     }
 
     getEvents(this.props.eventsURLObj).then(events => {
-      this.setState({ events })
+      if (!(events instanceof Error)){
+        this.setState({ events, loading: false })
+      }else{
+        this.setState({loading: false})
+      }
     })
 
     this.setState({ termBounds: this.props.termBounds })
@@ -223,7 +230,9 @@ class App extends Component {
   }
 
   render() {
-    if (this.state.events === null || this.state.events === undefined) {
+    if (this.state.loading === true){
+      <CircularProgress color="accent"/>
+    }else if (this.state.events === null || this.state.events === undefined) {
       return <div><ErrorMessages/></div>
     }
     return (
