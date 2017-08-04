@@ -7,7 +7,6 @@ import PropTypes from "prop-types";
 const styleSheet = createStyleSheet("ErrorMessages", theme => ({
   root: {
     position: "relative",
-    width: "70%",
     textAlign: "ltr"
   },
   card: {
