@@ -310,16 +310,23 @@ class Titlebar extends Component {
             dateObj.year,
             dateObj.week
           )
+          const len = weekArr.length
           if (dateObj.month === 0) {
             if (weekArr[0].month === 0 && weekArr[0].day < 7) {
               dateObj.month = 11
               const d = new Date(dateObj.year, 11, 4)
               dateObj.week = getWeeksOfMonth(d)
             }
-          } else if (weekArr[0].day < 7) {
-            const d = new Date(dateObj.year, dateObj.month - 1, 4)
-            dateObj.month--
-            dateObj.week = getWeeksOfMonth(d)
+          } else if (dateObj.week === 1) {
+            if (weekArr[0].day < 7){
+              const d = new Date(dateObj.year, dateObj.month - 1, 4)
+              dateObj.month--
+              dateObj.week = getWeeksOfMonth(d)
+            }else{
+              const d = new Date(dateObj.year, dateObj.month - 2, 4)
+              dateObj.month-- 
+              dateObj.week = getWeeksOfMonth(d)
+            }
           } else {
             dateObj.week--
           }
@@ -351,7 +358,7 @@ class Titlebar extends Component {
       this.props.calendarType === "weekview" ||
       this.props.calendarType === "scheduleview"
     ) {
-      if (weekDateArray[len - 1].month > dateObj.month || (weekDateArray[0].month === 11 && weekDateArray[len - 1].month === 0)) {
+      if (weekDateArray[len - 1].month > weekDateArray[0].month || (weekDateArray[0].month === 11 && weekDateArray[len - 1].month === 0)) {
         const endMonth = weekDateArray[len - 1].month
         text = `${t(shortMonthNames[weekDateArray[0].month], {})} ${weekDateArray[0]
           .day} - ${t(shortMonthNames[endMonth], {})} ${weekDateArray[len - 1]
