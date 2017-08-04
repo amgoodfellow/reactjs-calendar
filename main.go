@@ -333,7 +333,11 @@ func calendarMeeting(w http.ResponseWriter, r *http.Request) {
 		q[m.Month][m.Day] = append(q[m.Month][m.Day], m)
 	}
 
-	if err := json.NewEncoder(w).Encode(q); err != nil {
+	newMap := make(map[string]map[string]map[string]MeetingCalendarArray)
+
+	newMap["events"] = q
+
+	if err := json.NewEncoder(w).Encode(newMap); err != nil {
 		panic(err)
 	}
 
