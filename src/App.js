@@ -231,7 +231,7 @@ class App extends Component {
 
   render() {
     if (this.state.loading === true){
-      <CircularProgress color="accent"/>
+      return <CircularProgress color="accent"/>
     }else if (this.state.events === null || this.state.events === undefined) {
       return <div><ErrorMessages/></div>
     }
