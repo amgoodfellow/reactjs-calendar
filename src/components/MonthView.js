@@ -171,7 +171,6 @@ class MonthView extends Component {
         days.push(
           <td
             aria-label={currentDate.toDateString()}
-            aria-activedescendant={this.monthDayCounter + "class"}
             key={this.monthDayCounter}
             tabIndex="0"
             className={classes.cellStyle}
