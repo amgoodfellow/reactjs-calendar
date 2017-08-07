@@ -5,7 +5,7 @@ import Titlebar from "./components/Titlebar"
 import MonthView from "./components/MonthView"
 import MobileMonthView from "./components/MobileMonthView"
 import { getEvents } from "./api/api"
-import { getWeekOfMonth, getWeekArray } from "./utils/DateHelper"
+import { getWeekOfMonth } from "./utils/DateHelper"
 import ErrorMessages from "./components/ErrorMessages.js"
 import { CircularProgress } from 'material-ui/Progress';
 import { changeURL } from "./utils/i18n.js"
