@@ -316,17 +316,15 @@ class Titlebar extends Component {
               const d = new Date(dateObj.year, 11, 4)
               dateObj.week = getWeeksOfMonth(d)
             }
-          } else if (dateObj.week === 1) {
-            if (weekArr[0].day < 7){
-              const d = new Date(dateObj.year, dateObj.month - 1, 4)
-              dateObj.month--
-              dateObj.week = getWeeksOfMonth(d)
-            }else{
-              const d = new Date(dateObj.year, dateObj.month - 2, 4)
-              dateObj.month-- 
-              dateObj.week = getWeeksOfMonth(d)
-            }
-          } else {
+          }else if (weekArr[0].day > 7 && (weekArr[0].month < weekArr[weekArr.length -1].month)){
+            dateObj.month = weekArr[0].month
+            const d = new Date(dateObj.year, dateObj.month, 4)
+            dateObj.week = getWeeksOfMonth(d) - 1
+          }else if(weekArr[0].day < 7 ){
+            const d = new Date(dateObj.year, dateObj.month - 1, 4)
+            dateObj.month--
+            dateObj.week = getWeeksOfMonth(d)
+          }else{
             dateObj.week--
           }
 
