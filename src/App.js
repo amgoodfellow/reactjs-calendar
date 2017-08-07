@@ -222,7 +222,7 @@ class App extends Component {
       default:
         return (
           <Weekview
-            meetings={this.state.calendar}
+            meetings={this.state.events}
             currentDateRange={this.state.currentDateRange}
           />
         )
@@ -240,7 +240,6 @@ class App extends Component {
         <Titlebar
           currentDateRange={this.state.currentDateRange}
           termBounds={this.state.termBounds}
-          calendar={this.state.calendar}
           calendarType={this.state.calendarType}
           changeCalendarView={this.changeCalendarView}
           changeDateRange={this.changeDateRange}
