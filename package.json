@@ -1,6 +1,6 @@
 {
   "name": "reactjs-calendar",
-  "version": "v0.1.54",
+  "version": "v0.1.93",
   "main": "build/bundle.js",
   "private": false,
   "author": "Aaron Goodfellow",

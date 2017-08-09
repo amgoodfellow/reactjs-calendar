@@ -108,7 +108,7 @@ class DayCard extends Component {
                     Course Name:
                   </Typography>
                   <Typography paragraph type="caption">
-                    {meeting.courseman}
+                    {meeting.coursename}
                   </Typography>
                 </CardContent>
               </div>

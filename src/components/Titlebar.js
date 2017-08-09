@@ -247,6 +247,8 @@ class Titlebar extends Component {
             if (weekArr[0].month === 11 && weekArr[len - 1].month === 0) {
               dateObj.month = 0
               dateObj.week = 2
+            }else{
+              dateObj.week++
             }
           } else if (weekArr[len - 1].month > dateObj.month ) {
             dateObj.month++

@@ -11,6 +11,7 @@ import {
 import Typography from "material-ui/Typography"
 import { translate } from "react-i18next"
 
+//Height of weekBox previously 2.65 temporarily changed
 const styleSheet = createStyleSheet("Weekview", theme => ({
   weekContent: {
     border: "1px solid black",
@@ -20,7 +21,7 @@ const styleSheet = createStyleSheet("Weekview", theme => ({
   },
   weekBox: {
     border: "1px solid lightgrey",
-    height: "2.65%"
+    height: "2.87%"
   },
 
   buttonStyles: {
@@ -100,11 +101,15 @@ const newWeekCol = (meetings, weekArrayObj, classes) => {
   }
   if (!Object.is(meetings, null) && !Object.is(meetings, undefined)) {
     for (let j = 0; j < meetings.length; j++) {
-      let colIndex = getMilitaryTime(meetings[j].starttime).hours * 2 - 14
-      let desiredHeight = getDesiredHeight(
-        meetings[j].starttime,
-        meetings[j].endtime
-      )
+        let militaryTime = getMilitaryTime(meetings[j].starttime)
+        let colIndex = militaryTime.hours * 2 - 14 
+        if (militaryTime.minutes >= 30){
+          colIndex++
+        }
+        let desiredHeight = getDesiredHeight(
+          meetings[j].starttime,
+          meetings[j].endtime
+        )
       let elemHeight = {
         height: desiredHeight.toString() + "%",
         marginTop: getStartPadding(meetings[j].starttime) + "px",
