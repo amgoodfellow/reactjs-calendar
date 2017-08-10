@@ -140,14 +140,31 @@ export const getWeekArray = (month, year, weekNumber) => {
 }
 
 export const getMilitaryTime = timeString => {
-  const splitArray = timeString.split(":")
-  let hours = parseInt(splitArray[0], 10)
-  const minutes = splitArray[1].substring(0, 2)
+    timeString = timeString.toUpperCase()
+    const reg = new RegExp("^([0-9]|0[0-9]|1?[0-9]|2[0-3]):[0-5]?[0-9][A-Z]")
+    const reg2 = new RegExp("^([0-9]|0[0-9]|1?[0-9]|2[0-3]):[0-5]?[0-9] [A-Z]")
+    let hours, minutes
+    if (reg.test(timeString) === true){
+      const splitArray = timeString.split(":")
+      hours = parseInt(splitArray[0], 10)
+      minutes = splitArray[1].substring(0, 2)
 
-  if (splitArray[1].substring(2, 3) === "p") {
-    hours += 12
-  }
-  return { hours: hours, minutes: minutes }
+      if (splitArray[1].substring(2, 3) === "P" && hours !== 12) {
+        hours += 12
+      }
+    }else if (reg2.test(timeString) === true){
+      const splitArray = timeString.split(":")
+      hours = parseInt(splitArray[0], 10)
+      minutes = splitArray[1].substring(0, 2)
+
+      if (splitArray[1].substring(3, 4) === "P" && hours !== 12) {
+        hours += 12
+      }
+    }else{
+      console.error("Invalid start time:", timeString)
+    }
+
+  return { hours: hours, minutes: parseInt(minutes, 10) }
 }
 
 //This method is used in the day and week view components to determine

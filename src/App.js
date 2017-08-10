@@ -121,6 +121,14 @@ class App extends Component {
     let obj
     const d = new Date()
     try {
+      getEvents(this.props.eventsURLObj).then(events => {
+        if (!(events instanceof Error)){
+          this.setState({ events, loading: false })
+        }else{
+          this.setState({loading: false})
+        }
+      })
+
       const termStart = new Date(nextProps.termBounds[0]) 
       const termEnd = new Date(nextProps.termBounds[1])
 
@@ -159,7 +167,7 @@ class App extends Component {
         day: d.getDate()
       }
     }
-    this.setState({ currentDateRange: obj })
+    this.setState({ currentDateRange: obj, termBounds: nextProps.termBounds })
 
   }
 

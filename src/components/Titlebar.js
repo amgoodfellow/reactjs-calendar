@@ -213,7 +213,7 @@ class Titlebar extends Component {
 
     switch (this.props.calendarType) {
       case "monthview":
-        if (dateObj.month === endMonth) {
+        if (dateObj.month === endMonth && dateObj.year === endYear) {
           this.openSnackbar("End of term reached")
           return
         }
@@ -232,7 +232,7 @@ class Titlebar extends Component {
       case "weekview":
       case "scheduleview":
       default:
-        if (dateObj.month === endMonth && dateObj.week === endWeek) {
+        if (dateObj.month === endMonth && dateObj.week === endWeek && dateObj.year === endYear) {
           this.openSnackbar("End of term reached")
         } else {
           const weekArr = getWeekArray(
@@ -247,6 +247,9 @@ class Titlebar extends Component {
             if (weekArr[0].month === 11 && weekArr[len - 1].month === 0) {
               dateObj.month = 0
               dateObj.week = 2
+              dateObj.year++
+            }else{
+              dateObj.week++
             }
           } else if (weekArr[len - 1].month > dateObj.month ) {
             dateObj.month++
@@ -286,7 +289,7 @@ class Titlebar extends Component {
           this.openSnackbar("Start of term reached")
           return
         }
-        if (dateObj.year === 0) {
+        if (dateObj.month === 0) {
           dateObj.year--
           dateObj.day = 1
           dateObj.month = 11
@@ -302,9 +305,11 @@ class Titlebar extends Component {
       case "weekview":
       case "scheduleview":
       default:
-        if (dateObj.month === startMonth && dateObj.week === startWeek) {
+        if (Object.is(dateObj.month, startMonth) && Object.is(dateObj.week, startWeek) && Object.is(dateObj.year, startYear)) {
           this.openSnackbar("Start of term reached")
+          return
         } else {
+
           const weekArr = getWeekArray(
             dateObj.month,
             dateObj.year,
@@ -315,6 +320,9 @@ class Titlebar extends Component {
               dateObj.month = 11
               const d = new Date(dateObj.year, 11, 4)
               dateObj.week = getWeeksOfMonth(d)
+              dateObj.year--
+            }else{
+              dateObj.week--
             }
           }else if (weekArr[0].day > 7 && (weekArr[0].month < weekArr[weekArr.length -1].month)){
             dateObj.month = weekArr[0].month
