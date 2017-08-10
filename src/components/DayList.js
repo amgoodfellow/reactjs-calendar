@@ -13,17 +13,18 @@ class DayList extends Component {
       ]
       for (let meeting of meetings) {
         ++classNo
-        cardArray.push(<DayCard key={"DayCards" + classNo} meeting={meeting} />)
+        cardArray.push(
+          <DayCard key={"DayCards" + classNo} meeting={meeting} pos={classNo} />
+        )
       }
 
       classList = (
-        <List
+        <div
           tabIndex="0"
-          role="list"
-          style={{ overflowY: "auto", height: "599px", padding: 0 }}
+          style={{ overflowY: "auto", height: "575px", padding: 0 }}
         >
           {cardArray}
-        </List>
+        </div>
       )
     } catch (err) {
       //console.log("Attempted render of undefined");
