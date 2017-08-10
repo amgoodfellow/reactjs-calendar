@@ -190,7 +190,7 @@ class MonthView extends Component {
           >
             <Typography type="body1" component="div" style={fontStyle}>
               {this.monthDayCounter}
-              <div id={this.monthDayCounter + "class"}>
+              <div aria-hidden="true" id={this.monthDayCounter + "class"}>
                 <DayBoxSchedule
                   calendarMeeting={this.props.calendar}
                   year={this.props.currentDateRange.year}
