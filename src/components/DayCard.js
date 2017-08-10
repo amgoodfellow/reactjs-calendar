@@ -1,58 +1,65 @@
 import React, { Component } from "react"
-import ListItem from "material-ui/List"
-import Typography from "material-ui/Typography"
 import { withStyles, createStyleSheet } from "material-ui/styles"
-import Card, { CardHeader, CardContent, CardActions } from "material-ui/Card"
 import Collapse from "material-ui/transitions/Collapse"
 import IconButton from "material-ui/IconButton"
 import ExpandMoreIcon from "material-ui-icons/ExpandMore"
 import PropTypes from "prop-types"
 import classnames from "classnames"
+import List, {
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  ListItemSecondaryAction
+} from "material-ui/List"
+import LooksOne from "material-ui-icons/LooksOne"
+import LooksTwo from "material-ui-icons/LooksTwo"
+import Looks3 from "material-ui-icons/Looks3"
+import Looks4 from "material-ui-icons/Looks4"
+import Looks5 from "material-ui-icons/Looks5"
+import Looks6 from "material-ui-icons/Looks6"
+import Lens from "material-ui-icons/Lens"
 const styleSheet = createStyleSheet("ExpandedCard", theme => ({
-  card: {
+  root: {
     width: "100%",
-    backgroundColor: "#fafafa ",
-    transition: theme.transitions.create("transform", {
-      easing: theme.transitions.easing.easeInOut
-    })
+    maxWidth: 360,
+    background: theme.palette.background.paper
   },
   expand: {
     transform: "rotate(0deg)",
-    duration: theme.transitions.duration.shorter
+    transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.shortest
+    })
   },
   expandOpen: {
     transform: "rotate(180deg)"
-  },
-  list: {
-    paddingTop: "1px",
-    width: "100%",
-    boxSizing: "border-box",
-    float: "left",
-    alignContent: "center"
-  },
-  CardHead: {
-    display: "flex",
-    justifyContent: "space-around",
-    flexFlow: "row nowrap",
-    fontWeight: "bold"
-  },
-  CardBody: {
-    display: "flex",
-    justifyContent: "space-around",
-    flexFlow: "row nowrap"
   }
 }))
 class DayCard extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      expand: false
-    }
+  state = {
+    expanded: false
   }
 
   handleExpandClick = () => {
-    this.setState(state => ({ expand: !state.expand }))
+    this.setState(state => ({ expanded: !state.expanded }))
+  }
+
+  getIcon = pos => {
+    switch (pos) {
+      case 1:
+        return <LooksOne />
+      case 2:
+        return <LooksTwo />
+      case 3:
+        return <Looks3 />
+      case 4:
+        return <Looks4 />
+      case 5:
+        return <Looks5 />
+      case 6:
+        return <Looks6 />
+      default:
+        return <Lens />
+    }
   }
 
   render() {
@@ -65,56 +72,45 @@ class DayCard extends Component {
       return <div />
     } else {
       return (
-        <ListItem role="listitem" className={classes.list}>
-          <Card tabIndex="0" className={classes.card}>
-            <div className={classes.CardHead}>
-              <CardHeader
-                title={meeting.coursetitle}
-                subheader={`${meeting.starttime} - 
-                     ${meeting.starttime}`}
+        <List className={classes.root}>
+          <ListItem>
+            <ListItemIcon>
+              {this.getIcon(this.props.pos)}
+            </ListItemIcon>
+            <ListItemText inset primary={meeting.coursetitle} />
+            <ListItemSecondaryAction>
+              <IconButton
+                className={classnames(classes.expand, {
+                  [classes.expandOpen]: this.state.expanded
+                })}
+                onClick={this.handleExpandClick}
+                aria-expanded={this.state.expanded}
+                aria-label="Show more"
+              >
+                <ExpandMoreIcon />
+              </IconButton>
+            </ListItemSecondaryAction>
+          </ListItem>
+          <Collapse
+            in={this.state.expanded}
+            transitionDuration="auto"
+            unmountOnExit
+          >
+            <ListItem>
+              <ListItemText
+                inset
+                primary={`${meeting.starttime} - 
+                     ${meeting.endtime}`}
               />
-              <CardActions disableActionSpacing>
-                <IconButton
-                  aria-label="More Course Information"
-                  className={classnames(
-                    classes.expand,
-                    {
-                      [classes.expandOpen]: this.state.expand
-                    },
-                    [classes.collapse]
-                  )}
-                  onClick={this.handleExpandClick}
-                  aria-expanded={this.state.expand}
-                >
-                  <ExpandMoreIcon />
-                </IconButton>
-              </CardActions>
-            </div>
-            <Collapse
-              className={classes.collapse}
-              in={this.state.expand}
-              transitionDuration="auto"
-              unmountOnExit
-            >
-              <div className={classes.CardBody}>
-                <CardContent tabIndex="0">
-                  <Typography paragraph type="body2">
-                    Location:
-                  </Typography>
-                  <Typography paragraph type="caption">
-                    {meeting.buildingroom}
-                  </Typography>
-                  <Typography paragraph type="body2">
-                    Course Name:
-                  </Typography>
-                  <Typography paragraph type="caption">
-                    {meeting.courseman}
-                  </Typography>
-                </CardContent>
-              </div>
-            </Collapse>
-          </Card>
-        </ListItem>
+            </ListItem>
+            <ListItem>
+              <ListItemText inset primary={meeting.buildingroom} />
+            </ListItem>
+            <ListItem>
+              <ListItemText inset primary={meeting.coursename} />
+            </ListItem>
+          </Collapse>
+        </List>
       )
     }
   }

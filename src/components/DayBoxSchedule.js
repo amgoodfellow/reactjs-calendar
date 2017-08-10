@@ -5,7 +5,6 @@ import { withStyles, createStyleSheet } from "material-ui/styles"
 import Typography from "material-ui/Typography"
 
 const styleSheet = createStyleSheet("DayBoxSchedule", theme => ({
-  dayBox: {},
   event: {
     padding: "2px",
     margin: 0,
@@ -22,14 +21,23 @@ const styleSheet = createStyleSheet("DayBoxSchedule", theme => ({
     fontWeight: "bold",
     color: "white"
   },
-  moreClasses: {
-    backgroundColor: "rgba(0, 16, 83, 0.6)",
-    borderRadius: "10px",
-    padding: "1px",
-    width: "20px",
-    heigh: "20px",
-    display: "flex",
-    justifyContent: "center"
+
+  moreClassesText: {
+    color: "#FFFFFF",
+    fontWeight: "bolder",
+    marginLeft: "0.8em"
+  },
+
+  eventMoreClasses: {
+    padding: "2px",
+    margin: 0,
+    marginBottom: "1px",
+    width: "100%",
+    boxSizing: "border-box",
+    float: "left",
+    backgroundColor: "#616161",
+    fontWeight: "bold",
+    borderRadius: "4px"
   }
 }))
 
@@ -52,7 +60,14 @@ class DayBoxSchedule extends Component {
         for (let i = 0; i < 2; i++) {
           //Push the cards that have more than 2 classes
           card.push(
-            <ListItem key={"classSchedule" + i} className={classes.event}>
+            <ListItem
+              key={"classSchedule" + i}
+              className={classes.event}
+              style={{
+                backgroundColor:
+                  calmeetin[this.props.month][this.props.day][i].color
+              }}
+            >
               <Typography type="body2" className={classes.eventText}>
                 {calmeetin[this.props.month][this.props.day][i].coursetitle}
               </Typography>
@@ -61,14 +76,10 @@ class DayBoxSchedule extends Component {
         }
         //Then push the little circle thing saying there are more hidden classes
         card.push(
-          <ListItem
-            key={"moreClasses"}
-            className={classes.moreClasses}
-            style={{}}
-          >
+          <ListItem key={"moreClasses"} className={classes.eventMoreClasses}>
             <Typography
               aria-label={"Plus " + moreClasses + " more classes"}
-              style={{ color: "#FFFFFF" }}
+              className={classes.moreClassesText}
             >
               {`+${moreClasses}`}
             </Typography>
@@ -78,8 +89,7 @@ class DayBoxSchedule extends Component {
       } else {
         for (
           let i = 0;
-          i <
-          this.props.calendarMeeting[this.props.month][this.props.day].length;
+          i < calmeetin[this.props.month][this.props.day].length;
           i++
         ) {
           card.push(
@@ -87,13 +97,13 @@ class DayBoxSchedule extends Component {
               key={"classesSchedule" + i}
               component="div"
               className={classes.event}
+              style={{
+                backgroundColor:
+                  calmeetin[this.props.month][this.props.day][i].color
+              }}
             >
               <Typography type="body2" className={classes.eventText}>
-                {
-                  this.props.calendarMeeting[this.props.month][this.props.day][
-                    i
-                  ].coursetitle
-                }
+                {calmeetin[this.props.month][this.props.day][i].coursetitle}
               </Typography>
             </ListItem>
           )
