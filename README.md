@@ -1,4 +1,5 @@
 ¯\\\_(ツ)_/¯  
+![Calendar logo](./screenshots/calendar-logo.svg?raw=true "Calendar logo")
 Logo under construction
 
 # ReactJS-Calendar
