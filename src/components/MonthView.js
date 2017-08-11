@@ -13,7 +13,6 @@ const styleSheet = createStyleSheet("MonthView", theme => ({
   root: {
     display: "flex",
     position: "relative",
-    height: "650px"
   },
   dayDiv: {
     position: "relative",
