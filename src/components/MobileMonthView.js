@@ -17,11 +17,11 @@ const stylesheet = createStyleSheet("MobileMonthView", theme => ({
   },
 
   rowHeight: {
-    height: "100px"
+    height: "80px"
   },
 
   addMargin: {
-    marginTop: "1.3em"
+    marginTop: ".5em"
   },
 
   todayNumber: {
@@ -52,7 +52,7 @@ const stylesheet = createStyleSheet("MobileMonthView", theme => ({
 
   pastMonthDay: {
     fontSize: "15px",
-    border: "1px solid white",
+    border: "3px solid white",
     padding: "10px",
     backgroundColor: "#E0E0E0"
   },
@@ -61,13 +61,14 @@ const stylesheet = createStyleSheet("MobileMonthView", theme => ({
     fontSize: "15px",
     fontWeight: "bold",
     color: "#000000",
-    border: "1px solid white",
+    border: "3px solid white",
     backgroundColor: "rgba(86,162,234, 0.5)"
   },
 
   monthDay: {
     fontSize: "15px",
-    border: "1px solid white"
+    border: "3px solid white",
+    backgroundColor: "#fafafa"
   },
 
   event: {
@@ -104,8 +105,7 @@ const stylesheet = createStyleSheet("MobileMonthView", theme => ({
   },
 
   tableBody: {
-    backgroundColor: "rgb(255,243,233)",
-    color: "#000000",
+    color: "black",
     textAlign: "left",
     verticalAlign: "top"
   }
@@ -161,11 +161,20 @@ class MobileMonthView extends Component {
     let rows = []
 
     for (let i = 0; i < wks; i++) {
-      rows.push(
-        <tr className={classes.rowHeight} key={i + Math.random()}>
-          {this.getDays(i)}
-        </tr>
-      )
+      if (i === wks - 1){
+        //without this the last row tends to get squished
+        rows.push(
+          <tr className={classes.rowHeight} style={{height: 85}} key={i + Math.random()}>
+            {this.getDays(i)}
+          </tr>
+        )
+      }else{
+        rows.push(
+          <tr className={classes.rowHeight} key={i + Math.random()}>
+            {this.getDays(i)}
+          </tr>
+        )
+      }
     }
     this.monthDayCounter = 1
     return rows
