@@ -51,7 +51,7 @@ const styleSheet = createStyleSheet("MonthView", theme => ({
     height: "20%"
   },
   tableBody: {
-    backgroundColor: "rgb(255,243,233)",
+    backgroundColor: "#ffffff",
     color: "#000000",
     textAlign: "left",
     verticalAlign: "top"
@@ -61,7 +61,7 @@ const styleSheet = createStyleSheet("MonthView", theme => ({
     fontSize: "15px",
     fontWeight: "bold",
     color: "#000000",
-    border: "1px solid white",
+    border: "1px solid lightgrey",
     padding: "10px",
     whiteSpace: "nowarp"
   }
@@ -189,7 +189,7 @@ class MonthView extends Component {
           >
             <Typography type="body1" component="div" style={fontStyle}>
               {this.monthDayCounter}
-              <div id={this.monthDayCounter + "class"}>
+              <div aria-hidden="true" id={this.monthDayCounter + "class"}>
                 <DayBoxSchedule
                   calendarMeeting={this.props.calendar}
                   year={this.props.currentDateRange.year}

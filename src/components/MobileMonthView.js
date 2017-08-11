@@ -121,6 +121,7 @@ class MobileMonthView extends Component {
     }
     this.monthDayCounter = 1
   }
+  // eslint-disable-next-line
   // @flow
   handleEventClick = (year: string, month: string, day: string) => {
     let week = getWeekOfMonth(year, month, day)
@@ -233,12 +234,12 @@ class MobileMonthView extends Component {
                 tabIndex="0"
                 aria-label={
                   "View events for " +
-                    monthNames[this.props.currentDateRange.month] +
-                    " " +
-                    scopedDayNumber +
-                    " " +
-                    this.props.currentDateRange.year +
-                    " in the schedule view."
+                  monthNames[this.props.currentDateRange.month] +
+                  " " +
+                  scopedDayNumber +
+                  " " +
+                  this.props.currentDateRange.year +
+                  " in the schedule view."
                 }
                 onClick={(day, month, year) =>
                   this.handleEventClick(
@@ -304,12 +305,12 @@ class MobileMonthView extends Component {
                 tabIndex="0"
                 aria-label={
                   "View events for " +
-                    monthNames[this.props.currentDateRange.month] +
-                    " " +
-                    scopedDayNumber +
-                    " " +
-                    this.props.currentDateRange.year +
-                    " in the schedule view."
+                  monthNames[this.props.currentDateRange.month] +
+                  " " +
+                  scopedDayNumber +
+                  " " +
+                  this.props.currentDateRange.year +
+                  " in the schedule view."
                 }
                 onClick={(day, month, year) =>
                   this.handleEventClick(
