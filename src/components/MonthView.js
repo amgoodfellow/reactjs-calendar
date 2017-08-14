@@ -12,11 +12,11 @@ import DayBoxSchedule from "./DayBoxSchedule"
 const styleSheet = createStyleSheet("MonthView", theme => ({
   root: {
     display: "flex",
-    position: "relative",
+    position: "relative"
   },
   dayDiv: {
     position: "relative",
-    width: "20%"
+    width: "25%"
   },
   dayTitleBar: {
     position: "relative",
@@ -26,7 +26,7 @@ const styleSheet = createStyleSheet("MonthView", theme => ({
     whiteSpace: "nowrap"
   },
   monthDiv: {
-    width: "80%",
+    width: "75%",
     height: "100%",
     overflow: "hidden"
   },
