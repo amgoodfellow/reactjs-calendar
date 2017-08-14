@@ -45,7 +45,8 @@ const styleSheet = createStyleSheet("Weekview", theme => ({
     display: "flex",
     flexDirection: "column",
     width: "5%",
-    minWidth: 40
+    minWidth: 40,
+    height: "100%"
   },
 
   weekColumn: {
@@ -101,21 +102,23 @@ const newWeekCol = (meetings, weekArrayObj, classes) => {
   }
   if (!Object.is(meetings, null) && !Object.is(meetings, undefined)) {
     for (let j = 0; j < meetings.length; j++) {
-        let militaryTime = getMilitaryTime(meetings[j].starttime)
-        let colIndex = militaryTime.hours * 2 - 14 
-        if (militaryTime.minutes >= 30){
-          colIndex++
-        }
-        let desiredHeight = getDesiredHeight(
-          meetings[j].starttime,
-          meetings[j].endtime
-        )
+      let militaryTime = getMilitaryTime(meetings[j].starttime)
+      let colIndex = militaryTime.hours * 2 - 14
+      if (militaryTime.minutes >= 30) {
+        colIndex++
+      }
+      let desiredHeight = getDesiredHeight(
+        meetings[j].starttime,
+        meetings[j].endtime
+      )
       let elemHeight = {
         height: desiredHeight.toString() + "%",
         marginTop: getStartPadding(meetings[j].starttime) + "px",
         backgroundColor: meetings[j].color
       }
-      let aria = `${meetings[j].coursename} on ${monthNames[weekArrayObj.month]} ${weekArrayObj.day} at ${meetings[j].starttime}`
+      let aria = `${meetings[j].coursename} on ${monthNames[
+        weekArrayObj.month
+      ]} ${weekArrayObj.day} at ${meetings[j].starttime}`
       column[colIndex] = (
         <Typography
           component="div"
