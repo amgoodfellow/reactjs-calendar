@@ -17,6 +17,24 @@ const styleSheet = createStyleSheet("ScheduleView", theme => ({
 
   date: {
     width: "100px"
+  },
+
+  dayTextNumber: {
+    color: "rgba(0, 0, 0, 0.54) !important",
+    fontSize: "45px !important",
+    fontWeight: "400 !important",
+    fontFamily: "Arimo !important",
+    lineHeight: "48px !important",
+    margin: 0
+  },
+
+  dayTextDay: {
+    color: "rgba(0, 0, 0, 0.54) !important",
+    fontSize: "34px !important",
+    fontWeight: "400 !important",
+    fontFamily: "Arimo !important",
+    lineHeight: "48px !important",
+    margin: 0
   }
 }))
 
@@ -44,10 +62,10 @@ class ScheduleView extends Component {
               tabIndex="0"
               aria-label={week[i].day + " " + week[i].dayNameFull}
             >
-              <Typography type="display2" aria-hidden="true">
+              <Typography type="display2" className={classes.dayTextNumber} aria-hidden="true">
                 {week[i].day}
               </Typography>
-              <Typography type="display1" aria-hidden="true">
+              <Typography type="display1" className={classes.dayTextDay} aria-hidden="true">
                 {t(week[i].dayName, {})}
               </Typography>
             </div>
@@ -82,10 +100,10 @@ class ScheduleView extends Component {
                   this.props.currentDateRange.year
               }
             >
-              <Typography type="display2" aria-hidden="true">
+              <Typography type="display2" className={classes.dayTextNumber} aria-hidden="true">
                 {week[i].day}
               </Typography>
-              <Typography type="display1" aria-hidden="true">
+              <Typography type="display1" className={classes.dayTextDay} aria-hidden="true">
                 {t(week[i].dayName, {})}
               </Typography>
             </div>

@@ -305,7 +305,13 @@ class Titlebar extends Component {
       case "weekview":
       case "scheduleview":
       default:
-        if (Object.is(dateObj.month, startMonth) && Object.is(dateObj.week, startWeek) && Object.is(dateObj.year, startYear)) {
+        let rightNow = new Date(dateObj.year, dateObj.month, dateObj.day)
+        let objEnd = new Date(startYear, startMonth, startDay)
+        if (rightNow < objEnd){
+          this.openSnackbar("Start of term reached")
+          return
+        }
+        if (dateObj.month <= startMonth && dateObj.week <= startWeek && dateObj.year <= startYear) {
           this.openSnackbar("Start of term reached")
           return
         } else {

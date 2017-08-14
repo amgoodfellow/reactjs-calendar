@@ -1,6 +1,6 @@
 {
   "name": "reactjs-calendar",
-  "version": "v0.1.106",
+  "version": "v0.1.121",
   "main": "build/bundle.js",
   "private": false,
   "author": "Aaron Goodfellow",
@@ -50,7 +50,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "prod": "webpack -d -p",
+    "prod": "NODE_ENV=production webpack -p",
     "eject": "react-scripts eject"
   }
 }
