@@ -3,12 +3,12 @@ import Typography from "material-ui/Typography"
 import Paper from "material-ui/Paper"
 import { getWeekArray } from "./../utils/DateHelper"
 import ScheduleEvent from "./ScheduleEvent"
-import { withStyles, createStyleSheet } from "material-ui/styles"
+import { withStyles } from "material-ui/styles"
 import PropTypes from "prop-types"
 import { monthNames } from "./../utils/Strings"
 import { translate } from "react-i18next"
 
-const styleSheet = createStyleSheet("ScheduleView", theme => ({
+const styles = theme => ({
   dayPaper: {
     display: "flex",
     padding: "15px",
@@ -36,7 +36,7 @@ const styleSheet = createStyleSheet("ScheduleView", theme => ({
     lineHeight: "48px !important",
     margin: 0
   }
-}))
+})
 
 class ScheduleView extends Component {
   generateWeek = () => {
@@ -62,10 +62,18 @@ class ScheduleView extends Component {
               tabIndex="0"
               aria-label={week[i].day + " " + week[i].dayNameFull}
             >
-              <Typography type="display2" className={classes.dayTextNumber} aria-hidden="true">
+              <Typography
+                type="display2"
+                className={classes.dayTextNumber}
+                aria-hidden="true"
+              >
                 {week[i].day}
               </Typography>
-              <Typography type="display1" className={classes.dayTextDay} aria-hidden="true">
+              <Typography
+                type="display1"
+                className={classes.dayTextDay}
+                aria-hidden="true"
+              >
                 {t(week[i].dayName, {})}
               </Typography>
             </div>
@@ -92,18 +100,26 @@ class ScheduleView extends Component {
               tabIndex="0"
               aria-label={
                 t(week[i].dayNameFull, {}) +
-                  " " +
-                  t(monthNames[this.props.currentDateRange.month], {}) +
-                  " " +
-                  week[i].day +
-                  " " +
-                  this.props.currentDateRange.year
+                " " +
+                t(monthNames[this.props.currentDateRange.month], {}) +
+                " " +
+                week[i].day +
+                " " +
+                this.props.currentDateRange.year
               }
             >
-              <Typography type="display2" className={classes.dayTextNumber} aria-hidden="true">
+              <Typography
+                type="display2"
+                className={classes.dayTextNumber}
+                aria-hidden="true"
+              >
                 {week[i].day}
               </Typography>
-              <Typography type="display1" className={classes.dayTextDay} aria-hidden="true">
+              <Typography
+                type="display1"
+                className={classes.dayTextDay}
+                aria-hidden="true"
+              >
                 {t(week[i].dayName, {})}
               </Typography>
             </div>
@@ -136,6 +152,6 @@ ScheduleView.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styleSheet)(
+export default withStyles(styles, { name: "ScheduleView" })(
   translate("view", { wait: true })(ScheduleView)
 )

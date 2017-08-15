@@ -1,10 +1,10 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
 import List, { ListItem } from "material-ui/List"
-import { withStyles, createStyleSheet } from "material-ui/styles"
+import { withStyles } from "material-ui/styles"
 import Typography from "material-ui/Typography"
 
-const styleSheet = createStyleSheet("DayBoxSchedule", theme => ({
+const styles = theme => ({
   event: {
     padding: "2px",
     margin: 0,
@@ -39,7 +39,7 @@ const styleSheet = createStyleSheet("DayBoxSchedule", theme => ({
     fontWeight: "bold",
     borderRadius: "4px"
   }
-}))
+})
 
 class DayBoxSchedule extends Component {
   displayClasses() {
@@ -125,4 +125,4 @@ DayBoxSchedule.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styleSheet)(DayBoxSchedule)
+export default withStyles(styles, { name: "DayBoxSchedule" })(DayBoxSchedule)

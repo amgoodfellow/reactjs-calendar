@@ -1,7 +1,7 @@
 /* flow */
 import React, { Component } from "react"
 import { shortDayNames } from "./../utils/Strings"
-import { withStyles, createStyleSheet } from "material-ui/styles"
+import { withStyles } from "material-ui/styles"
 import Typography from "material-ui/Typography"
 import PropTypes from "prop-types"
 import Paper from "material-ui/Paper"
@@ -11,7 +11,7 @@ import { getWeekOfMonth } from "./../utils/DateHelper"
 import { monthNames } from "./../utils/Strings"
 import { pink } from "material-ui/colors"
 
-const stylesheet = createStyleSheet("MobileMonthView", theme => ({
+const styles = theme => ({
   dayRow: {
     height: "50px"
   },
@@ -109,7 +109,7 @@ const stylesheet = createStyleSheet("MobileMonthView", theme => ({
     textAlign: "left",
     verticalAlign: "top"
   }
-}))
+})
 
 class MobileMonthView extends Component {
   constructor() {
@@ -162,14 +162,18 @@ class MobileMonthView extends Component {
     let rows = []
 
     for (let i = 0; i < wks; i++) {
-      if (i === wks - 1){
+      if (i === wks - 1) {
         //without this the last row tends to get squished
         rows.push(
-          <tr className={classes.rowHeight} style={{height: 85}} key={i + Math.random()}>
+          <tr
+            className={classes.rowHeight}
+            style={{ height: 85 }}
+            key={i + Math.random()}
+          >
             {this.getDays(i)}
           </tr>
         )
-      }else{
+      } else {
         rows.push(
           <tr className={classes.rowHeight} key={i + Math.random()}>
             {this.getDays(i)}
@@ -389,4 +393,4 @@ MobileMonthView.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(stylesheet)(MobileMonthView)
+export default withStyles(styles, { name: "MobileMonthView" })(MobileMonthView)

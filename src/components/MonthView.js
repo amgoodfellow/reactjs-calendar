@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { dayNames, shortDayNames } from "./../utils/Strings"
-import { withStyles, createStyleSheet } from "material-ui/styles"
+import { withStyles } from "material-ui/styles"
 import Typography from "material-ui/Typography"
 import PropTypes from "prop-types"
 import Paper from "material-ui/Paper"
@@ -9,10 +9,10 @@ import { getWeeksOfMonth, getDaysInMonth } from "./../utils/DateHelper"
 import DayList from "./DayList"
 import DayBoxSchedule from "./DayBoxSchedule"
 
-const styleSheet = createStyleSheet("MonthView", theme => ({
+const styles = theme => ({
   root: {
     display: "flex",
-    position: "relative",
+    position: "relative"
   },
   dayDiv: {
     position: "relative",
@@ -65,7 +65,7 @@ const styleSheet = createStyleSheet("MonthView", theme => ({
     padding: "10px",
     whiteSpace: "nowarp"
   }
-}))
+})
 
 class MonthView extends Component {
   constructor() {
@@ -291,4 +291,4 @@ MonthView.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styleSheet)(MonthView)
+export default withStyles(styles, { name: "MonthView" })(MonthView)

@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
 import { prettyHours, shortDayNames, monthNames } from "../utils/Strings"
-import { withStyles, createStyleSheet } from "material-ui/styles"
+import { withStyles } from "material-ui/styles"
 import {
   getStartPadding,
   getDesiredHeight,
@@ -12,7 +12,7 @@ import Typography from "material-ui/Typography"
 import { translate } from "react-i18next"
 
 //Height of weekBox previously 2.65 temporarily changed
-const styleSheet = createStyleSheet("Weekview", theme => ({
+const styles = theme => ({
   weekContent: {
     border: "1px solid black",
     height: 950,
@@ -63,7 +63,7 @@ const styleSheet = createStyleSheet("Weekview", theme => ({
     minWidth: 40,
     marginRight: 1
   }
-}))
+})
 
 const hourCol = (t, classes) => {
   let column = [
@@ -101,21 +101,23 @@ const newWeekCol = (meetings, weekArrayObj, classes) => {
   }
   if (!Object.is(meetings, null) && !Object.is(meetings, undefined)) {
     for (let j = 0; j < meetings.length; j++) {
-        let militaryTime = getMilitaryTime(meetings[j].starttime)
-        let colIndex = militaryTime.hours * 2 - 14 
-        if (militaryTime.minutes >= 30){
-          colIndex++
-        }
-        let desiredHeight = getDesiredHeight(
-          meetings[j].starttime,
-          meetings[j].endtime
-        )
+      let militaryTime = getMilitaryTime(meetings[j].starttime)
+      let colIndex = militaryTime.hours * 2 - 14
+      if (militaryTime.minutes >= 30) {
+        colIndex++
+      }
+      let desiredHeight = getDesiredHeight(
+        meetings[j].starttime,
+        meetings[j].endtime
+      )
       let elemHeight = {
         height: desiredHeight.toString() + "%",
         marginTop: getStartPadding(meetings[j].starttime) + "px",
         backgroundColor: meetings[j].color
       }
-      let aria = `${meetings[j].coursename} on ${monthNames[weekArrayObj.month]} ${weekArrayObj.day} at ${meetings[j].starttime}`
+      let aria = `${meetings[j].coursename} on ${monthNames[
+        weekArrayObj.month
+      ]} ${weekArrayObj.day} at ${meetings[j].starttime}`
       column[colIndex] = (
         <Typography
           component="div"
@@ -188,6 +190,6 @@ Weekview.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styleSheet)(
+export default withStyles(styles, { name: "Weekview" })(
   translate("view", { wait: true })(Weekview)
 )

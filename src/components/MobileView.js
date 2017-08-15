@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { dayNames, shortDayNames } from "./../utils/Strings"
-import { withStyles, createStyleSheet } from "material-ui/styles"
+import { withStyles } from "material-ui/styles"
 import Typography from "material-ui/Typography"
 import PropTypes from "prop-types"
 import Paper from "material-ui/Paper"
@@ -9,7 +9,7 @@ import { getWeeksOfMonth, getDaysInMonth } from "./../utils/DateHelper"
 import DayCard from "./DayCard"
 import { getEvents } from "./../api/api"
 
-const styleSheet = createStyleSheet("MobileView", theme => ({
+const styles = theme => ({
   root: {
     display: "flex",
     position: "relative",
@@ -47,7 +47,7 @@ const styleSheet = createStyleSheet("MobileView", theme => ({
     textAlign: "left",
     verticalAlign: "top"
   }
-}))
+})
 
 class MobileView extends Component {
   constructor() {
@@ -67,7 +67,11 @@ class MobileView extends Component {
     let rows = []
 
     for (let i = 0; i < wks; i++) {
-      rows.push(<tr>{this.getDays(i)}</tr>)
+      rows.push(
+        <tr>
+          {this.getDays(i)}
+        </tr>
+      )
     }
     this.monthDayCounter = 1
     return rows
@@ -152,7 +156,6 @@ class MobileView extends Component {
               <Typography type="body1" component="div">
                 {this.monthDayCounter}
               </Typography>
-
             </td>
           )
         }
@@ -194,7 +197,6 @@ class MobileView extends Component {
               <tbody className={classes.tableBody}>
                 {this.getMonthRows()}
               </tbody>
-
             </table>
           </div>
         </Paper>
@@ -207,4 +209,4 @@ MobileView.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styleSheet)(MobileView)
+export default withStyles(styles, { name: "MobileView" })(MobileView)
