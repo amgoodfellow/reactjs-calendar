@@ -7,9 +7,22 @@ import MobileMonthView from "./components/MobileMonthView"
 import { getEvents } from "./api/api"
 import { getWeekOfMonth } from "./utils/DateHelper"
 import ErrorMessages from "./components/ErrorMessages.js"
-import { CircularProgress } from 'material-ui/Progress';
+import { CircularProgress } from "material-ui/Progress"
 import { changeURL } from "./utils/i18n.js"
 
+if (!Object.is) {
+  Object.is = function(x, y) {
+    // SameValue algorithm
+    if (x === y) {
+      // Steps 1-5, 7-10
+      // Steps 6.b-6.e: +0 != -0
+      return x !== 0 || 1 / x === 1 / y
+    } else {
+      // Step 6.a: NaN == NaN
+      return x !== x && y !== y
+    }
+  }
+}
 
 class App extends Component {
   state = {
@@ -53,16 +66,15 @@ class App extends Component {
 
     changeURL(this.props.translateURL)
 
-
     if (document.getElementById(this.props.rootID).clientWidth < 796) {
       this.setState({ mobile: true })
     }
 
     getEvents(this.props.eventsURLObj).then(events => {
-      if (!(events instanceof Error)){
+      if (!(events instanceof Error)) {
         this.setState({ events, loading: false })
-      }else{
-        this.setState({loading: false})
+      } else {
+        this.setState({ loading: false })
       }
     })
 
@@ -72,7 +84,7 @@ class App extends Component {
     const d = new Date()
 
     try {
-      const termStart = new Date(this.props.termBounds[0]) 
+      const termStart = new Date(this.props.termBounds[0])
       const termEnd = new Date(this.props.termBounds[1])
 
       if (termStart < d && d < termEnd) {
@@ -83,7 +95,6 @@ class App extends Component {
           day: d.getDate()
         }
       } else {
-        
         obj = {
           year: termStart.getFullYear(),
           month: termStart.getMonth(),
@@ -102,11 +113,7 @@ class App extends Component {
       obj = {
         year: d.getFullYear(),
         month: d.getMonth(),
-        week: getWeekOfMonth(
-          d.getFullYear(),
-          d.getMonth(),
-          d.getDate()
-        ),
+        week: getWeekOfMonth(d.getFullYear(), d.getMonth(), d.getDate()),
         day: d.getDate()
       }
     }
@@ -114,22 +121,22 @@ class App extends Component {
     this.setState({ currentDateRange: obj })
   }
 
-  componentWillReceiveProps(nextProps){
-    if (Object.is(nextProps.termBounds, this.props.termBounds)){
+  componentWillReceiveProps(nextProps) {
+    if (Object.is(nextProps.termBounds, this.props.termBounds)) {
       return
     }
     let obj
     const d = new Date()
     try {
       getEvents(this.props.eventsURLObj).then(events => {
-        if (!(events instanceof Error)){
+        if (!(events instanceof Error)) {
           this.setState({ events, loading: false })
-        }else{
-          this.setState({loading: false})
+        } else {
+          this.setState({ loading: false })
         }
       })
 
-      const termStart = new Date(nextProps.termBounds[0]) 
+      const termStart = new Date(nextProps.termBounds[0])
       const termEnd = new Date(nextProps.termBounds[1])
 
       if (termStart < d && d < termEnd) {
@@ -140,7 +147,6 @@ class App extends Component {
           day: d.getDate()
         }
       } else {
-        
         obj = {
           year: termStart.getFullYear(),
           month: termStart.getMonth(),
@@ -159,16 +165,11 @@ class App extends Component {
       obj = {
         year: d.getFullYear(),
         month: d.getMonth(),
-        week: getWeekOfMonth(
-          d.getFullYear(),
-          d.getMonth(),
-          d.getDate()
-        ),
+        week: getWeekOfMonth(d.getFullYear(), d.getMonth(), d.getDate()),
         day: d.getDate()
       }
     }
     this.setState({ currentDateRange: obj, termBounds: nextProps.termBounds })
-
   }
 
   componentWillUnmount() {
@@ -238,10 +239,14 @@ class App extends Component {
   }
 
   render() {
-    if (this.state.loading === true){
-      return <CircularProgress color="accent"/>
-    }else if (this.state.events === null || this.state.events === undefined) {
-      return <div><ErrorMessages/></div>
+    if (this.state.loading === true) {
+      return <CircularProgress color="accent" />
+    } else if (this.state.events === null || this.state.events === undefined) {
+      return (
+        <div>
+          <ErrorMessages />
+        </div>
+      )
     }
     return (
       <div>
