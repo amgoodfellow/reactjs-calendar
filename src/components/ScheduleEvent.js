@@ -40,6 +40,12 @@ class ScheduleEvent extends Component {
       let day = this.props.day
       if (this.props.events[month][day] !== undefined) {
         for (let i = 0; i < this.props.events[month][day].length; i++) {
+          let displayTime
+          if (this.props.events[month][day][i].starttime.includes("00:00")){
+            displayTime = "N/A"
+          }else{
+            displayTime = `${this.props.events[month][day][i].starttime} - ${this.props.events[month][day][i].endtime}`
+          }
           meetings.push(
             <Paper
               key={"scheduleEvent" + i + Math.random()}
@@ -57,9 +63,7 @@ class ScheduleEvent extends Component {
                 {this.props.events[month][day][i].coursetitle}
               </Typography>
               <Typography type="body1" className={classes.eventBody}>
-                {this.props.events[month][day][i].starttime +
-                  " -  " +
-                  this.props.events[month][day][i].endtime}
+                {displayTime}
               </Typography>
             </Paper>
           )

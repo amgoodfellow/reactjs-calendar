@@ -39,6 +39,10 @@ class DayCard extends Component {
     expanded: false
   }
 
+  componentWillReceiveProps(){
+    this.setState({expanded: false})
+  }
+
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }))
   }
