@@ -10,6 +10,7 @@ import ErrorMessages from "./components/ErrorMessages.js"
 import { CircularProgress } from "material-ui/Progress"
 import { changeURL } from "./utils/i18n.js"
 
+// eslint-disable-next-line
 if (!Object.is) {
   Object.is = function(x, y) {
     // SameValue algorithm
@@ -19,6 +20,7 @@ if (!Object.is) {
       return x !== 0 || 1 / x === 1 / y
     } else {
       // Step 6.a: NaN == NaN
+      // eslint-disable-next-line
       return x !== x && y !== y
     }
   }
