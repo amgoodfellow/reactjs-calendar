@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import Typography from "material-ui/Typography";
-import Card, { CardHeader, CardContent, CardMedia } from "material-ui/Card";
-import { withStyles, createStyleSheet } from "material-ui/styles";
-import PropTypes from "prop-types";
+import React, { Component } from "react"
+import Typography from "material-ui/Typography"
+import Card, { CardHeader, CardContent, CardMedia } from "material-ui/Card"
+import { withStyles } from "material-ui/styles"
+import PropTypes from "prop-types"
 
-const styleSheet = createStyleSheet("ErrorMessages", theme => ({
+const styles = theme => ({
   root: {
     position: "relative",
     textAlign: "ltr"
@@ -32,20 +32,19 @@ const styleSheet = createStyleSheet("ErrorMessages", theme => ({
     display: "flex",
     flexFlow: "column wrap"
   },
-  content:{
-    paddingTop: 0 
+  content: {
+    paddingTop: 0
   }
-}));
+})
+
 class ErrorMessages extends Component {
   render() {
-    const classes = this.props.classes;
+    const classes = this.props.classes
     return (
       <div className={classes.root}>
         <Card className={classes.card}>
           <div className={classes.main}>
-            <CardMedia className={classes.media}>
-               ¯\_(ツ)_/¯
-            </CardMedia>
+            <CardMedia className={classes.media}>¯\_(ツ)_/¯</CardMedia>
             <div className={classes.head}>
               <CardHeader title="We were unable to fetch data at this time" />
 
@@ -56,12 +55,12 @@ class ErrorMessages extends Component {
           </div>
         </Card>
       </div>
-    );
+    )
   }
 }
 
 ErrorMessages.propTypes = {
   classes: PropTypes.object.isRequired
-};
+}
 
-export default withStyles(styleSheet)(ErrorMessages);
+export default withStyles(styles, { name: "ErrorMessages" })(ErrorMessages)

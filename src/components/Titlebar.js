@@ -12,7 +12,7 @@ import Dialog, {
 } from "material-ui/Dialog"
 import Radio, { RadioGroup } from "material-ui/Radio"
 import { FormControlLabel } from "material-ui/Form"
-import { withStyles, createStyleSheet } from "material-ui/styles"
+import { withStyles } from "material-ui/styles"
 import PropTypes from "prop-types"
 import AppBar from "material-ui/AppBar"
 import Snackbar from "material-ui/Snackbar"
@@ -27,7 +27,7 @@ import {
 import Slide from "material-ui/transitions/Slide"
 import { translate } from "react-i18next"
 
-const styleSheet = createStyleSheet("SimpleAppBar", theme => ({
+const styles = theme => ({
   appBar: {
     zIndex: "999",
     position: "relative"
@@ -50,7 +50,7 @@ const styleSheet = createStyleSheet("SimpleAppBar", theme => ({
     width: 140,
     textAlign: "center"
   }
-}))
+})
 
 class ConfirmationDialog extends Component {
   state = {
@@ -102,8 +102,10 @@ class ConfirmationDialog extends Component {
         onEntering={this.handleEntering}
         {...other}
       >
-        <DialogTitle>
-          {"Change view?"}
+        <DialogTitle className={this.props.classes.title}>
+          <Typography type="title" tabIndex="0">
+            Change view?
+          </Typography>
         </DialogTitle>
         <DialogContent>
           <RadioGroup
@@ -171,6 +173,12 @@ class Titlebar extends Component {
     selectedValue: "weekview"
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!Object.is(nextProps.selectedValue, this.state.selectedValue)) {
+      this.setState({ selectedValue: nextProps.calendarType })
+    }
+  }
+
   handleClick = () => {
     this.setState({ open: true })
   }
@@ -202,7 +210,7 @@ class Titlebar extends Component {
     ) {
       return
     }
-    
+
     let termEnd = new Date(this.props.termBounds[1])
 
     const endMonth = termEnd.getMonth()
@@ -232,7 +240,11 @@ class Titlebar extends Component {
       case "weekview":
       case "scheduleview":
       default:
-        if (dateObj.month === endMonth && dateObj.week === endWeek && dateObj.year === endYear) {
+        if (
+          dateObj.month === endMonth &&
+          dateObj.week === endWeek &&
+          dateObj.year === endYear
+        ) {
           this.openSnackbar("End of term reached")
         } else {
           const weekArr = getWeekArray(
@@ -248,13 +260,13 @@ class Titlebar extends Component {
               dateObj.month = 0
               dateObj.week = 2
               dateObj.year++
-            }else{
+            } else {
               dateObj.week++
             }
-          } else if (weekArr[len - 1].month > dateObj.month ) {
+          } else if (weekArr[len - 1].month > dateObj.month) {
             dateObj.month++
             dateObj.week = 2
-          }else if(weekArr[len-1].day === endDayOfMonth){
+          } else if (weekArr[len - 1].day === endDayOfMonth) {
             dateObj.month++
             dateObj.week = 1
           } else {
@@ -307,15 +319,18 @@ class Titlebar extends Component {
       default:
         let rightNow = new Date(dateObj.year, dateObj.month, dateObj.day)
         let objEnd = new Date(startYear, startMonth, startDay)
-        if (rightNow < objEnd){
+        if (rightNow < objEnd) {
           this.openSnackbar("Start of term reached")
           return
         }
-        if (dateObj.month <= startMonth && dateObj.week <= startWeek && dateObj.year <= startYear) {
+        if (
+          dateObj.month <= startMonth &&
+          dateObj.week <= startWeek &&
+          dateObj.year <= startYear
+        ) {
           this.openSnackbar("Start of term reached")
           return
         } else {
-
           const weekArr = getWeekArray(
             dateObj.month,
             dateObj.year,
@@ -327,18 +342,21 @@ class Titlebar extends Component {
               const d = new Date(dateObj.year, 11, 4)
               dateObj.week = getWeeksOfMonth(d)
               dateObj.year--
-            }else{
+            } else {
               dateObj.week--
             }
-          }else if (weekArr[0].day > 7 && (weekArr[0].month < weekArr[weekArr.length -1].month)){
+          } else if (
+            weekArr[0].day > 7 &&
+            weekArr[0].month < weekArr[weekArr.length - 1].month
+          ) {
             dateObj.month = weekArr[0].month
             const d = new Date(dateObj.year, dateObj.month, 4)
             dateObj.week = getWeeksOfMonth(d) - 1
-          }else if(weekArr[0].day < 7 ){
+          } else if (weekArr[0].day < 7) {
             const d = new Date(dateObj.year, dateObj.month - 1, 4)
             dateObj.month--
             dateObj.week = getWeeksOfMonth(d)
-          }else{
+          } else {
             dateObj.week--
           }
 
@@ -369,18 +387,28 @@ class Titlebar extends Component {
       this.props.calendarType === "weekview" ||
       this.props.calendarType === "scheduleview"
     ) {
-      if (weekDateArray[len - 1].month > weekDateArray[0].month || (weekDateArray[0].month === 11 && weekDateArray[len - 1].month === 0)) {
+      if (
+        weekDateArray[len - 1].month > weekDateArray[0].month ||
+        (weekDateArray[0].month === 11 && weekDateArray[len - 1].month === 0)
+      ) {
         const endMonth = weekDateArray[len - 1].month
-        text = `${t(shortMonthNames[weekDateArray[0].month], {})} ${weekDateArray[0]
-          .day} - ${t(shortMonthNames[endMonth], {})} ${weekDateArray[len - 1]
-          .day}`
+        text = `${t(
+          shortMonthNames[weekDateArray[0].month],
+          {}
+        )} ${weekDateArray[0].day} - ${t(
+          shortMonthNames[endMonth],
+          {}
+        )} ${weekDateArray[len - 1].day}`
         ariaLabel = `${t(longMonth, {})} ${weekDateArray[0].day} to ${t(
           longEndMonth,
           {}
         )} ${weekDateArray[len - 1].day}`
       } else {
-        text = `${t(shortMonthNames[weekDateArray[0].month], {})} ${weekDateArray[0]
-          .day} - ${weekDateArray[weekDateArray.length - 1].day}`
+        text = `${t(
+          shortMonthNames[weekDateArray[0].month],
+          {}
+        )} ${weekDateArray[0].day} - ${weekDateArray[weekDateArray.length - 1]
+          .day}`
         ariaLabel = `${t(longMonth, {})} ${weekDateArray[0].day} to ${t(
           longEndMonth,
           {}
@@ -441,6 +469,7 @@ class Titlebar extends Component {
           open={this.state.open}
           onRequestClose={this.handleRequestClose}
           selectedValue={this.state.selectedValue}
+          classes={this.props.classes}
           t={t}
         />
         <Snackbar
@@ -480,6 +509,6 @@ Titlebar.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styleSheet)(
+export default withStyles(styles, { name: "Titlebar" })(
   translate("view", { wait: true })(Titlebar)
 )

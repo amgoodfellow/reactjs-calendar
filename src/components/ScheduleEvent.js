@@ -1,10 +1,10 @@
 import React, { Component } from "react"
 import Typography from "material-ui/Typography"
 import Paper from "material-ui/Paper"
-import { withStyles, createStyleSheet } from "material-ui/styles"
+import { withStyles } from "material-ui/styles"
 import PropTypes from "prop-types"
 
-const styleSheet = createStyleSheet("ScheduleEvent", theme => ({
+const styles = theme => ({
   eventPaper: {
     marginBottom: "10px",
     backgroundColor: "#0074b7",
@@ -29,7 +29,7 @@ const styleSheet = createStyleSheet("ScheduleEvent", theme => ({
     marginLeft: "10px",
     color: "#FFFFFF"
   }
-}))
+})
 
 class ScheduleEvent extends Component {
   getEvents = () => {
@@ -41,10 +41,11 @@ class ScheduleEvent extends Component {
       if (this.props.events[month][day] !== undefined) {
         for (let i = 0; i < this.props.events[month][day].length; i++) {
           let displayTime
-          if (this.props.events[month][day][i].starttime.includes("00:00")){
+          if (this.props.events[month][day][i].starttime.includes("00:00")) {
             displayTime = "N/A"
-          }else{
-            displayTime = `${this.props.events[month][day][i].starttime} - ${this.props.events[month][day][i].endtime}`
+          } else {
+            displayTime = `${this.props.events[month][day][i]
+              .starttime} - ${this.props.events[month][day][i].endtime}`
           }
           meetings.push(
             <Paper
@@ -87,4 +88,4 @@ ScheduleEvent.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styleSheet)(ScheduleEvent)
+export default withStyles(styles, { name: "ScheduleEvent" })(ScheduleEvent)

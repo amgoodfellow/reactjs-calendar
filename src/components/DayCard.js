@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { withStyles, createStyleSheet } from "material-ui/styles"
+import { withStyles } from "material-ui/styles"
 import Collapse from "material-ui/transitions/Collapse"
 import IconButton from "material-ui/IconButton"
 import ExpandMoreIcon from "material-ui-icons/ExpandMore"
@@ -18,7 +18,8 @@ import Looks4 from "material-ui-icons/Looks4"
 import Looks5 from "material-ui-icons/Looks5"
 import Looks6 from "material-ui-icons/Looks6"
 import Lens from "material-ui-icons/Lens"
-const styleSheet = createStyleSheet("ExpandedCard", theme => ({
+
+const styles = theme => ({
   root: {
     width: "100%",
     maxWidth: 360,
@@ -33,14 +34,15 @@ const styleSheet = createStyleSheet("ExpandedCard", theme => ({
   expandOpen: {
     transform: "rotate(180deg)"
   }
-}))
+})
+
 class DayCard extends Component {
   state = {
     expanded: false
   }
 
-  componentWillReceiveProps(){
-    this.setState({expanded: false})
+  componentWillReceiveProps() {
+    this.setState({ expanded: false })
   }
 
   handleExpandClick = () => {
@@ -123,4 +125,4 @@ class DayCard extends Component {
 DayCard.propTypes = {
   classes: PropTypes.object.isRequired
 }
-export default withStyles(styleSheet)(DayCard)
+export default withStyles(styles, { name: "DayCard" })(DayCard)
