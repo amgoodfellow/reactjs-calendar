@@ -102,8 +102,10 @@ class ConfirmationDialog extends Component {
         onEntering={this.handleEntering}
         {...other}
       >
-        <DialogTitle>
-          {"Change view?"}
+        <DialogTitle className={this.props.classes.title}>
+          <Typography type="title" tabIndex="0">
+            Change view?
+          </Typography>
         </DialogTitle>
         <DialogContent>
           <RadioGroup
@@ -467,6 +469,7 @@ class Titlebar extends Component {
           open={this.state.open}
           onRequestClose={this.handleRequestClose}
           selectedValue={this.state.selectedValue}
+          classes={this.props.classes}
           t={t}
         />
         <Snackbar
