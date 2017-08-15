@@ -45,7 +45,8 @@ const styles = theme => ({
     display: "flex",
     flexDirection: "column",
     width: "5%",
-    minWidth: 40
+    minWidth: 40,
+    height: "100%"
   },
 
   weekColumn: {

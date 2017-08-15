@@ -171,6 +171,12 @@ class Titlebar extends Component {
     selectedValue: "weekview"
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!Object.is(nextProps.selectedValue, this.state.selectedValue)) {
+      this.setState({ selectedValue: nextProps.calendarType })
+    }
+  }
+
   handleClick = () => {
     this.setState({ open: true })
   }

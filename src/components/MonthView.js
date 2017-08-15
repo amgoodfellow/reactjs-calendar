@@ -16,7 +16,7 @@ const styles = theme => ({
   },
   dayDiv: {
     position: "relative",
-    width: "20%"
+    width: "25%"
   },
   dayTitleBar: {
     position: "relative",
@@ -26,7 +26,7 @@ const styles = theme => ({
     whiteSpace: "nowrap"
   },
   monthDiv: {
-    width: "80%",
+    width: "75%",
     height: "100%",
     overflow: "hidden"
   },
