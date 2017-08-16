@@ -3,7 +3,7 @@ import Fetch from "i18next-fetch-backend"
 import Cache from "i18next-localstorage-cache"
 import LanguageDetector from "i18next-browser-languagedetector"
 
-var stuff = "http://localhost:8082/locales/{{lng}}/{{ns}}.json"
+var stuff = ""
 
 export const changeURL = url => {
   if (!Object.is(url, null)){
