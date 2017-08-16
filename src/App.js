@@ -66,7 +66,11 @@ class App extends Component {
   componentDidMount() {
     window.addEventListener("resize", this.updateWidth)
 
-    changeURL(this.props.translateURL)
+    if (this.props.rootID === 'root'){
+      changeURL("http://localhost:8082/locales/{{lng}}/{{ns}}.json")
+    }else{
+      changeURL(this.props.translateURL)
+    }
 
     if (document.getElementById(this.props.rootID).clientWidth < 796) {
       this.setState({ mobile: true })
