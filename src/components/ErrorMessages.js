@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import Typography from "material-ui/Typography"
-import Card, { CardHeader, CardContent, CardMedia } from "material-ui/Card"
+import Card, { CardHeader, CardContent } from "material-ui/Card"
 import { withStyles } from "material-ui/styles"
 import PropTypes from "prop-types"
 
@@ -44,7 +44,6 @@ class ErrorMessages extends Component {
       <div className={classes.root}>
         <Card className={classes.card}>
           <div className={classes.main}>
-            <CardMedia className={classes.media}>¯\_(ツ)_/¯</CardMedia>
             <div className={classes.head}>
               <CardHeader title="We were unable to fetch data at this time" />
 
