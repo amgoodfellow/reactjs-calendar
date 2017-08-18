@@ -476,7 +476,7 @@ class Titlebar extends Component {
           id="calendar-alert-snackbar"
           tabIndex="0"
           anchorOrigin={{
-            vertical: "top",
+            vertical: "bottom",
             horizontal: "center"
           }}
           open={this.state.snackbar}
