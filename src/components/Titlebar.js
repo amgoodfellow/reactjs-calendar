@@ -102,8 +102,8 @@ class ConfirmationDialog extends Component {
         onEntering={this.handleEntering}
         {...other}
       >
-        <DialogTitle className={this.props.style}>
-          <Typography type="title" tabIndex="0">
+        <DialogTitle style={{ backgroundColor: "#877148" }}>
+          <Typography type="title" tabIndex="0" style={{ color: "#fff" }}>
             Change view?
           </Typography>
         </DialogTitle>
@@ -114,7 +114,7 @@ class ConfirmationDialog extends Component {
             }}
             aria-label="viewSelector"
             name="viewSelector"
-            selectedValue={this.state.selectedValue}
+            value={this.state.selectedValue}
             onChange={this.handleChange}
           >
             <FormControlLabel
@@ -469,7 +469,6 @@ class Titlebar extends Component {
           open={this.state.open}
           onRequestClose={this.handleRequestClose}
           selectedValue={this.state.selectedValue}
-          style={this.props.classes.title}
           t={t}
         />
         <Snackbar
