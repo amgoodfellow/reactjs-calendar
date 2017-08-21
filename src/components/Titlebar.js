@@ -102,7 +102,7 @@ class ConfirmationDialog extends Component {
         onEntering={this.handleEntering}
         {...other}
       >
-        <DialogTitle style={{ backgroundColor: "#877148" }}>
+        <DialogTitle disableTypography={true} style={{ backgroundColor: "#877148" }}>
           <Typography type="title" tabIndex="0" style={{ color: "#fff" }}>
             Change view?
           </Typography>
