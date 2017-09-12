@@ -3,8 +3,7 @@ import ReactDOM from "react-dom"
 import App from "./App"
 import registerServiceWorker from "./registerServiceWorker"
 import { MuiThemeProvider, createMuiTheme } from "material-ui/styles"
-import createPalette from "material-ui/styles/palette"
-import createTypography from "material-ui/styles/typography"
+import createTypography from "material-ui/Typography"
 import "typeface-arimo"
 import { I18nextProvider } from "react-i18next"
 import i18n from "./utils/i18n"
@@ -27,7 +26,7 @@ const oakland = {
   contrastDefaultColor: "light"
 }
 
-export const oaklandAccent = {
+const oaklandAccent = {
   50: "#e0eef6",
   100: "#b3d5e9",
   200: "#80badb",
@@ -45,17 +44,15 @@ export const oaklandAccent = {
   contrastDefaultColor: "light"
 }
 
-const palette = createPalette({
-  type: "light",
-  accent: oaklandAccent,
-  primary: oakland
-})
 
 const theme = createMuiTheme({
-  palette: palette,
-  typography: createTypography(palette, {
+  palette: {
+    primary: oakland,
+    secondary: oaklandAccent
+  },
+  typography: {
     fontFamily: "Arimo"
-  })
+  }
 })
 
 const termBounds = [1494216000000, 1503720000000]

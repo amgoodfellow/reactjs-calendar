@@ -19,6 +19,7 @@ i18n.use(Fetch).use(Cache).use(LanguageDetector).init({
 
   load: "all",
   backend: {
+    credentials:'include',
     loadPath: stuff
   },
   interpolation: {
