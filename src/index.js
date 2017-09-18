@@ -6,7 +6,7 @@ import { MuiThemeProvider, createMuiTheme } from "material-ui/styles"
 import createTypography from "material-ui/Typography"
 import "typeface-arimo"
 import { I18nextProvider } from "react-i18next"
-import { i18n, i18next } from "./utils/i18n"
+import { i18n } from "./utils/i18n"
 
 const oakland = {
   50: "#f1eee9",
