@@ -1,17 +1,17 @@
 import i18n from "i18next"
-import Fetch from "i18next-fetch-backend"
 import Cache from "i18next-localstorage-cache"
 import LanguageDetector from "i18next-browser-languagedetector"
+import FetchBackend from "i18next-fetch-backend"
 
-var stuff = ""
+var stuff = "/translations/api/v1/locales/calendar/{{lng}}/{{ns}}.json"
 
 export const changeURL = url => {
-  if (!Object.is(url, null)){
+  if (!Object.is(url, null)) {
     stuff = url
   }
 }
 
-i18n.use(Fetch).use(Cache).use(LanguageDetector).init({
+i18n.use(FetchBackend).use(Cache).use(LanguageDetector).init({
   fallbackLng: "en",
   // have a common namespace used around the full app
   ns: ["view"],
@@ -19,7 +19,7 @@ i18n.use(Fetch).use(Cache).use(LanguageDetector).init({
 
   load: "all",
   backend: {
-    credentials:'include',
+    credentials: "include",
     loadPath: stuff
   },
   interpolation: {

@@ -6,7 +6,7 @@ import { MuiThemeProvider, createMuiTheme } from "material-ui/styles"
 import createTypography from "material-ui/Typography"
 import "typeface-arimo"
 import { I18nextProvider } from "react-i18next"
-import i18n from "./utils/i18n"
+import { i18n } from "./utils/i18n"
 
 const oakland = {
   50: "#f1eee9",
@@ -44,7 +44,6 @@ const oaklandAccent = {
   contrastDefaultColor: "light"
 }
 
-
 const theme = createMuiTheme({
   palette: {
     primary: oakland,
@@ -62,7 +61,10 @@ ReactDOM.render(
     <MuiThemeProvider theme={theme}>
       <App
         theme={theme}
-        eventsURLObj={{url: "http://localhost:8082/api/calendar", credentialsNeeded: false}}
+        eventsURLObj={{
+          url: "http://localhost:8082/api/calendar",
+          credentialsNeeded: false
+        }}
         termBounds={termBounds}
         rootID="root"
       />

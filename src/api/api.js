@@ -4,7 +4,6 @@ export const getEvents = async obj => {
     if ((Object.is(obj, null)) || (obj.credentialsNeeded === false)){
       response = await fetch(obj.url)
     }else{
-
       let data = {
         code: obj.code,
         description: obj.description,
