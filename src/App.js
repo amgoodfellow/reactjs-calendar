@@ -32,7 +32,7 @@ class App extends Component {
     events: null,
     termBounds: null,
     currentDateRange: null,
-    calendarType: "weekview",
+    calendarType: "scheduleview",
     theme: "oakland",
     url: null,
     width: document.getElementById(this.props.rootID).clientWidth,
@@ -66,9 +66,9 @@ class App extends Component {
   componentDidMount() {
     window.addEventListener("resize", this.updateWidth)
 
-    if (this.props.rootID === 'root'){
+    if (this.props.rootID === "root") {
       changeURL("http://localhost:8082/locales/{{lng}}/{{ns}}.json")
-    }else{
+    } else {
       changeURL(this.props.translateURL)
     }
 
@@ -236,8 +236,8 @@ class App extends Component {
         )
       default:
         return (
-          <Weekview
-            meetings={this.state.events}
+          <ScheduleView
+            events={this.state.events}
             currentDateRange={this.state.currentDateRange}
           />
         )
