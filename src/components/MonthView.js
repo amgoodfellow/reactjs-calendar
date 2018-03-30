@@ -83,7 +83,7 @@ class MonthView extends Component {
 
   displayWeekDay() {
     const dateObject = this.props.currentDateRange
-    const day = new Date(dateObject.year, dateObject.month, dateObject.day)
+    const day = new Date(dateObject.year, dateObject.month - 3, dateObject.day)
     const title = `${dayNames[day.getDay()]} ${dateObject.day}`
     let weekDay = day.getDay()
     for (let i = 0; i < 7; i++) {

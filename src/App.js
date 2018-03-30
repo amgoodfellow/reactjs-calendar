@@ -9,6 +9,9 @@ import { getWeekOfMonth } from "./utils/DateHelper"
 import ErrorMessages from "./components/ErrorMessages.js"
 import { CircularProgress } from "material-ui/Progress"
 import { changeURL } from "./utils/i18n.js"
+import CssBaseline from 'material-ui/CssBaseline';
+
+//Object.is() polyfill
 
 // eslint-disable-next-line
 if (!Object.is) {
@@ -25,6 +28,8 @@ if (!Object.is) {
     }
   }
 }
+// End of polyfill
+
 
 class App extends Component {
   state = {
@@ -40,6 +45,7 @@ class App extends Component {
   }
 
   updateMonthViewClicked = (year, month, week, day) => {
+    console.log("updateMonthViewClicked")
     let newDateRange = {
       year: year,
       month: month,
@@ -246,7 +252,7 @@ class App extends Component {
 
   render() {
     if (this.state.loading === true) {
-      return <CircularProgress color="accent" />
+      return <CircularProgress color="secondary" />
     } else if (this.state.events === null || this.state.events === undefined) {
       return (
         <div>
@@ -256,6 +262,7 @@ class App extends Component {
     }
     return (
       <div>
+        <CssBaseline />
         <Titlebar
           currentDateRange={this.state.currentDateRange}
           termBounds={this.state.termBounds}

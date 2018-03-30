@@ -1,0 +1,307 @@
+{
+  "courses": [
+    {
+      "departmentCode": "CSE",
+      "departmentDescription": "Lorem Ipsum",
+      "courseTitle": "Lorem Ipsum",
+      "courseDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt venenatis est nec suscipit. Ut imperdiet lectus ac urna blandit pulvinar. Vestibulum quis sem eros. Ut ornare nulla a interdum tincidunt. Proin lorem leo, tempus interdum metus in, sagittis gravida felis. Suspendisse quis velit sollicitudin, feugiat est finibus, mollis erat.",
+      "subjectCode": "CSE",
+      "subjectNumber": "230",
+      "credit": "4",
+      "meetings": [
+        {
+          "startDate": 1451970000000,
+          "endDate": 1461643200000,
+          "startTime": "10:00 AM",
+          "endTime": "11:47 AM",
+          "courseType": "In-Person Class Meeting",
+          "buildingRoom": "SFH 170",
+          "campus": "Main Campus",
+          "meetDays": "Monday Wednesday ",
+          "startHour": 10,
+          "startMinutes": 0,
+          "startMonth": 1,
+          "startYear": 2016,
+          "startDay": 5,
+          "startDayOfWeek": 3,
+          "startWeekOfMonth": 2,
+          "endHour": 11,
+          "endMinutes": 47,
+          "endMonth": 4,
+          "endYear": 2016,
+          "endDay": 26,
+          "endDayOfWeek": 3,
+          "endWeekOfMonth": 5
+        }
+      ],
+      "instructors": [
+        {
+          "firstName": "John",
+          "lastName": "Smith",
+          "office": "office",
+          "email": "mail"
+        }
+      ],
+      "grade": {
+        "credit": "4",
+        "grade": "4.0",
+      }
+    },
+    {
+      "departmentCode": "CSE",
+      "departmentDescription": "Computer Stuff",
+      "courseTitle": "English",
+      "courseDescription": "Sed sed enim quis mauris commodo pharetra sed ac justo. Nunc pellentesque placerat sem non mollis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam purus nisi, vulputate id lacus vel, convallis scelerisque urna. In sapien metus, sollicitudin hendrerit neque eget,",
+      "subjectCode": "CSE",
+      "subjectNumber": "230",
+      "credit": "0",
+      "meetings": [
+        {
+          "startDate": 1451970000000,
+          "endDate": 1461643200000,
+          "startTime": "9:00 AM",
+          "endTime": "9:50 AM",
+          "courseType": "Lab",
+          "courseTypeCode": "LAB",
+          "buildingRoom": "DH 167",
+          "campus": "Main Campus",
+          "meetDays": "Monday ",
+          "startHour": 9,
+          "startMinutes": 0,
+          "startMonth": 1,
+          "startYear": 2016,
+          "startDay": 5,
+          "startDayOfWeek": 3,
+          "startWeekOfMonth": 2,
+          "endHour": 9,
+          "endMinutes": 50,
+          "endMonth": 4,
+          "endYear": 2016,
+          "endDay": 26,
+          "endDayOfWeek": 3,
+          "endWeekOfMonth": 5
+        }
+      ],
+      "instructors": [
+        {
+          "firstName": "Mike",
+          "lastName": "Kim",
+          "office": "Building",
+          "email": "mail"
+        }
+      ],
+      "grade": null
+    },
+    {
+      "departmentCode": "FRH",
+      "departmentDescription": "French",
+      "courseTitle": "French",
+      "courseDescription": "Aliquam a convallis mi. Proin fermentum porta condimentum. Integer imperdiet venenatis sem, vitae tempus nibh pulvinar eu. Phasellus efficitur ut mauris eu accumsan. Aenean nec turpis dignissim, semper tellus ut, pulvinar nisi. Ut justo ipsum, iaculis vitae ultrices scelerisque, consequat ut lorem.",
+      "subjectCode": "FRH",
+      "subjectNumber": "115",
+      "credit": "4",
+      "meetings": [
+        {
+          "startDate": 1451970000000,
+          "endDate": 1461643200000,
+          "startTime": "2:40 PM",
+          "endTime": "3:47 PM",
+          "courseType": "In-Person Class Meeting",
+          "courseTypeCode": "CLAS",
+          "buildingRoom": "SFH 167",
+          "campus": "Main Campus",
+          "meetDays": "Monday Wednesday Friday ",
+          "startHour": 14,
+          "startMinutes": 40,
+          "startMonth": 1,
+          "startYear": 2016,
+          "startDay": 5,
+          "startDayOfWeek": 3,
+          "startWeekOfMonth": 2,
+          "endHour": 15,
+          "endMinutes": 47,
+          "endMonth": 4,
+          "endYear": 2016,
+          "endDay": 26,
+          "endDayOfWeek": 3,
+          "endWeekOfMonth": 5
+        }
+      ],
+      "instructors": [
+        {
+          "firstName": "Pierre",
+          "lastName": "Strahp",
+          "office": "office",
+          "email": "mail"
+        }
+      ],
+      "grade": {
+        "credit": "4",
+        "grade": "4.0",
+      }
+    },
+    {
+      "registrationStatusDescription": "Web Register",
+      "departmentCode": "MTH",
+      "departmentDescription": "Mathematics",
+      "courseTitle": "Calculus",
+      "courseDescription": "A detailed study of methods of integration, applications of the integrals, improper integrals, sequences, series and power series, polar coordinates, and parametric curves.  Satisfies the university general education requirement for the knowledge applications integration area.",
+      "subjectCode": "MTH",
+      "subjectNumber": "155",
+      "credit": "4",
+      "meetings": [
+        {
+          "startDate": 1451970000000,
+          "endDate": 1461643200000,
+          "startTime": "12:00 PM",
+          "endTime": "1:07 PM",
+          "courseType": "In-Person Class Meeting",
+          "courseTypeCode": "CLAS",
+          "buildingRoom": "ODH 202C",
+          "campus": "Main Campus",
+          "meetDays": "Monday Wednesday Friday ",
+          "startHour": 12,
+          "startMinutes": 0,
+          "startMonth": 1,
+          "startYear": 2016,
+          "startDay": 5,
+          "startDayOfWeek": 3,
+          "startWeekOfMonth": 2,
+          "endHour": 13,
+          "endMinutes": 7,
+          "endMonth": 4,
+          "endYear": 2016,
+          "endDay": 26,
+          "endDayOfWeek": 3,
+          "endWeekOfMonth": 5
+        },
+        {
+          "startDate": 1451970000000,
+          "endDate": 1461643200000,
+          "startTime": "1:20 PM",
+          "endTime": "2:27 PM",
+          "courseType": "Supplemental Instruction",
+          "courseTypeCode": "SI",
+          "buildingRoom": "Building",
+          "campus": "Main Campus",
+          "meetDays": "Monday Wednesday Friday ",
+          "startHour": 13,
+          "startMinutes": 20,
+          "startMonth": 1,
+          "startYear": 2016,
+          "startDay": 5,
+          "startDayOfWeek": 3,
+          "startWeekOfMonth": 2,
+          "endHour": 14,
+          "endMinutes": 27,
+          "endMonth": 4,
+          "endYear": 2016,
+          "endDay": 26,
+          "endDayOfWeek": 3,
+          "endWeekOfMonth": 5
+        }
+      ],
+      "instructors": [
+        {
+          "firstName": "Dan",
+          "lastName": "Holland",
+          "office": "office",
+          "email": "mail"
+        }
+      ],
+      "grade": {
+        "credit": "4",
+        "grade": "4",
+      }
+    },
+    {
+      "waitList": "0",
+      "registrationStatus": "RW",
+      "registrationStatusDescription": "Web Register",
+      "departmentCode": "PHY",
+      "departmentDescription": "Physics",
+      "courseTitle": "Physics I",
+      "courseDescription": "Classical mechanics and thermodynamics. For science, mathematics and engineering students. This course has common lectures with PHY 151. PHY 161 does not satisfy the university general education requirement in the natural science and technology knowledge exploration area. ",
+      "subjectCode": "PHY",
+      "subjectNumber": "161",
+      "credit": "4",
+      "meetings": [
+        {
+          "startDate": 1451970000000,
+          "endDate": 1461643200000,
+          "startTime": "3:00 PM",
+          "endTime": "4:47 PM",
+          "courseType": "In-Person Class Meeting",
+          "courseTypeCode": "CLAS",
+          "buildingRoom": "HH 190",
+          "campus": "Main Campus",
+          "meetDays": "Tuesday Thursday ",
+          "startHour": 15,
+          "startMinutes": 0,
+          "startMonth": 1,
+          "startYear": 2016,
+          "startDay": 5,
+          "startDayOfWeek": 3,
+          "startWeekOfMonth": 2,
+          "endHour": 16,
+          "endMinutes": 47,
+          "endMonth": 4,
+          "endYear": 2016,
+          "endDay": 26,
+          "endDayOfWeek": 3,
+          "endWeekOfMonth": 5
+        },
+        {
+          "startDate": 1451970000000,
+          "endDate": 1461643200000,
+          "startTime": "5:00 PM",
+          "endTime": "5:55 PM",
+          "courseType": "Supplemental Instruction",
+          "courseTypeCode": "SI",
+          "buildingRoom": "HH 190",
+          "campus": "Main Campus",
+          "meetDays": "Tuesday Thursday ",
+          "startHour": 17,
+          "startMinutes": 0,
+          "startMonth": 1,
+          "startYear": 2016,
+          "startDay": 5,
+          "startDayOfWeek": 3,
+          "startWeekOfMonth": 2,
+          "endHour": 17,
+          "endMinutes": 55,
+          "endMonth": 4,
+          "endYear": 2016,
+          "endDay": 26,
+          "endDayOfWeek": 3,
+          "endWeekOfMonth": 5
+        }
+      ],
+      "instructors": [
+        {
+          "firstName": "George",
+          "lastName": "Orwell",
+          "office": "Office",
+          "email": "mail"
+        }
+      ],
+      "grade": {
+        "credit": "4",
+        "grade": "3.6",
+      }
+    }
+  ],
+  "term": {
+    "description": "Winter Semester 2036",
+    "start": 1451970000000,
+    "end": 1461643200000,
+    "current": false
+  },
+  "regStatus": [
+    "RW"
+  ],
+  "regStatusDescription": [
+    "Web Register"
+  ],
+  "advising": false
+}

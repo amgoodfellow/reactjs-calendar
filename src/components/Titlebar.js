@@ -24,7 +24,6 @@ import {
   getWeekOfMonth,
   getWeeksOfMonth
 } from "./../utils/DateHelper"
-import Slide from "material-ui/transitions/Slide"
 import { translate } from "react-i18next"
 
 const styles = theme => ({
@@ -68,18 +67,13 @@ class ConfirmationDialog extends Component {
     }
   }
 
-  radioGroup = null
-
-  handleEntering = () => {
-    this.radioGroup.focus()
-  }
 
   handleCancel = () => {
-    this.props.onRequestClose(this.props.selectedValue)
+    this.props.onClose()
   }
 
   handleOk = () => {
-    this.props.onRequestClose(this.state.selectedValue)
+    this.props.onClose(this.state.selectedValue)
   }
 
   handleChange = (event, value) => {
@@ -94,10 +88,9 @@ class ConfirmationDialog extends Component {
         aria-label="View selection"
         tabIndex="0"
         open={this.props.open}
-        onRequestClose={this.handleClose}
-        transition={<Slide direction="down" />}
-        ignoreBackdropClick
-        ignoreEscapeKeyUp
+        onClose={this.handleClose}
+        disableBackdropClick
+        disableEscapeKeyDown
         maxWidth="xs"
         onEntering={this.handleEntering}
         {...other}
@@ -109,9 +102,6 @@ class ConfirmationDialog extends Component {
         </DialogTitle>
         <DialogContent>
           <RadioGroup
-            innerRef={node => {
-              this.radioGroup = node
-            }}
             aria-label="viewSelector"
             name="viewSelector"
             value={this.state.selectedValue}
@@ -141,14 +131,14 @@ class ConfirmationDialog extends Component {
           <Button
             onClick={this.handleOk}
             aria-label="Confirm selection"
-            color="accent"
+            color="secondary"
           >
             {t("ok", {})}
           </Button>
           <Button
             onClick={this.handleCancel}
             aria-label="Cancel selection"
-            color="accent"
+            color="secondary"
           >
             {t("cancel", {})}
           </Button>
@@ -159,7 +149,7 @@ class ConfirmationDialog extends Component {
 }
 
 ConfirmationDialog.propTypes = {
-  onRequestClose: PropTypes.func,
+  onClose: PropTypes.func,
   selectedValue: PropTypes.string
 }
 
@@ -170,7 +160,7 @@ class Titlebar extends Component {
     snackbarMessage: "",
     open: false,
     selected: "",
-    selectedValue: "weekview"
+    selectedValue: "scheduleview"
   }
 
   componentWillReceiveProps(nextProps) {
@@ -184,8 +174,12 @@ class Titlebar extends Component {
   }
 
   handleRequestClose = value => {
-    this.setState({ open: false, selected: value, selectedValue: value })
-    this.props.changeCalendarView(value)
+    if (value === null){
+      this.setState({open: false})
+    }else{
+      this.setState({ open: false, selected: value, selectedValue: value })
+      this.props.changeCalendarView(value)
+    }
   }
 
   openSnackbar = message => {
@@ -467,7 +461,7 @@ class Titlebar extends Component {
         </Toolbar>
         <ConfirmationDialog
           open={this.state.open}
-          onRequestClose={this.handleRequestClose}
+          onClose={this.handleRequestClose}
           selectedValue={this.state.selectedValue}
           t={t}
         />
@@ -480,7 +474,7 @@ class Titlebar extends Component {
           }}
           open={this.state.snackbar}
           autoHideDuration={6e3}
-          onRequestClose={this.closeSnackbar}
+          onClose={this.closeSnackbar}
           message={
             <span id="message-id">
               {this.state.snackbarMessage}
