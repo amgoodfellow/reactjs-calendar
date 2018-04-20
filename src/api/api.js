@@ -1,10 +1,13 @@
-import demoCalendar from './demoCalendar.json';
+const getDemoEvents = async () => {
+  console.warn("Running in demo mode")
+  return await fetch("https://gist.githubusercontent.com/Aaron-G-9/33e35d1a86d401fc1a1e678dc66faf17/raw/0ee132cc76254650dd27758184f88eec92512ea0/CalendarEvents.json").then(response => response.json())
+}
+
 export const getEvents = async obj => {
   try {
     let response
     if (Object.is(obj.url, "Demo")){
-      window.thatData = demoCalendar
-      return demoCalendar.events
+      return getDemoEvents()
     }else if ((Object.is(obj, null)) || (obj.credentialsNeeded === false)){
       response = await fetch(obj.url)
     }else{
