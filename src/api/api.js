@@ -37,7 +37,6 @@ export const getEvents = async obj => {
     const events = await response.json()
     return events.events
   } catch (err) {
-    console.log("OOF")
     console.error(err)
   }
 }
