@@ -56,7 +56,7 @@ class App extends Component {
     this.setState({
       width: document.getElementById(this.props.rootID).clientWidth
     })
-    if (this.state.width < 796) {
+    if (this.state.width < 650) {
       this.setState({ mobile: true })
     } else {
       this.setState({ mobile: false })
@@ -72,7 +72,7 @@ class App extends Component {
       changeURL(this.props.translateURL)
     }
 
-    if (document.getElementById(this.props.rootID).clientWidth < 796) {
+    if (document.getElementById(this.props.rootID).clientWidth < 650) {
       this.setState({ mobile: true })
     }
 
