@@ -1,9 +1,9 @@
 import React, { Component } from "react"
 import IconButton from "material-ui/IconButton"
-import NavigateBefore from "material-ui-icons/NavigateBefore"
-import NavigateNext from "material-ui-icons/NavigateNext"
-import CloseIcon from "material-ui-icons/Close"
-import MoreVert from "material-ui-icons/MoreVert"
+import NavigateBefore from "@material-ui/icons/NavigateBefore"
+import NavigateNext from "@material-ui/icons/NavigateNext"
+import CloseIcon from "@material-ui/icons/Close"
+import MoreVert from "@material-ui/icons/MoreVert"
 import Button from "material-ui/Button"
 import Dialog, {
   DialogActions,
