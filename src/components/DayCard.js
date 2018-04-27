@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { withStyles } from "material-ui/styles"
 import Collapse from "material-ui/transitions/Collapse"
 import IconButton from "material-ui/IconButton"
-import ExpandMoreIcon from "material-ui-icons/ExpandMore"
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
 import PropTypes from "prop-types"
 import classnames from "classnames"
 import List, {
@@ -11,13 +11,13 @@ import List, {
   ListItemText,
   ListItemSecondaryAction
 } from "material-ui/List"
-import LooksOne from "material-ui-icons/LooksOne"
-import LooksTwo from "material-ui-icons/LooksTwo"
-import Looks3 from "material-ui-icons/Looks3"
-import Looks4 from "material-ui-icons/Looks4"
-import Looks5 from "material-ui-icons/Looks5"
-import Looks6 from "material-ui-icons/Looks6"
-import Lens from "material-ui-icons/Lens"
+import LooksOne from "@material-ui/icons/LooksOne"
+import LooksTwo from "@material-ui/icons/LooksTwo"
+import Looks3 from "@material-ui/icons/Looks3"
+import Looks4 from "@material-ui/icons/Looks4"
+import Looks5 from "@material-ui/icons/Looks5"
+import Looks6 from "@material-ui/icons/Looks6"
+import Lens from "@material-ui/icons/Lens"
 
 const styles = theme => ({
   root: {
