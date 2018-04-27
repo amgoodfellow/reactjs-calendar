@@ -1,6 +1,6 @@
 const getDemoEvents = async () => {
   console.warn("Running in demo mode")
-  return await fetch("https://gist.githubusercontent.com/Aaron-G-9/33e35d1a86d401fc1a1e678dc66faf17/raw/0ee132cc76254650dd27758184f88eec92512ea0/CalendarEvents.json").then(response => response.json())
+  return await fetch("https://gist.githubusercontent.com/Aaron-G-9/33e35d1a86d401fc1a1e678dc66faf17/raw/52dbab0792e4e9a66b9cf1ea11c9d9099e8fa5ca/CalendarEvents.json").then(response => response.json()).then(response => response.events)
 }
 
 export const getEvents = async obj => {
