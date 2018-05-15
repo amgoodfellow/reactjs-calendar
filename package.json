@@ -1,6 +1,6 @@
 {
   "name": "reactjs-calendar",
-  "version": "v0.2.17",
+  "version": "v0.2.18",
   "main": "build/bundle.js",
   "private": false,
   "author": "Aaron Goodfellow",
@@ -12,15 +12,12 @@
     "i18next-browser-languagedetector": "^2.0.0",
     "i18next-fetch-backend": "^0.0.1",
     "i18next-localstorage-cache": "^1.1.1",
-    "material-ui": "1.0.0-beta.42",
-    "@material-ui/icons": "^1.0.0-beta.43",
-    "package.json": "^2.0.1",
+    "material-ui": "1.0.0-beta.47",
+    "@material-ui/icons": "1.0.0-beta.43",
     "raleway-webfont": "^3.0.1",
     "react-a11y": "^0.3.3",
     "react-i18next": "^4.6.4",
-    "typeface-arimo": "^0.0.22",
-    "version": "^0.1.2",
-    "yarn": "v0.26.1"
+    "typeface-arimo": "^0.0.22"
   },
   "peerDependencies": {
     "react": "16.x",
@@ -28,7 +25,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.22.2",
-    "babel-core": "^6.25.0",
+    "babel-core": "^6.26.3",
     "babel-loader": "^7.1.1",
     "babel-plugin-transform-dev-warning": "^0.1.0",
     "babel-plugin-transform-replace-object-assign": "^0.2.1",
@@ -43,7 +40,7 @@
     "react-dom": "16.x",
     "react-scripts": "^1.0.7",
     "style-loader": "^0.18.2",
-    "webpack": "^3.2.0"
+    "webpack": "^3.12.0"
   },
   "scripts": {
     "start": "react-scripts start",
