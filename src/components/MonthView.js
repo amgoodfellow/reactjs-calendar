@@ -1,69 +1,69 @@
-import React, { Component } from "react"
-import { dayNames, shortDayNames } from "./../utils/Strings"
-import { withStyles } from "material-ui/styles"
-import Typography from "material-ui/Typography"
-import PropTypes from "prop-types"
-import Paper from "material-ui/Paper"
-import Toolbar from "material-ui/Toolbar"
-import { getWeeksOfMonth, getDaysInMonth } from "./../utils/DateHelper"
-import DayList from "./DayList"
-import DayBoxSchedule from "./DayBoxSchedule"
+import React, { Component } from 'react'
+import DayBoxSchedule from './DayBoxSchedule'
+import DayList from './DayList'
+import Paper from '@material-ui/core/Paper'
+import PropTypes from 'prop-types'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import { dayNames, shortDayNames } from './../utils/Strings'
+import { getWeeksOfMonth, getDaysInMonth } from './../utils/DateHelper'
+import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => ({
   root: {
-    display: "flex",
-    position: "relative"
+    display: 'flex',
+    position: 'relative'
   },
   dayDiv: {
-    position: "relative",
-    width: "25%"
+    position: 'relative',
+    width: '25%'
   },
   dayTitleBar: {
-    position: "relative",
-    height: "50px",
-    borderBottom: "1px solid transparent",
-    color: "#FFFFFF",
-    whiteSpace: "nowrap"
+    position: 'relative',
+    height: '50px',
+    borderBottom: '1px solid transparent',
+    color: '#FFFFFF',
+    whiteSpace: 'nowrap'
   },
   monthDiv: {
-    width: "75%",
-    height: "100%",
-    overflow: "hidden"
+    width: '75%',
+    height: '100%',
+    overflow: 'hidden'
   },
   monthTitleBar: {
-    position: "relative",
-    height: "50px"
+    position: 'relative',
+    height: '50px'
   },
   table: {
-    width: "100%",
-    borderTop: "hidden",
-    borderLeft: "1px solid white",
-    borderRight: "hidden",
-    borderCollapse: "collapse"
+    width: '100%',
+    borderTop: 'hidden',
+    borderLeft: '1px solid white',
+    borderRight: 'hidden',
+    borderCollapse: 'collapse'
   },
   tableHead: {
-    border: "1px solid rgba(0, 0, 0, 0.075)",
-    color: "#000000",
+    border: '1px solid rgba(0, 0, 0, 0.075)',
+    color: '#000000',
     opacity: 0.8,
-    textAlign: "center",
-    fontWeight: "bold",
-    borderTop: "hidden",
-    height: "20%"
+    textAlign: 'center',
+    fontWeight: 'bold',
+    borderTop: 'hidden',
+    height: '20%'
   },
   tableBody: {
-    backgroundColor: "#ffffff",
-    color: "#000000",
-    textAlign: "left",
-    verticalAlign: "top"
+    backgroundColor: '#ffffff',
+    color: '#000000',
+    textAlign: 'left',
+    verticalAlign: 'top'
   },
   cellStyle: {
-    overflow: "hidden",
-    fontSize: "15px",
-    fontWeight: "bold",
-    color: "#000000",
-    border: "1px solid lightgrey",
-    padding: "10px",
-    whiteSpace: "nowarp"
+    overflow: 'hidden',
+    fontSize: '15px',
+    fontWeight: 'bold',
+    color: '#000000',
+    border: '1px solid lightgrey',
+    padding: '10px',
+    whiteSpace: 'nowarp'
   }
 })
 
@@ -74,7 +74,7 @@ class MonthView extends Component {
   }
 
   getFocus() {
-    document.getElementById("focusElement").focus()
+    document.getElementById('focusElement').focus()
   }
 
   resetFocus() {
@@ -103,9 +103,9 @@ class MonthView extends Component {
     for (let i = 0; i < wks; i++) {
       rows.push(
         <tr
-          key={"weeks" + i}
+          key={'weeks' + i}
           style={{
-            height: "100px"
+            height: '100px'
           }}
         >
           {this.getDays(i)}
@@ -136,10 +136,10 @@ class MonthView extends Component {
         ++grayedDays
         days.push(
           <td
-            key={"grayed" + grayedDays}
+            key={'grayed' + grayedDays}
             className={classes.cellStyle}
             style={{
-              backgroundColor: "#E0E0E0"
+              backgroundColor: '#E0E0E0'
             }}
           />
         )
@@ -164,8 +164,8 @@ class MonthView extends Component {
           dateObject.month === today.getMonth() &&
           this.monthDayCounter === today.getDate()
         ) {
-          todaysColor = { backgroundColor: "rgba(86,162,100, 0.4)" }
-          fontStyle = { fontWeight: "600" }
+          todaysColor = { backgroundColor: 'rgba(86,162,100, 0.4)' }
+          fontStyle = { fontWeight: '600' }
         }
         days.push(
           <td
@@ -189,7 +189,7 @@ class MonthView extends Component {
           >
             <Typography type="body1" component="div" style={fontStyle}>
               {this.monthDayCounter}
-              <div aria-hidden="true" id={this.monthDayCounter + "class"}>
+              <div aria-hidden="true" id={this.monthDayCounter + 'class'}>
                 <DayBoxSchedule
                   calendarMeeting={this.props.calendar}
                   year={this.props.currentDateRange.year}
@@ -212,7 +212,7 @@ class MonthView extends Component {
 
     for (let i = 0; i < 7; ++i) {
       weekDaysRow.push(
-        <th scope="col" key={dayNames[i]} style={{ width: "100rem" }}>
+        <th scope="col" key={dayNames[i]} style={{ width: '100rem' }}>
           <Typography
             type="body1"
             component="div"
@@ -232,7 +232,7 @@ class MonthView extends Component {
     return (
       <Paper
         tabIndex="0"
-        aria-label={"Month View Calendar"}
+        aria-label={'Month View Calendar'}
         className={classes.root}
       >
         <div
@@ -245,7 +245,7 @@ class MonthView extends Component {
             <Typography
               tabIndex="0"
               type="title"
-              style={{ fontWeight: "bold", opacity: 0.9 }}
+              style={{ fontWeight: 'bold', opacity: 0.9 }}
             >
               {this.displayWeekDay()}
             </Typography>
@@ -273,13 +273,9 @@ class MonthView extends Component {
         <div aria-label="Month Schedule" className={classes.monthDiv}>
           <table className={classes.table}>
             <thead className={classes.tableHead}>
-              <tr style={{ height: "50px" }}>
-                {this.weekDays()}
-              </tr>
+              <tr style={{ height: '50px' }}>{this.weekDays()}</tr>
             </thead>
-            <tbody className={classes.tableBody}>
-              {this.getMonthRows()}
-            </tbody>
+            <tbody className={classes.tableBody}>{this.getMonthRows()}</tbody>
           </table>
         </div>
       </Paper>
@@ -291,4 +287,4 @@ MonthView.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles, { name: "MonthView" })(MonthView)
+export default withStyles(styles, { name: 'MonthView' })(MonthView)

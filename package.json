@@ -6,15 +6,14 @@
   "author": "Aaron Goodfellow",
   "license": "Apache-2",
   "dependencies": {
+    "@material-ui/core": "1.0.0",
+    "@material-ui/icons": "1.0.0",
     "babel-polyfill": "^6.23.0",
     "babel-regenerator-runtime": "^6.5.0",
     "i18next": "^8.4.3",
     "i18next-browser-languagedetector": "^2.0.0",
     "i18next-fetch-backend": "^0.0.1",
     "i18next-localstorage-cache": "^1.1.1",
-    "material-ui": "1.0.0-beta.47",
-    "@material-ui/icons": "1.0.0-beta.43",
-    "raleway-webfont": "^3.0.1",
     "react-a11y": "^0.3.3",
     "react-i18next": "^4.6.4",
     "typeface-arimo": "^0.0.22"

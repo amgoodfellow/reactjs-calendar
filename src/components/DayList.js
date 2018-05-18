@@ -1,6 +1,8 @@
-import React, { Component } from "react"
-import List, { ListItem, ListItemText } from "material-ui/List"
-import DayCard from "./DayCard"
+import React, { Component } from 'react'
+import DayCard from './DayCard'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
 
 class DayList extends Component {
   render() {
@@ -14,14 +16,14 @@ class DayList extends Component {
       for (let meeting of meetings) {
         ++classNo
         cardArray.push(
-          <DayCard key={"DayCards" + classNo} meeting={meeting} pos={classNo} />
+          <DayCard key={'DayCards' + classNo} meeting={meeting} pos={classNo} />
         )
       }
 
       classList = (
         <div
           tabIndex="0"
-          style={{ overflowY: "auto", height: "575px", padding: 0 }}
+          style={{ overflowY: 'auto', height: '575px', padding: 0 }}
         >
           {cardArray}
         </div>
@@ -33,11 +35,11 @@ class DayList extends Component {
           <ListItem
             style={{
               margin: 0,
-              width: "100%",
-              boxSizing: "border-box",
-              boxShadow: " inset 4px 0 0  rgba(0, 0, 0, 0.2)",
-              backgroundColor: "rgb(255,243,233)",
-              color: "#004987"
+              width: '100%',
+              boxSizing: 'border-box',
+              boxShadow: ' inset 4px 0 0  rgba(0, 0, 0, 0.2)',
+              backgroundColor: 'rgb(255,243,233)',
+              color: '#004987'
             }}
           >
             <ListItemText type="title" primary="You have no classes " />

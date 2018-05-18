@@ -1,113 +1,112 @@
-/* flow */
-import React, { Component } from "react"
-import { shortDayNames } from "./../utils/Strings"
-import { withStyles } from "material-ui/styles"
-import Typography from "material-ui/Typography"
-import PropTypes from "prop-types"
-import Paper from "material-ui/Paper"
-import { getWeeksOfMonth, getDaysInMonth } from "./../utils/DateHelper"
-import FiberManualRecord from "@material-ui/icons/FiberManualRecord"
-import { getWeekOfMonth } from "./../utils/DateHelper"
-import { monthNames } from "./../utils/Strings"
-import { pink } from "material-ui/colors"
+import React, { Component } from 'react'
+import FiberManualRecord from '@material-ui/icons/FiberManualRecord'
+import Paper from '@material-ui/core/Paper'
+import PropTypes from 'prop-types'
+import Typography from '@material-ui/core/Typography'
+import pink from '@material-ui/core/colors/pink'
+import { getWeekOfMonth } from './../utils/DateHelper'
+import { getWeeksOfMonth, getDaysInMonth } from './../utils/DateHelper'
+import { monthNames } from './../utils/Strings'
+import { shortDayNames } from './../utils/Strings'
+import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => ({
   dayRow: {
-    height: "50px"
+    height: '50px'
   },
 
   rowHeight: {
-    height: "80px"
+    height: '80px'
   },
 
   addMargin: {
-    marginTop: ".5em"
+    marginTop: '.5em'
   },
 
   todayNumber: {
-    marginLeft: "5px",
-    marginTop: "5px",
-    fontWeight: "600"
+    marginLeft: '5px',
+    marginTop: '5px',
+    fontWeight: '600'
   },
 
   otherDayNumber: {
-    marginTop: "5px",
-    marginLeft: "5px"
+    marginTop: '5px',
+    marginLeft: '5px'
   },
 
   eventIcon: {
     fill: pink[600],
-    width: "15px",
-    height: "15px",
-    marginTop: "1.3em"
+    width: '15px',
+    height: '15px',
+    marginTop: '1.3em'
   },
 
   monthRow: {
-    height: "100px"
+    height: '100px'
   },
 
   root: {
-    height: "100%"
+    height: '100%'
   },
 
   pastMonthDay: {
-    fontSize: "15px",
-    border: "3px solid white",
-    padding: "10px",
-    backgroundColor: "#E0E0E0"
+    fontSize: '15px',
+    border: '3px solid white',
+    padding: '10px',
+    backgroundColor: '#E0E0E0'
   },
 
   currentDay: {
-    fontSize: "15px",
-    fontWeight: "bold",
-    color: "#000000",
-    border: "3px solid white",
-    backgroundColor: "rgba(86,162,234, 0.5)"
+    fontSize: '15px',
+    fontWeight: 'bold',
+    color: '#000000',
+    border: '3px solid white',
+    backgroundColor: 'rgba(86,162,234, 0.5)'
   },
 
   monthDay: {
-    fontSize: "15px",
-    border: "3px solid white",
-    backgroundColor: "#fafafa"
+    fontSize: '15px',
+    border: '3px solid white',
+    backgroundColor: '#fafafa'
   },
 
   event: {
-    display: "flex",
-    justifyContent: "center"
+    display: 'flex',
+    justifyContent: 'center'
   },
 
   monthDiv: {
-    height: "100%"
+    height: '100%'
   },
 
   monthTitleBar: {
-    position: "relative",
-    height: "50px"
+    position: 'relative',
+    height: '50px'
   },
 
   table: {
-    width: "100%",
-    borderTop: "hidden",
-    borderLeft: "hidden",
-    borderRight: "hidden",
-    borderCollapse: "collapse",
-    height: "100%"
+    width: '100%',
+    borderTop: 'hidden',
+    borderLeft: 'hidden',
+    borderRight: 'hidden',
+    borderCollapse: 'collapse',
+    height: '100%'
   },
 
   tableHead: {
-    border: "1px solid rgba(0, 0, 0, 0.075)",
-    color: "#000000",
+    border: '1px solid rgba(0, 0, 0, 0.075)',
+    color: '#000000',
     opacity: 0.7,
-    textAlign: "center",
-    fontWeight: "bold",
-    borderTop: "hidden",
-    height: "20%"
+    textAlign: 'center',
+    fontWeight: 'bold',
+    borderTop: 'hidden',
+    height: '20%'
   },
 
   tableBody: {
-    color: "black",
-    textAlign: "left",
-    verticalAlign: "top"
+    color: 'black',
+    textAlign: 'left',
+    verticalAlign: 'top'
   }
 })
 
@@ -141,7 +140,7 @@ class MobileMonthView extends Component {
 
     for (let i = 0; i < 7; ++i) {
       weekDaysRow.push(
-        <td key={i + Math.random()} style={{ width: "100rem" }}>
+        <td key={i + Math.random()} style={{ width: '100rem' }}>
           <Typography type="body1" component="div" style={{ fontWeight: 600 }}>
             {shortDayNames[i]}
           </Typography>
@@ -237,27 +236,29 @@ class MobileMonthView extends Component {
               <td
                 tabIndex="0"
                 aria-label={
-                  "View events for " +
+                  'View events for ' +
                   monthNames[this.props.currentDateRange.month] +
-                  " " +
+                  ' ' +
                   scopedDayNumber +
-                  " " +
+                  ' ' +
                   this.props.currentDateRange.year +
-                  " in the schedule view."
+                  ' in the schedule view.'
                 }
                 onClick={(day, month, year) =>
                   this.handleEventClick(
                     this.props.currentDateRange.year,
                     this.props.currentDateRange.month,
                     scopedDayNumber
-                  )}
+                  )
+                }
                 onKeyDown={(e, day, month, year) =>
                   this.handleKeyDown(
                     e,
                     this.props.currentDateRange.year,
                     this.props.currentDateRange.month,
                     scopedDayNumber
-                  )}
+                  )
+                }
                 key={i + Math.random() + this.monthDayCounter}
                 className={classes.currentDay}
               >
@@ -308,27 +309,29 @@ class MobileMonthView extends Component {
               <td
                 tabIndex="0"
                 aria-label={
-                  "View events for " +
+                  'View events for ' +
                   monthNames[this.props.currentDateRange.month] +
-                  " " +
+                  ' ' +
                   scopedDayNumber +
-                  " " +
+                  ' ' +
                   this.props.currentDateRange.year +
-                  " in the schedule view."
+                  ' in the schedule view.'
                 }
                 onClick={(day, month, year) =>
                   this.handleEventClick(
                     this.props.currentDateRange.year,
                     this.props.currentDateRange.month,
                     scopedDayNumber
-                  )}
+                  )
+                }
                 onKeyDown={(e, day, month, year) =>
                   this.handleKeyDown(
                     e,
                     this.props.currentDateRange.year,
                     this.props.currentDateRange.month,
                     scopedDayNumber
-                  )}
+                  )
+                }
                 key={i + Math.random() + this.monthDayCounter}
                 className={classes.monthDay}
               >
@@ -375,13 +378,9 @@ class MobileMonthView extends Component {
         <div className={classes.monthDiv}>
           <table className={classes.table}>
             <thead className={classes.tableHead}>
-              <tr className={classes.dayRow}>
-                {this.weekDays()}
-              </tr>
+              <tr className={classes.dayRow}>{this.weekDays()}</tr>
             </thead>
-            <tbody className={classes.tableBody}>
-              {this.getMonthRows()}
-            </tbody>
+            <tbody className={classes.tableBody}>{this.getMonthRows()}</tbody>
           </table>
         </div>
       </Paper>
@@ -393,4 +392,4 @@ MobileMonthView.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles, { name: "MobileMonthView" })(MobileMonthView)
+export default withStyles(styles, { name: 'MobileMonthView' })(MobileMonthView)

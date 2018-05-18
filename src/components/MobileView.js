@@ -1,51 +1,51 @@
-import React, { Component } from "react"
-import { dayNames, shortDayNames } from "./../utils/Strings"
-import { withStyles } from "material-ui/styles"
-import Typography from "material-ui/Typography"
-import PropTypes from "prop-types"
-import Paper from "material-ui/Paper"
-import Toolbar from "material-ui/Toolbar"
-import { getWeeksOfMonth, getDaysInMonth } from "./../utils/DateHelper"
-import DayCard from "./DayCard"
-import { getEvents } from "./../api/api"
+import React, { Component } from 'react'
+import DayCard from './DayCard'
+import Paper from '@material-ui/core/Paper'
+import PropTypes from 'prop-types'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import { dayNames, shortDayNames } from './../utils/Strings'
+import { getEvents } from './../api/api'
+import { getWeeksOfMonth, getDaysInMonth } from './../utils/DateHelper'
+import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => ({
   root: {
-    display: "flex",
-    position: "relative",
-    height: "100%"
+    display: 'flex',
+    position: 'relative',
+    height: '100%'
   },
   monthDiv: {
-    width: "100%",
-    height: "100%",
-    overflow: "hidden"
+    width: '100%',
+    height: '100%',
+    overflow: 'hidden'
   },
   monthTitleBar: {
-    position: "relative",
-    height: "50px"
+    position: 'relative',
+    height: '50px'
   },
   table: {
-    width: "100%",
-    borderTop: "hidden",
-    borderLeft: "hidden",
-    borderRight: "hidden",
-    borderCollapse: "collapse",
-    height: "100%"
+    width: '100%',
+    borderTop: 'hidden',
+    borderLeft: 'hidden',
+    borderRight: 'hidden',
+    borderCollapse: 'collapse',
+    height: '100%'
   },
   tableHead: {
-    border: "1px solid rgba(0, 0, 0, 0.075)",
-    color: "#000000",
+    border: '1px solid rgba(0, 0, 0, 0.075)',
+    color: '#000000',
     opacity: 0.7,
-    textAlign: "center",
-    fontWeight: "bold",
-    borderTop: "hidden",
-    height: "20%"
+    textAlign: 'center',
+    fontWeight: 'bold',
+    borderTop: 'hidden',
+    height: '20%'
   },
   tableBody: {
-    backgroundColor: "rgb(255,243,233)",
-    color: "#000000",
-    textAlign: "left",
-    verticalAlign: "top"
+    backgroundColor: 'rgb(255,243,233)',
+    color: '#000000',
+    textAlign: 'left',
+    verticalAlign: 'top'
   }
 })
 
@@ -67,11 +67,7 @@ class MobileView extends Component {
     let rows = []
 
     for (let i = 0; i < wks; i++) {
-      rows.push(
-        <tr>
-          {this.getDays(i)}
-        </tr>
-      )
+      rows.push(<tr>{this.getDays(i)}</tr>)
     }
     this.monthDayCounter = 1
     return rows
@@ -96,10 +92,10 @@ class MobileView extends Component {
         days.push(
           <td
             style={{
-              fontSize: "15px",
-              border: "1px solid white",
-              padding: "10px",
-              backgroundColor: "#E0E0E0"
+              fontSize: '15px',
+              border: '1px solid white',
+              padding: '10px',
+              backgroundColor: '#E0E0E0'
             }}
           />
         )
@@ -111,10 +107,10 @@ class MobileView extends Component {
         days.push(
           <td
             style={{
-              fontSize: "15px",
-              border: "1px solid white",
-              padding: "10px",
-              backgroundColor: "#E0E0E0"
+              fontSize: '15px',
+              border: '1px solid white',
+              padding: '10px',
+              backgroundColor: '#E0E0E0'
             }}
           />
         )
@@ -127,18 +123,18 @@ class MobileView extends Component {
           days.push(
             <td
               style={{
-                fontSize: "15px",
-                fontWeight: "bold",
-                color: "#000000",
-                border: "1px solid white",
-                padding: "10px",
-                backgroundColor: "rgba(86,162,234, 0.5)"
+                fontSize: '15px',
+                fontWeight: 'bold',
+                color: '#000000',
+                border: '1px solid white',
+                padding: '10px',
+                backgroundColor: 'rgba(86,162,234, 0.5)'
               }}
             >
               <Typography
                 type="body1"
                 component="div"
-                style={{ fontWeight: "600" }}
+                style={{ fontWeight: '600' }}
               >
                 {this.monthDayCounter}
               </Typography>
@@ -148,9 +144,9 @@ class MobileView extends Component {
           days.push(
             <td
               style={{
-                fontSize: "15px",
-                border: "1px solid white",
-                padding: "10px"
+                fontSize: '15px',
+                border: '1px solid white',
+                padding: '10px'
               }}
             >
               <Typography type="body1" component="div">
@@ -170,7 +166,7 @@ class MobileView extends Component {
 
     for (let i = 0; i < 7; ++i) {
       weekDaysRow.push(
-        <td key={weekDaysRow[i]} style={{ width: "100rem" }}>
+        <td key={weekDaysRow[i]} style={{ width: '100rem' }}>
           <Typography type="body1" component="div" style={{ fontWeight: 600 }}>
             {shortDayNames[i]}
           </Typography>
@@ -190,13 +186,9 @@ class MobileView extends Component {
           <div className={classes.monthDiv}>
             <table className={classes.table}>
               <thead className={classes.tableHead}>
-                <tr style={{ height: "50px" }}>
-                  {this.weekDays()}
-                </tr>
+                <tr style={{ height: '50px' }}>{this.weekDays()}</tr>
               </thead>
-              <tbody className={classes.tableBody}>
-                {this.getMonthRows()}
-              </tbody>
+              <tbody className={classes.tableBody}>{this.getMonthRows()}</tbody>
             </table>
           </div>
         </Paper>
@@ -209,4 +201,4 @@ MobileView.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles, { name: "MobileView" })(MobileView)
+export default withStyles(styles, { name: 'MobileView' })(MobileView)

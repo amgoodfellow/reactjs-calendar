@@ -1,15 +1,15 @@
-import React, { Component } from "react"
-import Weekview from "./components/Weekview"
-import ScheduleView from "./components/ScheduleView"
-import Titlebar from "./components/Titlebar"
-import MonthView from "./components/MonthView"
-import MobileMonthView from "./components/MobileMonthView"
-import { getEvents } from "./api/api"
-import { getWeekOfMonth } from "./utils/DateHelper"
-import ErrorMessages from "./components/ErrorMessages.js"
-import { CircularProgress } from "material-ui/Progress"
-import { changeURL } from "./utils/i18n.js"
-import CssBaseline from 'material-ui/CssBaseline';
+import React, { Component } from 'react'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import ErrorMessages from './components/ErrorMessages.js'
+import MobileMonthView from './components/MobileMonthView'
+import MonthView from './components/MonthView'
+import ScheduleView from './components/ScheduleView'
+import Titlebar from './components/Titlebar'
+import Weekview from './components/Weekview'
+import { changeURL } from './utils/i18n.js'
+import { getEvents } from './api/api'
+import { getWeekOfMonth } from './utils/DateHelper'
 
 //Object.is() polyfill
 
@@ -30,15 +30,14 @@ if (!Object.is) {
 }
 // End of polyfill
 
-
 class App extends Component {
   state = {
     loading: true,
     events: null,
     termBounds: null,
     currentDateRange: null,
-    calendarType: "scheduleview",
-    theme: "oakland",
+    calendarType: 'scheduleview',
+    theme: 'oakland',
     url: null,
     width: document.getElementById(this.props.rootID).clientWidth,
     mobile: false
@@ -53,7 +52,7 @@ class App extends Component {
     }
     this.setState({
       currentDateRange: newDateRange,
-      calendarType: "scheduleview"
+      calendarType: 'scheduleview'
     })
   }
 
@@ -69,10 +68,10 @@ class App extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener("resize", this.updateWidth)
+    window.addEventListener('resize', this.updateWidth)
 
-    if (this.props.rootID === "root") {
-      changeURL("http://localhost:8082/locales/{{lng}}/{{ns}}.json")
+    if (this.props.rootID === 'root') {
+      changeURL('http://localhost:8082/locales/{{lng}}/{{ns}}.json')
     } else {
       changeURL(this.props.translateURL)
     }
@@ -184,7 +183,7 @@ class App extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this.updateWidth)
+    window.removeEventListener('resize', this.updateWidth)
   }
 
   changeCalendarView = view => {
@@ -204,7 +203,7 @@ class App extends Component {
 
   chooseCalendarType = () => {
     switch (this.state.calendarType) {
-      case "weekview":
+      case 'weekview':
         return (
           <Weekview
             meetings={this.state.events}
@@ -212,7 +211,7 @@ class App extends Component {
             changeDateRange={this.changeDateRange}
           />
         )
-      case "monthview":
+      case 'monthview':
         if (this.state.mobile) {
           return (
             <MobileMonthView
@@ -220,7 +219,8 @@ class App extends Component {
               currentDateRange={this.state.currentDateRange}
               changeDateRange={this.changeDateRange}
               updateClicked={(day, month, view, year) =>
-                this.updateMonthViewClicked(day, month, view, year)}
+                this.updateMonthViewClicked(day, month, view, year)
+              }
             />
           )
         } else {
@@ -232,7 +232,7 @@ class App extends Component {
             />
           )
         }
-      case "scheduleview":
+      case 'scheduleview':
         return (
           <ScheduleView
             events={this.state.events}

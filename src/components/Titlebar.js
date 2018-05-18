@@ -1,166 +1,84 @@
-import React, { Component } from "react"
-import IconButton from "material-ui/IconButton"
-import NavigateBefore from "@material-ui/icons/NavigateBefore"
-import NavigateNext from "@material-ui/icons/NavigateNext"
-import CloseIcon from "@material-ui/icons/Close"
-import MoreVert from "@material-ui/icons/MoreVert"
-import Button from "material-ui/Button"
-import Dialog, {
-  DialogActions,
-  DialogContent,
-  DialogTitle
-} from "material-ui/Dialog"
-import Radio, { RadioGroup } from "material-ui/Radio"
-import { FormControlLabel } from "material-ui/Form"
-import { withStyles } from "material-ui/styles"
-import PropTypes from "prop-types"
-import AppBar from "material-ui/AppBar"
-import Snackbar from "material-ui/Snackbar"
-import Toolbar from "material-ui/Toolbar"
-import Typography from "material-ui/Typography"
-import { shortMonthNames, monthNames } from "../utils/Strings"
+import React, { Component } from 'react'
+import AppBar from '@material-ui/core/AppBar'
+import CloseIcon from '@material-ui/icons/Close'
+import FormControl from '@material-ui/core/FormControl'
+import MenuItem from '@material-ui/core/MenuItem'
+import Select from '@material-ui/core/Select'
+import IconButton from '@material-ui/core/IconButton'
+import Input from '@material-ui/core/Input'
+import NavigateBefore from '@material-ui/icons/NavigateBefore'
+import NavigateNext from '@material-ui/icons/NavigateNext'
+import PropTypes from 'prop-types'
+import Snackbar from '@material-ui/core/Snackbar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import { withStyles } from '@material-ui/core/styles'
+import { shortMonthNames, monthNames } from '../utils/Strings'
 import {
   getWeekArray,
   getWeekOfMonth,
   getWeeksOfMonth
-} from "./../utils/DateHelper"
-import { translate } from "react-i18next"
+} from './../utils/DateHelper'
+import { translate } from 'react-i18next'
 
 const styles = theme => ({
   appBar: {
-    zIndex: "999",
-    position: "relative"
+    zIndex: '999',
+    position: 'relative'
   },
   toolbar: {
-    display: "flex",
-    justifyContent: "space-between"
+    display: 'flex',
+    justifyContent: 'space-between'
   },
   paginator: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    color: "white"
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: 'white'
   },
   icons: {
-    color: "white"
+    color: 'white'
   },
   dateRange: {
-    color: "inherit",
+    color: 'inherit',
     width: 140,
-    textAlign: "center"
+    textAlign: 'center'
+  },
+  inputRoot: {
+    color: 'white',
+    underline: {
+      '&before': {
+        backgroundColor: 'white'
+      }
+    }
+  },
+  select: {
+    '&:focus': {
+      color: 'white'
+    }
+  },
+  underline: {
+    '&:before': {
+      borderBottomColor: 'white'
+    },
+
+    '&:after': {
+      borderBottomColor: 'white'
+    }
+  },
+  selectIcon: {
+    color: 'white'
   }
 })
-
-class ConfirmationDialog extends Component {
-  state = {
-    selectedValue: undefined
-  }
-
-  componentWillMount() {
-    this.setState({ selectedValue: this.props.selectedValue })
-  }
-
-  componentWillUpdate(nextProps) {
-    if (nextProps.selectedValue !== this.props.selectedValue) {
-      // eslint-disable-next-line react/no-will-update-set-state
-      this.setState({ selectedValue: nextProps.selectedValue })
-    }
-  }
-
-
-  handleCancel = () => {
-    this.props.onClose()
-  }
-
-  handleOk = () => {
-    this.props.onClose(this.state.selectedValue)
-  }
-
-  handleChange = (event, value) => {
-    this.setState({ selectedValue: value })
-  }
-  render() {
-    const { selectedValue, t, ...other } = this.props
-    return (
-      <Dialog
-        role="dialog"
-        id="dialogbox-calendar"
-        aria-label="View selection"
-        tabIndex="0"
-        open={this.props.open}
-        onClose={this.handleClose}
-        disableBackdropClick
-        disableEscapeKeyDown
-        maxWidth="xs"
-        onEntering={this.handleEntering}
-        {...other}
-      >
-        <DialogTitle disableTypography={true} style={{ backgroundColor: "#877148" }}>
-          <Typography type="title" tabIndex="0" style={{ color: "#fff" }}>
-            Change view?
-          </Typography>
-        </DialogTitle>
-        <DialogContent>
-          <RadioGroup
-            aria-label="viewSelector"
-            name="viewSelector"
-            value={this.state.selectedValue}
-            onChange={this.handleChange}
-          >
-            <FormControlLabel
-              value="monthview"
-              key="monthView"
-              control={<Radio />}
-              label="Month View"
-            />
-            <FormControlLabel
-              value="weekview"
-              key="weekView"
-              control={<Radio />}
-              label="Week View"
-            />
-            <FormControlLabel
-              value="scheduleview"
-              key="scheduleView"
-              control={<Radio />}
-              label="Schedule View"
-            />
-          </RadioGroup>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={this.handleOk}
-            aria-label="Confirm selection"
-            color="secondary"
-          >
-            {t("ok", {})}
-          </Button>
-          <Button
-            onClick={this.handleCancel}
-            aria-label="Cancel selection"
-            color="secondary"
-          >
-            {t("cancel", {})}
-          </Button>
-        </DialogActions>
-      </Dialog>
-    )
-  }
-}
-
-ConfirmationDialog.propTypes = {
-  onClose: PropTypes.func,
-  selectedValue: PropTypes.string
-}
 
 class Titlebar extends Component {
   state = {
     anchorEl: undefined,
     snackbar: false,
-    snackbarMessage: "",
+    snackbarMessage: '',
     open: false,
-    selected: "",
-    selectedValue: "scheduleview"
+    selected: '',
+    selectedValue: 'scheduleview'
   }
 
   componentWillReceiveProps(nextProps) {
@@ -169,14 +87,19 @@ class Titlebar extends Component {
     }
   }
 
+  handleChange = event => {
+    this.setState({ selectedValue: event.target.value })
+    this.props.changeCalendarView(event.target.value)
+  }
+
   handleClick = () => {
     this.setState({ open: true })
   }
 
   handleRequestClose = value => {
-    if (value === null){
-      this.setState({open: false})
-    }else{
+    if (value === null) {
+      this.setState({ open: false })
+    } else {
       this.setState({ open: false, selected: value, selectedValue: value })
       this.props.changeCalendarView(value)
     }
@@ -184,12 +107,12 @@ class Titlebar extends Component {
 
   openSnackbar = message => {
     this.setState({ snackbar: true, snackbarMessage: message })
-    if (Object.is(document.getElementById("calendar-alert-snackbar"), null)) {
+    if (Object.is(document.getElementById('calendar-alert-snackbar'), null)) {
       setTimeout(() => {
-        document.getElementById("calendar-alert-snackbar").focus()
+        document.getElementById('calendar-alert-snackbar').focus()
       }, 50)
     } else {
-      document.getElementById("calendar-alert-snackbar").focus()
+      document.getElementById('calendar-alert-snackbar').focus()
     }
   }
 
@@ -214,9 +137,9 @@ class Titlebar extends Component {
     let dateObj = this.props.currentDateRange
 
     switch (this.props.calendarType) {
-      case "monthview":
+      case 'monthview':
         if (dateObj.month === endMonth && dateObj.year === endYear) {
-          this.openSnackbar("End of term reached")
+          this.openSnackbar('End of term reached')
           return
         }
         if (dateObj.month === 11) {
@@ -231,15 +154,15 @@ class Titlebar extends Component {
 
         break
 
-      case "weekview":
-      case "scheduleview":
+      case 'weekview':
+      case 'scheduleview':
       default:
         if (
           dateObj.month === endMonth &&
           dateObj.week === endWeek &&
           dateObj.year === endYear
         ) {
-          this.openSnackbar("End of term reached")
+          this.openSnackbar('End of term reached')
         } else {
           const weekArr = getWeekArray(
             dateObj.month,
@@ -290,9 +213,9 @@ class Titlebar extends Component {
     let dateObj = this.props.currentDateRange
 
     switch (this.props.calendarType) {
-      case "monthview":
+      case 'monthview':
         if (dateObj.month === startMonth) {
-          this.openSnackbar("Start of term reached")
+          this.openSnackbar('Start of term reached')
           return
         }
         if (dateObj.month === 0) {
@@ -308,13 +231,13 @@ class Titlebar extends Component {
 
         break
 
-      case "weekview":
-      case "scheduleview":
+      case 'weekview':
+      case 'scheduleview':
       default:
         let rightNow = new Date(dateObj.year, dateObj.month, dateObj.day)
         let objEnd = new Date(startYear, startMonth, startDay)
         if (rightNow < objEnd) {
-          this.openSnackbar("Start of term reached")
+          this.openSnackbar('Start of term reached')
           return
         }
         if (
@@ -322,7 +245,7 @@ class Titlebar extends Component {
           dateObj.week <= startWeek &&
           dateObj.year <= startYear
         ) {
-          this.openSnackbar("Start of term reached")
+          this.openSnackbar('Start of term reached')
           return
         } else {
           const weekArr = getWeekArray(
@@ -378,44 +301,38 @@ class Titlebar extends Component {
     let ariaLabel
 
     if (
-      this.props.calendarType === "weekview" ||
-      this.props.calendarType === "scheduleview"
+      this.props.calendarType === 'weekview' ||
+      this.props.calendarType === 'scheduleview'
     ) {
       if (
         weekDateArray[len - 1].month > weekDateArray[0].month ||
         (weekDateArray[0].month === 11 && weekDateArray[len - 1].month === 0)
       ) {
         const endMonth = weekDateArray[len - 1].month
-        text = `${t(
-          shortMonthNames[weekDateArray[0].month],
-          {}
-        )} ${weekDateArray[0].day} - ${t(
-          shortMonthNames[endMonth],
-          {}
-        )} ${weekDateArray[len - 1].day}`
+        text = `${t(shortMonthNames[weekDateArray[0].month], {})} ${
+          weekDateArray[0].day
+        } - ${t(shortMonthNames[endMonth], {})} ${weekDateArray[len - 1].day}`
         ariaLabel = `${t(longMonth, {})} ${weekDateArray[0].day} to ${t(
           longEndMonth,
           {}
         )} ${weekDateArray[len - 1].day}`
       } else {
-        text = `${t(
-          shortMonthNames[weekDateArray[0].month],
-          {}
-        )} ${weekDateArray[0].day} - ${weekDateArray[weekDateArray.length - 1]
-          .day}`
+        text = `${t(shortMonthNames[weekDateArray[0].month], {})} ${
+          weekDateArray[0].day
+        } - ${weekDateArray[weekDateArray.length - 1].day}`
         ariaLabel = `${t(longMonth, {})} ${weekDateArray[0].day} to ${t(
           longEndMonth,
           {}
         )} ${weekDateArray[len - 1].day}`
       }
-    } else if (this.props.calendarType === "monthview") {
+    } else if (this.props.calendarType === 'monthview') {
       text = t(shortMonthNames[dateObj.month], {})
       ariaLabel = longMonth
     }
 
     return (
       <Typography
-        type="title"
+        variant="title"
         className={classes.dateRange}
         style={{ width: 140 }}
         aria-label={ariaLabel}
@@ -427,13 +344,7 @@ class Titlebar extends Component {
   }
 
   render() {
-    // if (Object.is(document.getElementById("calendar-alert-snackbar"), null)){
-    // }else{
-    //   document.getElementById("calendar-alert-snackbar").focus();
-    // }
-
     const classes = this.props.classes
-    const { t } = this.props
     return (
       <AppBar className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
@@ -452,34 +363,42 @@ class Titlebar extends Component {
               <NavigateNext className={classes.icons} />
             </IconButton>
           </div>
-          <IconButton
-            aria-label="More options and views"
-            onClick={this.handleClick}
-          >
-            <MoreVert style={{ color: "white" }} />
-          </IconButton>
+          <form autoComplete="off">
+            <FormControl>
+              <Select
+                value={this.state.selectedValue}
+                onChange={this.handleChange}
+                autoWidth={true}
+                classes={{ select: classes.select, icon: classes.selectIcon }}
+                input={
+                  <Input
+                    name="name"
+                    classes={{
+                      root: classes.inputRoot,
+                      underline: classes.underline
+                    }}
+                    id="name-readonly"
+                  />
+                }
+              >
+                <MenuItem value="monthview">Month View</MenuItem>
+                <MenuItem value="weekview">Week View</MenuItem>
+                <MenuItem value="scheduleview">Schedule View</MenuItem>
+              </Select>
+            </FormControl>
+          </form>
         </Toolbar>
-        <ConfirmationDialog
-          open={this.state.open}
-          onClose={this.handleRequestClose}
-          selectedValue={this.state.selectedValue}
-          t={t}
-        />
         <Snackbar
           id="calendar-alert-snackbar"
           tabIndex="0"
           anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "center"
+            vertical: 'bottom',
+            horizontal: 'center'
           }}
           open={this.state.snackbar}
           autoHideDuration={6e3}
           onClose={this.closeSnackbar}
-          message={
-            <span id="message-id">
-              {this.state.snackbarMessage}
-            </span>
-          }
+          message={<span id="message-id">{this.state.snackbarMessage}</span>}
           action={
             <IconButton
               tabIndex="0"
@@ -502,6 +421,6 @@ Titlebar.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles, { name: "Titlebar" })(
-  translate("view", { wait: true })(Titlebar)
+export default withStyles(styles, { name: 'Titlebar' })(
+  translate('view', { wait: true })(Titlebar)
 )
