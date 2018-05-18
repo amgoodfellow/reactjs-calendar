@@ -1,4 +1,4 @@
-import { dayNames, shortDayNames } from "./Strings"
+import { dayNames, shortDayNames } from './Strings'
 //Takes a Date object
 //Returns an integer number representing the number of weeks
 //of a month
@@ -37,7 +37,7 @@ export const getWeekDateRange = (month, year, weekNumber) => {
   }
 
   if (firstNum === endNum) {
-    return [firstNum, ""]
+    return [firstNum, '']
   }
   return [firstNum, endNum]
 }
@@ -79,9 +79,9 @@ export const getWeekArray = (month, year, weekNumber) => {
     for (let i = 0; i < 7; i++) {
       if (i < startDay) {
         let newMonth
-        if (month - 1 === -1){
+        if (month - 1 === -1) {
           newMonth = 11
-        }else{
+        } else {
           newMonth = month - 1
         }
         weekArray[i] = {
@@ -112,9 +112,9 @@ export const getWeekArray = (month, year, weekNumber) => {
         }
       } else {
         let newMonth
-        if (month + 1 === 12){
+        if (month + 1 === 12) {
           newMonth = 0
-        }else{
+        } else {
           newMonth = month + 1
         }
         weekArray[i] = {
@@ -140,29 +140,29 @@ export const getWeekArray = (month, year, weekNumber) => {
 }
 
 export const getMilitaryTime = timeString => {
-    timeString = timeString.toUpperCase()
-    const reg = new RegExp("^([0-9]|0[0-9]|1?[0-9]|2[0-3]):[0-5]?[0-9][A-Z]")
-    const reg2 = new RegExp("^([0-9]|0[0-9]|1?[0-9]|2[0-3]):[0-5]?[0-9] [A-Z]")
-    let hours, minutes
-    if (reg.test(timeString) === true){
-      const splitArray = timeString.split(":")
-      hours = parseInt(splitArray[0], 10)
-      minutes = splitArray[1].substring(0, 2)
+  timeString = timeString.toUpperCase()
+  const reg = new RegExp('^([0-9]|0[0-9]|1?[0-9]|2[0-3]):[0-5]?[0-9][A-Z]')
+  const reg2 = new RegExp('^([0-9]|0[0-9]|1?[0-9]|2[0-3]):[0-5]?[0-9] [A-Z]')
+  let hours, minutes
+  if (reg.test(timeString) === true) {
+    const splitArray = timeString.split(':')
+    hours = parseInt(splitArray[0], 10)
+    minutes = splitArray[1].substring(0, 2)
 
-      if (splitArray[1].substring(2, 3) === "P" && hours !== 12) {
-        hours += 12
-      }
-    }else if (reg2.test(timeString) === true){
-      const splitArray = timeString.split(":")
-      hours = parseInt(splitArray[0], 10)
-      minutes = splitArray[1].substring(0, 2)
-
-      if (splitArray[1].substring(3, 4) === "P" && hours !== 12) {
-        hours += 12
-      }
-    }else{
-      console.error("Invalid start time:", timeString)
+    if (splitArray[1].substring(2, 3) === 'P' && hours !== 12) {
+      hours += 12
     }
+  } else if (reg2.test(timeString) === true) {
+    const splitArray = timeString.split(':')
+    hours = parseInt(splitArray[0], 10)
+    minutes = splitArray[1].substring(0, 2)
+
+    if (splitArray[1].substring(3, 4) === 'P' && hours !== 12) {
+      hours += 12
+    }
+  } else {
+    console.error('Invalid start time:', timeString)
+  }
 
   return { hours: hours, minutes: parseInt(minutes, 10) }
 }

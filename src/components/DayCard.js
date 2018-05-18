@@ -1,38 +1,31 @@
-import React, { Component } from "react"
-import { withStyles } from "material-ui/styles"
-import Collapse from "material-ui/transitions/Collapse"
-import IconButton from "material-ui/IconButton"
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
-import PropTypes from "prop-types"
-import classnames from "classnames"
-import List, {
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  ListItemSecondaryAction
-} from "material-ui/List"
-import LooksOne from "@material-ui/icons/LooksOne"
-import LooksTwo from "@material-ui/icons/LooksTwo"
-import Looks3 from "@material-ui/icons/Looks3"
-import Looks4 from "@material-ui/icons/Looks4"
-import Looks5 from "@material-ui/icons/Looks5"
-import Looks6 from "@material-ui/icons/Looks6"
-import Lens from "@material-ui/icons/Lens"
+import React, { Component } from 'react'
+import Collapse from '@material-ui/core/Collapse'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import IconButton from '@material-ui/core/IconButton'
+import Lens from '@material-ui/icons/Lens'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
+import ListItemText from '@material-ui/core/ListItemText'
+import Looks3 from '@material-ui/icons/Looks3'
+import Looks4 from '@material-ui/icons/Looks4'
+import Looks5 from '@material-ui/icons/Looks5'
+import Looks6 from '@material-ui/icons/Looks6'
+import LooksOne from '@material-ui/icons/LooksOne'
+import LooksTwo from '@material-ui/icons/LooksTwo'
+import PropTypes from 'prop-types'
+import classnames from 'classnames'
+import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => ({
   root: {
-    width: "100%",
+    width: '100%',
     maxWidth: 360,
     background: theme.palette.background.paper
   },
-  expand: {
-    transform: "rotate(0deg)",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest
-    })
-  },
   expandOpen: {
-    transform: "rotate(180deg)"
+    transform: 'rotate(180deg)'
   }
 })
 
@@ -80,9 +73,7 @@ class DayCard extends Component {
       return (
         <List className={classes.root}>
           <ListItem>
-            <ListItemIcon>
-              {this.getIcon(this.props.pos)}
-            </ListItemIcon>
+            <ListItemIcon>{this.getIcon(this.props.pos)}</ListItemIcon>
             <ListItemText inset primary={meeting.coursetitle} />
             <ListItemSecondaryAction>
               <IconButton
@@ -97,11 +88,7 @@ class DayCard extends Component {
               </IconButton>
             </ListItemSecondaryAction>
           </ListItem>
-          <Collapse
-            in={this.state.expanded}
-            transitionDuration="auto"
-            unmountOnExit
-          >
+          <Collapse in={this.state.expanded} unmountOnExit>
             <ListItem>
               <ListItemText
                 inset
@@ -125,4 +112,4 @@ class DayCard extends Component {
 DayCard.propTypes = {
   classes: PropTypes.object.isRequired
 }
-export default withStyles(styles, { name: "DayCard" })(DayCard)
+export default withStyles(styles, { name: 'DayCard' })(DayCard)

@@ -1,36 +1,38 @@
-import React, { Component } from "react"
-import Typography from "material-ui/Typography"
-import Card, { CardHeader, CardContent } from "material-ui/Card"
-import { withStyles } from "material-ui/styles"
-import PropTypes from "prop-types"
+import React, { Component } from 'react'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import CardHeader from '@material-ui/core/CardHeader'
+import PropTypes from 'prop-types'
+import Typography from '@material-ui/core/Typography'
+import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => ({
   root: {
-    position: "relative",
-    textAlign: "ltr"
+    position: 'relative',
+    textAlign: 'ltr'
   },
   card: {
-    backgroundColor: "#fafafa ",
+    backgroundColor: '#fafafa ',
 
-    borderLeftStyle: "solid",
-    borderLeftWidth: "12px",
-    borderLeftColor: "#d32f2f"
+    borderLeftStyle: 'solid',
+    borderLeftWidth: '12px',
+    borderLeftColor: '#d32f2f'
   },
   media: {
-    padding: "10px",
-    display: "flex",
-    alignSelf: "center",
-    marginLeft: "10px"
+    padding: '10px',
+    display: 'flex',
+    alignSelf: 'center',
+    marginLeft: '10px'
 
     //backgroundColor: "#0074b7"
   },
   main: {
-    display: "flex",
-    flexDirection: "row"
+    display: 'flex',
+    flexDirection: 'row'
   },
   head: {
-    display: "flex",
-    flexFlow: "column wrap"
+    display: 'flex',
+    flexFlow: 'column wrap'
   },
   content: {
     paddingTop: 0
@@ -62,4 +64,4 @@ ErrorMessages.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles, { name: "ErrorMessages" })(ErrorMessages)
+export default withStyles(styles, { name: 'ErrorMessages' })(ErrorMessages)

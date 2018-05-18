@@ -1,13 +1,11 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import App from "./App"
-import { I18nextProvider } from "react-i18next"
-import i18n from "./utils/i18n"
-import { MuiThemeProvider, createMuiTheme } from "material-ui/styles"
-import registerServiceWorker from "./registerServiceWorker"
-import "typeface-arimo"
-
-
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from './App'
+import { I18nextProvider } from 'react-i18next'
+import i18n from './utils/i18n'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+import registerServiceWorker from './registerServiceWorker'
+import 'typeface-arimo'
 
 const oaklandTheme = createMuiTheme({
   palette: {
@@ -15,7 +13,7 @@ const oaklandTheme = createMuiTheme({
       light: '#b89f74',
       main: '#877148',
       dark: '#58461f',
-      contrastText: '#fff',
+      contrastText: '#fff'
     },
     secondary: {
       light: '#56a2ea',
@@ -23,7 +21,7 @@ const oaklandTheme = createMuiTheme({
       dark: '#004987',
       contrastText: '#fff'
     }
-  },
+  }
 })
 
 const termBounds = [1494216000000, 1503720000000]
@@ -34,7 +32,7 @@ ReactDOM.render(
       <App
         theme={oaklandTheme}
         eventsURLObj={{
-          url: "Demo",
+          url: 'Demo',
           credentialsNeeded: false
         }}
         termBounds={termBounds}
@@ -42,6 +40,6 @@ ReactDOM.render(
       />
     </MuiThemeProvider>
   </I18nextProvider>,
-  document.getElementById("root")
+  document.getElementById('root')
 )
 registerServiceWorker()
