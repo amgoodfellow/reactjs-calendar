@@ -268,6 +268,7 @@ class App extends Component {
           calendarType={this.state.calendarType}
           changeCalendarView={this.changeCalendarView}
           changeDateRange={this.changeDateRange}
+          mobile={this.state.mobile}
         />
         {this.chooseCalendarType()}
       </div>
