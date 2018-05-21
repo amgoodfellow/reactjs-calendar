@@ -30,6 +30,11 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'space-between'
   },
+  mobileToolbar: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'column'
+  },
   paginator: {
     display: 'flex',
     justifyContent: 'center',
@@ -345,9 +350,10 @@ class Titlebar extends Component {
 
   render() {
     const classes = this.props.classes
+    const { mobile } = this.props
     return (
       <AppBar className={classes.appBar}>
-        <Toolbar className={classes.toolbar}>
+        <Toolbar className={mobile ? classes.mobileToolbar : classes.toolbar}>
           <div className={classes.paginator}>
             <IconButton
               aria-label="Paginate Backward"
