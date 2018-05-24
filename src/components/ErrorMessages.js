@@ -41,16 +41,17 @@ const styles = theme => ({
 
 class ErrorMessages extends Component {
   render() {
+    const {header, subheader} = this.props
     const classes = this.props.classes
     return (
       <div className={classes.root}>
         <Card className={classes.card}>
           <div className={classes.main}>
             <div className={classes.head}>
-              <CardHeader title="We were unable to fetch data at this time" />
+              <CardHeader title={header} />
 
               <CardContent className={classes.content}>
-                <Typography type="body1">Please try again later</Typography>
+                <Typography type="body1">{subheader}</Typography>
               </CardContent>
             </div>
           </div>
