@@ -258,7 +258,7 @@ class App extends Component {
       mobile,
       termBounds
     } = this.state
-    const { current_term } = this.props
+    const { eventsURLObj } = this.props
     if (loading === true) {
       return <CircularProgress color="secondary" />
     } else if (events === null || events === undefined) {
@@ -270,7 +270,7 @@ class App extends Component {
           />
         </div>
       )
-    } else if (current_term != null && current_term.toString().slice(-2) === '33') {
+    } else if (eventsURLObj.code != null && eventsURLObj.code.toString().slice(-2) === '33') {
       return (
         <ErrorMessages
           header="We were unable to display Continuing Education events"
