@@ -41,7 +41,7 @@ const styles = theme => ({
 
 class ErrorMessages extends Component {
   render() {
-    const {header, subheader} = this.props
+    const { header, subheader } = this.props
     const classes = this.props.classes
     return (
       <div className={classes.root}>

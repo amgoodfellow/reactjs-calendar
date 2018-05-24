@@ -34,7 +34,6 @@ class App extends Component {
   state = {
     loading: true,
     events: null,
-    termCode: null,
     termBounds: null,
     currentDateRange: null,
     calendarType: 'scheduleview',
@@ -251,18 +250,32 @@ class App extends Component {
   }
 
   render() {
-    const {loading, events, currentDateRange, calendarType, mobile, termCode, termBounds} = this.state
+    const {
+      loading,
+      events,
+      currentDateRange,
+      calendarType,
+      mobile,
+      termBounds
+    } = this.state
+    const { current_term } = this.props
     if (loading === true) {
       return <CircularProgress color="secondary" />
     } else if (events === null || events === undefined) {
       return (
         <div>
-          <ErrorMessages header="We were unable to fetch your data at this time" subheader="Please try again later" />
+          <ErrorMessages
+            header="We were unable to fetch your data at this time"
+            subheader="Please try again later"
+          />
         </div>
       )
-    } else if (termCode != null && termCode.toString().slice(-2) === "33"){
+    } else if (current_term != null && current_term.toString().slice(-2) === '33') {
       return (
-        <ErrorMessages header="We were unable to display Continuing Education events" subheader="We apologize for any inconvenience" />
+        <ErrorMessages
+          header="We were unable to display Continuing Education events"
+          subheader="We apologize for any inconvenience"
+        />
       )
     }
     return (
