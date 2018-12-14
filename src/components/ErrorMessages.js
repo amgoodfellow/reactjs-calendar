@@ -51,7 +51,7 @@ class ErrorMessages extends Component {
               <CardHeader title={header} />
 
               <CardContent className={classes.content}>
-                <Typography type="body1">{subheader}</Typography>
+                <Typography variant="body1">{subheader}</Typography>
               </CardContent>
             </div>
           </div>

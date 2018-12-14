@@ -29,7 +29,6 @@ class DayList extends Component {
         </div>
       )
     } catch (err) {
-      //console.log("Attempted render of undefined");
       classList = (
         <List style={{ padding: 0 }}>
           <ListItem
@@ -42,7 +41,7 @@ class DayList extends Component {
               color: '#004987'
             }}
           >
-            <ListItemText type="title" primary="You have no classes " />
+            <ListItemText primary="You have no classes " />
           </ListItem>
         </List>
       )

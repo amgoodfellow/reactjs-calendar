@@ -337,7 +337,7 @@ class Titlebar extends Component {
 
     return (
       <Typography
-        variant="title"
+        variant="h6"
         className={classes.dateRange}
         style={{ width: 140 }}
         aria-label={ariaLabel}

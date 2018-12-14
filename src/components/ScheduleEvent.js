@@ -58,13 +58,13 @@ class ScheduleEvent extends Component {
               }}
               tabIndex="0"
             >
-              <Typography type="title" className={classes.courseTitle}>
+              <Typography variant="h6" className={classes.courseTitle}>
                 {this.props.events[month][day][i].coursename}
               </Typography>
-              <Typography type="body1" className={classes.eventBody}>
+              <Typography variant="body1" className={classes.eventBody}>
                 {this.props.events[month][day][i].coursetitle}
               </Typography>
-              <Typography type="body1" className={classes.eventBody}>
+              <Typography variant="body1" className={classes.eventBody}>
                 {displayTime}
               </Typography>
             </Paper>

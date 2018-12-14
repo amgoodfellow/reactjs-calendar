@@ -63,14 +63,14 @@ class ScheduleView extends Component {
               aria-label={week[i].day + ' ' + week[i].dayNameFull}
             >
               <Typography
-                type="display2"
+                variant="h3"
                 className={classes.dayTextNumber}
                 aria-hidden="true"
               >
                 {week[i].day}
               </Typography>
               <Typography
-                type="display1"
+                variant="h4"
                 className={classes.dayTextDay}
                 aria-hidden="true"
               >
@@ -109,14 +109,14 @@ class ScheduleView extends Component {
               }
             >
               <Typography
-                type="display2"
+                variant="h3"
                 className={classes.dayTextNumber}
                 aria-hidden="true"
               >
                 {week[i].day}
               </Typography>
               <Typography
-                type="display1"
+                variant="h4"
                 className={classes.dayTextDay}
                 aria-hidden="true"
               >

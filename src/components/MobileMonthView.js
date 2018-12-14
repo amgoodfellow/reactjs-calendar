@@ -141,7 +141,7 @@ class MobileMonthView extends Component {
     for (let i = 0; i < 7; ++i) {
       weekDaysRow.push(
         <td key={i + Math.random()} style={{ width: '100rem' }}>
-          <Typography type="body1" component="div" style={{ fontWeight: 600 }}>
+          <Typography variant="body1" component="div" style={{ fontWeight: 600 }}>
             {shortDayNames[i]}
           </Typography>
         </td>
@@ -263,7 +263,7 @@ class MobileMonthView extends Component {
                 className={classes.currentDay}
               >
                 <Typography
-                  type="body1"
+                  variant="body1"
                   component="div"
                   className={classes.todayNumber}
                 >
@@ -281,7 +281,7 @@ class MobileMonthView extends Component {
                 className={classes.currentDay}
               >
                 <Typography
-                  type="body1"
+                  variant="body1"
                   component="div"
                   className={classes.todayNumber}
                 >
@@ -336,7 +336,7 @@ class MobileMonthView extends Component {
                 className={classes.monthDay}
               >
                 <Typography
-                  type="body1"
+                  variant="body1"
                   component="div"
                   className={classes.otherDayNumber}
                 >
@@ -354,7 +354,7 @@ class MobileMonthView extends Component {
                 className={classes.monthDay}
               >
                 <Typography
-                  type="body1"
+                  variant="body1"
                   component="div"
                   className={classes.otherDayNumber}
                 >

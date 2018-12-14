@@ -69,7 +69,7 @@ class DayBoxSchedule extends Component {
                   calmeetin[this.props.month][this.props.day][i].color
               }}
             >
-              <Typography type="body2" className={classes.eventText}>
+              <Typography variant="body1" className={classes.eventText}>
                 {calmeetin[this.props.month][this.props.day][i].coursetitle}
               </Typography>
             </ListItem>
@@ -103,7 +103,7 @@ class DayBoxSchedule extends Component {
                   calmeetin[this.props.month][this.props.day][i].color
               }}
             >
-              <Typography type="body2" className={classes.eventText}>
+              <Typography variant="body1" className={classes.eventText}>
                 {calmeetin[this.props.month][this.props.day][i].coursetitle}
               </Typography>
             </ListItem>

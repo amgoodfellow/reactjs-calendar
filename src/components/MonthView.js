@@ -187,7 +187,7 @@ class MonthView extends Component {
               }
             }}
           >
-            <Typography type="body1" component="div" style={fontStyle}>
+            <Typography variant="body1" component="div" style={fontStyle}>
               {this.monthDayCounter}
               <div aria-hidden="true" id={this.monthDayCounter + 'class'}>
                 <DayBoxSchedule
@@ -214,7 +214,7 @@ class MonthView extends Component {
       weekDaysRow.push(
         <th scope="col" key={dayNames[i]} style={{ width: '100rem' }}>
           <Typography
-            type="body1"
+            variant="body1"
             component="div"
             style={{ fontWeight: 600 }}
             aria-label={dayNames[i]}
@@ -244,7 +244,7 @@ class MonthView extends Component {
           <Toolbar className={classes.dayTitleBar}>
             <Typography
               tabIndex="0"
-              type="title"
+              variant="h6"
               style={{ fontWeight: 'bold', opacity: 0.9 }}
             >
               {this.displayWeekDay()}

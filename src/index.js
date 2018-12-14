@@ -9,6 +9,9 @@ import 'typeface-arimo'
 
 const oaklandTheme = createMuiTheme({
   palette: {
+    typography: {
+      useNextVariants: true
+    },
     primary: {
       light: '#b89f74',
       main: '#877148',

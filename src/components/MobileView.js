@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
-import DayCard from './DayCard'
 import Paper from '@material-ui/core/Paper'
 import PropTypes from 'prop-types'
-import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import { dayNames, shortDayNames } from './../utils/Strings'
-import { getEvents } from './../api/api'
+import { shortDayNames } from './../utils/Strings'
 import { getWeeksOfMonth, getDaysInMonth } from './../utils/DateHelper'
 import { withStyles } from '@material-ui/core/styles'
 
@@ -132,7 +129,7 @@ class MobileView extends Component {
               }}
             >
               <Typography
-                type="body1"
+                variant="body1"
                 component="div"
                 style={{ fontWeight: '600' }}
               >
@@ -149,7 +146,7 @@ class MobileView extends Component {
                 padding: '10px'
               }}
             >
-              <Typography type="body1" component="div">
+              <Typography variant="body1" component="div">
                 {this.monthDayCounter}
               </Typography>
             </td>
@@ -167,7 +164,7 @@ class MobileView extends Component {
     for (let i = 0; i < 7; ++i) {
       weekDaysRow.push(
         <td key={weekDaysRow[i]} style={{ width: '100rem' }}>
-          <Typography type="body1" component="div" style={{ fontWeight: 600 }}>
+          <Typography variant="body1" component="div" style={{ fontWeight: 600 }}>
             {shortDayNames[i]}
           </Typography>
         </td>
